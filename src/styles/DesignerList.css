@@ -130,3 +130,23 @@
   height: 90px;
   border-radius: 4px;
 }
+
+/* 필터 버튼 스타일 */
+.filter-button {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  padding: 8px 20px;
+  background-color: #E35A80;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: Pretendard;
+  font-size: 0.9rem;
+  z-index: 100;
+}
+
+.filter-button:hover {
+  background-color: #d14670;
+}

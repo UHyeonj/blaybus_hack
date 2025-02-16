@@ -76,6 +76,187 @@ function BookingPage() {
   const maxDate = new Date();
   maxDate.setMonth(maxDate.getMonth() + 3);
 
+  // 카카오페이 결제 준비
+  const handleKakaoPayment = async () => {
+    try {
+      const response = await fetch("/payment/kakao/ready", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          reservation: {
+            designerId,
+            designerName: designer.name,
+            type,
+            date: selectedDateState.toISOString().split("T")[0],
+            time: selectedTimeState,
+            price: type === "offline" ? designer.price.offline : designer.price.online,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("결제 준비에 실패했습니다.");
+      }
+
+      const data = await response.json();
+      const { redirectUrl } = data;
+
+      // 카카오페이 결제 페이지로 리다이렉트
+      window.location.href = redirectUrl;
+    } catch (error) {
+      console.error("카카오페이 결제 준비 중 오류 발생:", error);
+      alert("결제 준비 중 오류가 발생했습니다.");
+    }
+  };
+
+  // 카카오페이 결제 승인
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const pgToken = urlParams.get("pg_token");
+
+    if (pgToken) {
+      const approveKakaoPayment = async () => {
+        try {
+          const response = await fetch("/payment/kakao/success", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              pgToken,
+              reservation: {
+                designerId,
+                designerName: designer.name,
+                type,
+                date: selectedDateState.toISOString().split("T")[0],
+                time: selectedTimeState,
+                price: type === "offline" ? designer.price.offline : designer.price.online,
+              },
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error("결제 승인에 실패했습니다.");
+          }
+
+          const data = await response.json();
+          alert("결제가 완료되었습니다!");
+          setShowConfirmModal(true);
+        } catch (error) {
+          console.error("결제 승인 중 오류 발생:", error);
+          alert("결제 승인 중 오류가 발생했습니다.");
+        }
+      };
+
+      approveKakaoPayment();
+    }
+  }, []);
+
+  // 카카오페이 결제 실패
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentFailed = urlParams.get("fail");
+
+    if (paymentFailed) {
+      const handlePaymentFailure = async () => {
+        try {
+          const response = await fetch("/payment/kakao/fail", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              reservation: {
+                designerId,
+                designerName: designer.name,
+                type,
+                date: selectedDateState.toISOString().split("T")[0],
+                time: selectedTimeState,
+                price: type === "offline" ? designer.price.offline : designer.price.online,
+              },
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error("결제 실패 처리 중 오류가 발생했습니다.");
+          }
+
+          alert("결제가 실패했습니다. 다시 시도해주세요.");
+        } catch (error) {
+          console.error("결제 실패 처리 중 오류 발생:", error);
+          alert("결제 실패 처리 중 오류가 발생했습니다.");
+        }
+      };
+
+      handlePaymentFailure();
+    }
+  }, []);
+
+  // 카카오페이 결제 취소
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentCancelled = urlParams.get("cancel");
+
+    if (paymentCancelled) {
+      const handlePaymentCancellation = async () => {
+        try {
+          const response = await fetch("/payment/kakao/cancel", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              reservation: {
+                designerId,
+                designerName: designer.name,
+                type,
+                date: selectedDateState.toISOString().split("T")[0],
+                time: selectedTimeState,
+                price: type === "offline" ? designer.price.offline : designer.price.online,
+              },
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error("결제 취소 처리 중 오류가 발생했습니다.");
+          }
+
+          alert("결제가 취소되었습니다.");
+        } catch (error) {
+          console.error("결제 취소 처리 중 오류 발생:", error);
+          alert("결제 취소 처리 중 오류가 발생했습니다.");
+        }
+      };
+
+      handlePaymentCancellation();
+    }
+  }, []);
+
+  // Google Meet 링크 생성 함수
+  const createGoogleMeetEvent = async (eventDetails) => {
+    try {
+      const response = await fetch("/api/google-calendar/create-event-with-meeting", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(eventDetails),
+      });
+
+      if (!response.ok) {
+        throw new Error("Google Meet 링크 생성에 실패했습니다.");
+      }
+
+      const data = await response.json();
+      return data.meetLink; // 생성된 Google Meet 링크 반환
+    } catch (error) {
+      console.error("Google Meet 링크 생성 중 오류 발생:", error);
+      return null;
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!selectedDateState || !selectedTimeState) {
@@ -85,56 +266,118 @@ function BookingPage() {
     setShowConfirmation(true);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (!paymentMethod) {
       alert("결제 방식을 선택해주세요.");
       return;
     }
-
-    // 화상 컨설팅일 경우 구글미트 링크 생성
-    const meetLink =
-      type === "online"
-        ? `https://meet.google.com/haertz-${Date.now()}`
-        : null;
-    setGoogleMeetLink(meetLink);
-
+  
+    let token = localStorage.getItem("authToken");
+  
+    // 로그인 상태 확인
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
+      return;
+    }
+  
+    // 화상 컨설팅일 경우 Google Meet 링크 생성
+    let meetLink = null;
+    if (type === "online") {
+      const eventDetails = {
+        summary: `컨설팅 예약 - ${designer.name}`,
+        description: `컨설팅 유형: ${type === "offline" ? "대면 컨설팅" : "화상 컨설팅"}\n디자이너: ${designer.name}`,
+        start: {
+          dateTime: selectedDateState.toISOString(),
+          timeZone: "Asia/Seoul",
+        },
+        end: {
+          dateTime: new Date(selectedDateState.getTime() + 60 * 60 * 1000).toISOString(), // 1시간 후
+          timeZone: "Asia/Seoul",
+        },
+      };
+  
+      meetLink = await createGoogleMeetEvent(eventDetails);
+      if (!meetLink) {
+        alert("Google Meet 링크 생성에 실패했습니다.");
+        return;
+      }
+    }
+  
     // 예약 정보 생성
     const newReservation = {
-      id: Date.now(),
-      designerId,
-      designerName: designer.name,
-      type,
-      date: selectedDateState.toISOString().split("T")[0],
-      time: selectedTimeState,
-      price:
-        type === "offline"
-          ? designer.price.offline
-          : designer.price.online,
-      paymentMethod,
-      status: paymentMethod === "account" ? "pending" : "confirmed",
-      location: type === "offline" ? designer.address : "화상 컨설팅",
-      account: COMPANY_ACCOUNT.account,
-      accountHolder: COMPANY_ACCOUNT.accountHolder,
-      googleMeetLink: meetLink,
+      designerId: designerId.toString(), // "string" 형식으로 변환
+      meet: type === "online", // 화상 컨설팅인 경우 true, 대면인 경우 false
+      date: selectedDateState.toISOString().split("T")[0], // "YYYY-MM-DD" 형식
+      start: {
+        hour: parseInt(selectedTimeState.split(":")[0]), // 시간 추출 (예: "14:00" -> 14)
+        minute: parseInt(selectedTimeState.split(":")[1]), // 분 추출 (예: "14:00" -> 0)
+        second: 0,
+        nano: 0,
+      },
+      end: {
+        hour: parseInt(selectedTimeState.split(":")[0]) + 1, // 1시간 후
+        minute: parseInt(selectedTimeState.split(":")[1]),
+        second: 0,
+        nano: 0,
+      },
+      shop: designer.address, // 샵 주소
+      price: (type === "offline" ? designer.price.offline : designer.price.online).toString(), // 가격을 문자열로 변환
     };
-
-    // 로컬 스토리지에 저장
-    const existingReservations = JSON.parse(
-      localStorage.getItem("reservations") || "[]"
-    );
-    localStorage.setItem(
-      "reservations",
-      JSON.stringify([...existingReservations, newReservation])
-    );
-
-    // 결제 모달 닫고 확인 모달 표시
-    setShowPaymentModal(false);
-    setShowConfirmModal(true);
+  
+    try {
+      let response = await fetch("https://blaybus-glowup.com/reservation/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(newReservation),
+      });
+  
+      // 토큰 만료 시 갱신 시도
+      if (response.status === 401) {
+        const newToken = await refreshToken();
+        if (!newToken) {
+          alert("로그인이 필요합니다.");
+          return;
+        }
+  
+        // 갱신된 토큰으로 다시 요청
+        response = await fetch("https://blaybus-glowup.com/reservation/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${newToken}`,
+          },
+          body: JSON.stringify(newReservation),
+        });
+      }
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "예약 생성에 실패했습니다.");
+      }
+  
+      const data = await response.json();
+      setShowPaymentModal(false);
+      setShowConfirmModal(true);
+    } catch (error) {
+      console.error("예약 생성 중 오류가 발생했습니다:", error.message);
+      alert(error.message || "예약 생성 중 오류가 발생했습니다.");
+    }
   };
 
   // 예약 내역 페이지로 이동하는 함수 추가
-  const handleGoToReservations = () => {
-    navigate("/reservations");
+  const handleGoToReservations = async () => {
+    try {
+      const response = await fetch("https://blaybus-glowup.com/reservation");
+      const data = await response.json();
+      // 예약 내역 페이지로 이동하면서 데이터를 전달
+      navigate("/reservations", { state: { reservations: data } });
+    } catch (error) {
+      console.error("예약 내역을 가져오는 데 실패했습니다.", error);
+    }
   };
 
   const handlePaymentSelect = (method) => {

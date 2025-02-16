@@ -12,7 +12,6 @@ axios.defaults.baseURL = "https://blaybus-glowup.com";
 const ReservationList = () => {
   const [reservations, setReservations] = useState([]);
   const [meetingLink, setMeetingLink] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -70,11 +69,7 @@ const ReservationList = () => {
     <R.Container>
       <HeaderReservation />
       <R.Title>
-        <R.BackImage
-          src={Back}
-          alt="Back"
-          onClick={() => navigate("/main")}
-        />
+        <R.BackImage src={Back} alt="Back" />
         <R.TitleContent>예약 내역 조회</R.TitleContent>
       </R.Title>
       <R.Title2>예약 내역</R.Title2>

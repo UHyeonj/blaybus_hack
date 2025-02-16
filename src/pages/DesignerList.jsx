@@ -4,11 +4,20 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import location from "./../assets/location.png";
 import "../styles/DesignerList.css";
+import FilterModal from "./FilterModal";
 
 function DesignerList() {
   const navigate = useNavigate();
   const { type } = useParams();
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [designers, setDesigners] = useState([]);
+  const [filteredDesigners, setFilteredDesigners] = useState([]);
+  const [activeFilter, setActiveFilter] = useState({
+    type: type,
+    region: "서울 전체",
+    minPrice: 0,
+    maxPrice: 200000,
+  });
 
   useEffect(() => {
     const fetchDesigners = async () => {
@@ -18,6 +27,7 @@ function DesignerList() {
         );
         const data = await response.json();
         setDesigners(data);
+        setFilteredDesigners(data);
       } catch (err) {
         console.log("Error fetching desingers: ", err);
       }
@@ -25,19 +35,39 @@ function DesignerList() {
     fetchDesigners();
   }, []);
 
+  useEffect(() => {
+    const filtered = designers.filter((designer) => {
+      const regionMatch = 
+        activeFilter.region === "서울 전체" || 
+        designer.region.includes(activeFilter.region.split('/')[0]);
+      
+      return regionMatch;
+    });
+
+    setFilteredDesigners(filtered);
+  }, [activeFilter, designers]);
+
   const handleDesignerSelect = (designerId) => {
     navigate(`/designer/${type}/${designerId}`);
   };
+
   const headerText =
     type === "offline"
       ? "대면 디자이너 검색"
       : "비대면 디자이너 검색";
 
+  const handleApplyFilter = (filter) => {
+    setActiveFilter(filter);
+  };
+
   return (
     <div className="designerlist-container">
-      <Header text={headerText} />
+      <Header 
+        text={headerText} 
+        onApplyFilter={handleApplyFilter}
+      />
       <div className="designerlist-list">
-        {designers
+        {filteredDesigners
           .filter((designer) =>
             type === "offline"
               ? designer.type.includes("대면")

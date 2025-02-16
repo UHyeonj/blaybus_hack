@@ -5,7 +5,7 @@ import backbtnimage from "./../assets/backbtnimage.png";
 import FilterModal from "../pages/FilterModal"; // 모달 추가
 import "./../styles/Header.css";
 
-const Header = ({ text }) => {
+const Header = ({ text, onApplyFilter }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,7 +41,7 @@ const Header = ({ text }) => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onApply={(filters) => {
-          console.log("적용된 필터:", filters);
+          onApplyFilter(filters);
           setIsModalOpen(false);
         }}
       />

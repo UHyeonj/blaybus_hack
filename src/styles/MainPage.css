@@ -1,87 +1,92 @@
-.main-container {
-  padding: 24px;
-  max-width: 1200px;
+.mainpage-container {
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background: radial-gradient(
+    circle at center right,
+    rgba(228, 120, 139, 0.9),
+    rgba(255, 244, 246, 1)
+  );
 }
 
-.main-title {
-  text-align: center;
-  color: #333;
-  font-size: 28px;
-  margin-bottom: 40px;
-  font-weight: 600;
+.mainpage-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding: 20px;
 }
 
-.consulting-options {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-  padding: 0 16px;
+.logo-image {
+  width: 120px;
+  height: auto;
+  margin: 20px 0;
 }
 
-.option-card {
+.consulting-card {
   background: white;
   border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.2s;
+  padding: 20px;
+  margin: 10px 0;
+  width: 373px;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
 }
 
-.option-card:hover {
-  transform: translateY(-4px);
+.consulting-card:hover {
+  transform: translateY(-2px);
 }
 
-.option-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
+.card-image {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 15px;
 }
 
-.option-card h2 {
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 12px;
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  line-height: 1.4;
 }
 
-.option-card p {
-  color: #666;
-  font-size: 16px;
-  margin-bottom: 24px;
-  line-height: 1.5;
+.check-item {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
 }
 
-.option-features {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 24px;
-  text-align: left;
+.check-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
 
-.option-features li {
-  color: #555;
-  margin-bottom: 8px;
-  font-size: 15px;
-  padding-left: 8px;
+.check-text {
+  font-size: 14px;
+  color: #494949;
 }
 
-.select-button {
-  background-color: #4a90e2;
+.consulting-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #E35A80;
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 12px 24px;
+  margin-top: 15px;
   font-size: 16px;
-  font-weight: 500;
   cursor: pointer;
-  width: 100%;
-  transition: background-color 0.2s;
 }
 
-.select-button:hover {
-  background-color: #357abd;
+.memo {
+  text-align: center;
+  color: #494949;
+  font-size: 12px;
+  margin: 20px 0;
+  line-height: 1.5;
 }
 
 /* 태블릿 이상 화면에서 그리드 2열로 변경 */
