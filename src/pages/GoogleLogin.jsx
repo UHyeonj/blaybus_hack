@@ -1,5 +1,5 @@
 import '../styles/GoogleLogin.css';
-import googleImg from './../assets/google-logo.png';
+//import googleImg from './../assets/google-logo.png';
 
 function GoogleLogin() {
     const handleLogin = () => {
@@ -14,7 +14,7 @@ function GoogleLogin() {
             onClick={handleLogin} 
             className='google_login'
         >
-        <img src={googleImg}/>구글로 시작하기
+        <img src='/assets/google-logo.png'/>구글로 시작하기
         </button>
     );
 }
