@@ -5,8 +5,8 @@ function GoogleLogin() {
         window.location.href = "https://blaybus-glowup.com/oauth2/authorization/google?redirect_uri=https://uhyeon.blaybus-glowup.com/main&mode=login";
     };
     
-    const googleimg = './src/assets/google-logo.png'; 
-
+    const googleimg = './../assets/google-logo.png'; 
+    
     return (
         <button 
             type="button" 
