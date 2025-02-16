@@ -1,0 +1,180 @@
+.reservation-container {
+  padding: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.reservation-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.reservation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reservation-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.reservation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-badge.confirmed {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-badge.pending {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+.status-badge.completed {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.status-badge.cancelled {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.reservation-date {
+  color: #666;
+  font-size: 14px;
+}
+
+.reservation-details {
+  padding: 12px 0;
+}
+
+.reservation-details h2 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.consultation-type,
+.consultation-time,
+.consultation-location,
+.consultation-price {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.consultation-price {
+  color: #4a90e2;
+  font-weight: 500;
+}
+
+.reservation-actions {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+}
+
+.cancel-button {
+  padding: 8px 16px;
+  background-color: #fff;
+  border: 1px solid #d32f2f;
+  color: #d32f2f;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-button:hover {
+  background-color: #ffebee;
+}
+
+.no-reservations {
+  text-align: center;
+  padding: 32px;
+  color: #666;
+}
+
+.make-reservation-button {
+  margin-top: 16px;
+  padding: 12px 24px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.make-reservation-button:hover {
+  background-color: #357abd;
+}
+
+/* 다크 모드 */
+@media (prefers-color-scheme: dark) {
+  .reservation-container {
+    background-color: #1a1a1a;
+  }
+
+  .reservation-title {
+    color: #ffffff;
+  }
+
+  .reservation-card {
+    background-color: #2a2a2a;
+  }
+
+  .reservation-details h2 {
+    color: #ffffff;
+  }
+
+  .consultation-type,
+  .consultation-time,
+  .consultation-location {
+    color: #b0b0b0;
+  }
+
+  .consultation-price {
+    color: #66b0ff;
+  }
+
+  .reservation-date {
+    color: #b0b0b0;
+  }
+
+  .cancel-button {
+    background-color: #2a2a2a;
+    border-color: #ff4d4d;
+    color: #ff4d4d;
+  }
+
+  .cancel-button:hover {
+    background-color: #3a2a2a;
+  }
+
+  .no-reservations {
+    color: #b0b0b0;
+  }
+} 

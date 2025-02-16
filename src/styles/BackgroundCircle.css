@@ -1,0 +1,17 @@
+
+.background_circle {
+    z-index: -1;
+    position: absolute;
+    width: 60vh; /* 반원의 크기를 더 키워서 자연스럽게 흐르게 만듦 */
+    height: 60vh;
+    border-radius: 50%;
+    right: -20vh; /* 화면 오른쪽에서 반만 보이도록 조정 */
+    top: 10vh; /* 화면 중앙에 맞춤 */
+    
+    /* 자연스러운 색상 퍼짐을 위한 radial-gradient */
+    background: radial-gradient(circle, rgba(255, 182, 193, 0.6) 20%, rgba(255, 182, 193, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+    
+    /* 블러 효과 추가하여 더욱 자연스럽게 */
+    filter: blur(40px);
+  }
+  

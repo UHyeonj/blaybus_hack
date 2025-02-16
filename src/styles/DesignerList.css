@@ -1,0 +1,189 @@
+.designer-container {
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.designer-title {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 32px;
+  font-weight: 600;
+}
+
+.designer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.designer-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.designer-card:hover {
+  transform: translateY(-2px);
+}
+
+.designer-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
+  object-fit: cover;
+  margin: 0 auto 16px;
+}
+
+.designer-info {
+  flex: 1;
+}
+
+.designer-info h2 {
+  color: #333;
+  font-size: 20px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.experience, .specialty {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.description {
+  color: #444;
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 12px 0;
+  text-align: center;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.stars {
+  color: #ffd700;
+}
+
+.review-count {
+  color: #666;
+  font-size: 14px;
+}
+
+.select-designer-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.select-designer-button:hover {
+  background-color: #357abd;
+}
+
+/* 태블릿 이상 화면 */
+@media (min-width: 768px) {
+  .designer-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .designer-image {
+    margin: 0;
+  }
+
+  .designer-info {
+    text-align: left;
+  }
+
+  .designer-info h2,
+  .experience,
+  .specialty,
+  .description,
+  .rating {
+    text-align: left;
+  }
+
+  .select-designer-button {
+    width: auto;
+    padding: 12px 24px;
+  }
+}
+
+/* 다크 모드 */
+@media (prefers-color-scheme: dark) {
+  .designer-container {
+    background-color: #1a1a1a;
+  }
+
+  .designer-title {
+    color: #ffffff;
+  }
+
+  .designer-card {
+    background-color: #2a2a2a;
+  }
+
+  .designer-info h2 {
+    color: #ffffff;
+  }
+
+  .experience, .specialty {
+    color: #b0b0b0;
+  }
+
+  .description {
+    color: #cccccc;
+  }
+
+  .review-count {
+    color: #b0b0b0;
+  }
+}
+
+/* 기존 CSS에 추가 */
+.area {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.price {
+  color: #4a90e2;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 8px 0;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .area,
+  .price {
+    text-align: left;
+  }
+} 

@@ -1,0 +1,59 @@
+/* 기본 리셋 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden !important;  /* 강제 적용 */
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+
+.main_container { 
+  width: 100vw;
+  max-width: 100%; /* 내부 요소가 초과하지 않도록 제한 */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.main_container span {
+  color: var(--font-090-a-0-a, #090A0A);
+  font-family: Pretendard;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2.5rem;
+}
+
+.first_state {
+  margin-top: 2rem;
+}
+
+.google_login_state {
+  color: var(--font-090-a-0-a, #090A0A);
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5rem;
+  margin-top: 1.75rem;
+}
+
+.google_login_link {
+  color: var(--brand-e-35-a-80, #E35A80);
+  font-family: Inter;
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
