@@ -1,0 +1,41 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 800px;
+  background-color: #f8f8f8;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+.footer-button {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.footer-button:hover {
+  color: #4a90e2;
+}
+
+.footer-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.footer-button span {
+  margin-top: 4px;
+  font-size: 12px;
+}

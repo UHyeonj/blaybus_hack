@@ -1,50 +1,67 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { ko } from 'date-fns/locale';
-import '../styles/BookingPage.css';
+import { useState, useEffect } from "react";
+import {
+  useParams,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { ko } from "date-fns/locale";
+import "../styles/BookingPage.css";
+
+// 공통 계좌 정보
+const COMPANY_ACCOUNT = {
+  account: "신한은행 110-123-456789",
+  accountHolder: "Bliss(김아정)",
+};
 
 function BookingPage() {
   const navigate = useNavigate();
   const { type, designerId } = useParams();
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState('');
-  const [timeSlots, setTimeSlots] = useState({ morning: [], afternoon: [] });
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const selectedDate = new Date(queryParams.get("date"));
+  const selectedTime = queryParams.get("time");
+  const [selectedDateState, setSelectedDate] = useState(selectedDate);
+  const [selectedTimeState, setSelectedTime] = useState(selectedTime);
+  const [timeSlots, setTimeSlots] = useState({
+    morning: [],
+    afternoon: [],
+  });
   const [designer, setDesigner] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [googleMeetLink, setGoogleMeetLink] = useState(null);
 
   // 디자이너 정보 가져오기
   useEffect(() => {
-    // 실제로는 API 호출로 대체될 부분
-    const designerData = {
-      1: {
-        name: "이초 디자이너",
-        price: { offline: 40000, online: 20000 },
-        account: "신한은행 110-123-456789",
-        accountHolder: "이초"
-      },
-      2: {
-        name: "로로 원장",
-        price: { offline: 40000, online: 34000 },
-        account: "국민은행 123-12-123456",
-        accountHolder: "로로"
-      },
-      // ... 다른 디자이너 정보
-    }[designerId];
+    const fetchDesigner = async () => {
+      try {
+        const response = await fetch(
+          "https://blaybus-glowup.com/designers"
+        );
+        const data = await response.json();
+        const designerData = data.find((d) => d.id === designerId);
+        setDesigner(designerData);
+      } catch (error) {
+        console.error("Error fetching designer:", error);
+      }
+    };
 
-    setDesigner(designerData);
+    fetchDesigner();
   }, [designerId]);
 
   // 시간대 생성 (10:00 ~ 20:00, 30분 단위)
   useEffect(() => {
     const morning = [];
     const afternoon = [];
-    
+
     for (let hour = 10; hour < 20; hour++) {
-      const timeSlot1 = `${hour.toString().padStart(2, '0')}:00`;
-      const timeSlot2 = `${hour.toString().padStart(2, '0')}:30`;
-      
+      const timeSlot1 = `${hour.toString().padStart(2, "0")}:00`;
+      const timeSlot2 = `${hour.toString().padStart(2, "0")}:30`;
+
       if (hour < 12) {
         morning.push(timeSlot1, timeSlot2);
       } else {
@@ -54,195 +71,256 @@ function BookingPage() {
     setTimeSlots({ morning, afternoon });
   }, []);
 
-  // 날짜 범위 설정 (오늘부터 3개월)
+  // 오늘 날짜와 3개월 후 날짜 설정
   const minDate = new Date();
   const maxDate = new Date();
   maxDate.setMonth(maxDate.getMonth() + 3);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!selectedDate || !selectedTime) {
-      alert('날짜와 시간을 모두 선택해주세요.');
+    if (!selectedDateState || !selectedTimeState) {
+      alert("날짜와 시간을 모두 선택해주세요.");
       return;
     }
     setShowConfirmation(true);
   };
 
   const handleConfirm = () => {
+    if (!paymentMethod) {
+      alert("결제 방식을 선택해주세요.");
+      return;
+    }
+
+    // 화상 컨설팅일 경우 구글미트 링크 생성
+    const meetLink =
+      type === "online"
+        ? `https://meet.google.com/haertz-${Date.now()}`
+        : null;
+    setGoogleMeetLink(meetLink);
+
+    // 예약 정보 생성
     const newReservation = {
       id: Date.now(),
       designerId,
       designerName: designer.name,
       type,
-      date: new Date(selectedDate.getTime() - (selectedDate.getTimezoneOffset() * 60000))
-        .toISOString()
-        .split('T')[0],
-      time: selectedTime,
-      price: type === 'offline' ? designer.price.offline : designer.price.online,
-      status: 'pending',
-      location: designer.location,
-      account: designer.account,
-      accountHolder: designer.accountHolder
+      date: selectedDateState.toISOString().split("T")[0],
+      time: selectedTimeState,
+      price:
+        type === "offline"
+          ? designer.price.offline
+          : designer.price.online,
+      paymentMethod,
+      status: paymentMethod === "account" ? "pending" : "confirmed",
+      location: type === "offline" ? designer.address : "화상 컨설팅",
+      account: COMPANY_ACCOUNT.account,
+      accountHolder: COMPANY_ACCOUNT.accountHolder,
+      googleMeetLink: meetLink,
     };
 
-    // 기존 예약 내역 가져오기
-    const existingReservations = JSON.parse(localStorage.getItem('reservations') || '[]');
-    
-    // 새로운 예약 추가
-    localStorage.setItem('reservations', JSON.stringify([...existingReservations, newReservation]));
-    
-    navigate('/main');
+    // 로컬 스토리지에 저장
+    const existingReservations = JSON.parse(
+      localStorage.getItem("reservations") || "[]"
+    );
+    localStorage.setItem(
+      "reservations",
+      JSON.stringify([...existingReservations, newReservation])
+    );
+
+    // 결제 모달 닫고 확인 모달 표시
+    setShowPaymentModal(false);
+    setShowConfirmModal(true);
   };
 
+  // 예약 내역 페이지로 이동하는 함수 추가
+  const handleGoToReservations = () => {
+    navigate("/reservations");
+  };
+
+  const handlePaymentSelect = (method) => {
+    setPaymentMethod(method);
+  };
+
+  const handleShowPayment = () => {
+    setShowPaymentModal(true);
+  };
+
+  if (!designer) return <div>로딩중...</div>;
+
   return (
-    <div className="booking-container">
-      <form onSubmit={handleSubmit} className="booking-form">
-        {designer && (
-          <div className="designer-info-summary">
-            <h2>디자이너 정보</h2>
-            <p className="designer-name">{designer.name}</p>
-            <p className="consultation-price">
-              상담 비용: {type === 'offline' 
-                ? `${designer.price.offline.toLocaleString()}원 (대면)`
-                : `${designer.price.online.toLocaleString()}원 (화상)`
-              }
-            </p>
+    <div className="booking-confirmation-container">
+      <h2>예약 확인</h2>
+
+      <div className="booking-info">
+        <div className="info-item">
+          <span>디자이너</span>
+          <span>{designer.name}</span>
+        </div>
+        <div className="info-item">
+          <span>컨설팅 유형</span>
+          <span>
+            {type === "offline" ? "대면 컨설팅" : "화상 컨설팅"}
+          </span>
+        </div>
+        <div className="info-item">
+          <span>날짜</span>
+          <span>{selectedDateState.toLocaleDateString()}</span>
+        </div>
+        <div className="info-item">
+          <span>시간</span>
+          <span>{selectedTimeState}</span>
+        </div>
+        <div className="info-item">
+          <span>가격</span>
+          <span>
+            {(type === "offline"
+              ? designer.price.offline
+              : designer.price.online
+            ).toLocaleString()}
+            원
+          </span>
+        </div>
+        {type === "offline" && (
+          <div className="info-item">
+            <span>컨설팅 위치</span>
+            <span>{designer.address}</span>
           </div>
         )}
+      </div>
 
-        <div className="form-group">
-          <label>날짜 선택</label>
-          <DatePicker
-            selected={selectedDate}
-            onChange={date => setSelectedDate(date)}
-            minDate={minDate}
-            maxDate={maxDate}
-            dateFormat="yyyy년 MM월 dd일 (eee)"
-            locale={ko}
-            placeholderText="날짜를 선택해주세요"
-            className="date-picker"
-            required
-          />
-        </div>
+      <button
+        className="show-payment-button"
+        onClick={handleShowPayment}
+      >
+        결제하기
+      </button>
 
-        <div className="form-group time-selection">
-          <label>시간 선택</label>
-          <div className="time-grid-container">
-            <div className="time-section">
-              <h3>오전</h3>
-              <div className="time-grid">
-                {timeSlots.morning?.map((time) => (
-                  <button
-                    type="button"
-                    key={time}
-                    className={`time-slot ${selectedTime === time ? 'selected' : ''}`}
-                    onClick={() => setSelectedTime(time)}
-                  >
-                    {time}
-                  </button>
-                ))}
-              </div>
+      {showPaymentModal && (
+        <div className="payment-modal">
+          <div className="payment-content">
+            <h3>결제 방식 선택</h3>
+            <div className="payment-methods">
+              <button
+                className={`payment-button ${
+                  paymentMethod === "account" ? "selected" : ""
+                }`}
+                onClick={() => handlePaymentSelect("account")}
+              >
+                계좌이체
+              </button>
+              <button
+                className={`payment-button ${
+                  paymentMethod === "kakaopay" ? "selected" : ""
+                }`}
+                onClick={() => handlePaymentSelect("kakaopay")}
+              >
+                카카오페이
+              </button>
             </div>
-            <div className="time-section">
-              <h3>오후</h3>
-              <div className="time-grid">
-                {timeSlots.afternoon?.map((time) => (
-                  <button
-                    type="button"
-                    key={time}
-                    className={`time-slot ${selectedTime === time ? 'selected' : ''}`}
-                    onClick={() => setSelectedTime(time)}
-                  >
-                    {time}
-                  </button>
-                ))}
+
+            {paymentMethod === "account" && (
+              <div className="account-info">
+                <p>입금 계좌: {COMPANY_ACCOUNT.account}</p>
+                <p>예금주: {COMPANY_ACCOUNT.accountHolder}</p>
               </div>
-            </div>
-          </div>
-        </div>
+            )}
 
-        <div className="booking-summary">
-          <h2>예약 정보</h2>
-          {designer && (
-            <>
-              <p>디자이너: {designer.name}</p>
-              <p>상담 유형: {type === 'offline' ? '대면' : '화상'} 상담</p>
-              <p className="price-info">
-                결제 금액: {type === 'offline' 
-                  ? designer.price.offline.toLocaleString()
-                  : designer.price.online.toLocaleString()
-                }원
-              </p>
-            </>
-          )}
-          {selectedDate && (
-            <p>
-              날짜: {selectedDate.toLocaleDateString('ko-KR', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                weekday: 'long'
-              })}
-            </p>
-          )}
-          {selectedTime && <p>시간: {selectedTime}</p>}
-        </div>
-
-        {designer && (
-          <div className="payment-info">
-            <h2>결제 정보</h2>
-            <p className="account-info">입금 계좌: {designer.account}</p>
-            <p className="account-holder">예금주: {designer.accountHolder}</p>
-            <p className="payment-notice">
-              * 예약 확정을 위해 상담 비용을 입금해 주세요.<br />
-              * 입금자명은 예약자 성함과 동일해야 합니다.<br />
-              * 예약 시간 24시간 전까지 취소 가능합니다.
-            </p>
-          </div>
-        )}
-
-        <button type="submit" className="booking-button">
-          예약하기
-        </button>
-      </form>
-
-      {showConfirmation && (
-        <div className="confirmation-overlay">
-          <div className="confirmation-popup">
-            <h2>예약 확인</h2>
-            <div className="confirmation-content">
-              <p><strong>디자이너:</strong> {designer.name}</p>
-              <p><strong>상담 유형:</strong> {type === 'offline' ? '대면' : '화상'} 상담</p>
-              <p><strong>날짜:</strong> {selectedDate.toLocaleDateString('ko-KR', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                weekday: 'long'
-              })}</p>
-              <p><strong>시간:</strong> {selectedTime}</p>
-              <p><strong>결제 금액:</strong> {type === 'offline' 
-                ? designer.price.offline.toLocaleString()
-                : designer.price.online.toLocaleString()
-              }원</p>
-              <div className="payment-info-summary">
-                <p><strong>입금 계좌:</strong> {designer.account}</p>
-                <p><strong>예금주:</strong> {designer.accountHolder}</p>
-              </div>
-            </div>
-            <div className="confirmation-actions">
-              <button 
-                type="button" 
+            <div className="payment-actions">
+              <button
+                className="cancel-button"
+                onClick={() => setShowPaymentModal(false)}
+              >
+                이전으로
+              </button>
+              <button
                 className="confirm-button"
                 onClick={handleConfirm}
               >
-                확인
+                결제하기
               </button>
-              <button 
-                type="button" 
-                className="cancel-button"
-                onClick={() => setShowConfirmation(false)}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showConfirmModal && (
+        <div className="confirm-modal">
+          <div className="confirm-content">
+            <div className="confirm-icon">✓</div>
+            <h3>
+              {paymentMethod === "account"
+                ? "입금 확인 후 예약이 확정됩니다"
+                : "예약이 완료되었습니다!"}
+            </h3>
+            <div className="confirm-details">
+              <div className="confirm-detail-item">
+                <span>디자이너</span>
+                <span>{designer.name}</span>
+              </div>
+              <div className="confirm-detail-item">
+                <span>컨설팅 유형</span>
+                <span>
+                  {type === "offline" ? "대면 컨설팅" : "화상 컨설팅"}
+                </span>
+              </div>
+              {type === "offline" && (
+                <div className="confirm-detail-item">
+                  <span>컨설팅 위치</span>
+                  <span>{designer.address}</span>
+                </div>
+              )}
+              <div className="confirm-detail-item">
+                <span>날짜</span>
+                <span>{selectedDateState.toLocaleDateString()}</span>
+              </div>
+              <div className="confirm-detail-item">
+                <span>시간</span>
+                <span>{selectedTimeState}</span>
+              </div>
+              <div className="confirm-detail-item">
+                <span>결제 금액</span>
+                <span>
+                  {(type === "offline"
+                    ? designer.price.offline
+                    : designer.price.online
+                  ).toLocaleString()}
+                  원
+                </span>
+              </div>
+              {paymentMethod === "account" ? (
+                <>
+                  <div className="confirm-detail-item">
+                    <span>입금 계좌</span>
+                    <span>{COMPANY_ACCOUNT.account}</span>
+                  </div>
+                  <div className="confirm-detail-item">
+                    <span>예금주</span>
+                    <span>{COMPANY_ACCOUNT.accountHolder}</span>
+                  </div>
+                </>
+              ) : (
+                type === "online" &&
+                googleMeetLink && (
+                  <div className="confirm-detail-item">
+                    <span>화상 미팅 링크</span>
+                    <a
+                      href={googleMeetLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="google-meet-link"
+                    >
+                      구글 미팅 참여하기
+                    </a>
+                  </div>
+                )
+              )}
+            </div>
+            <div className="confirm-actions">
+              <button
+                className="go-to-reservations"
+                onClick={handleGoToReservations}
               >
-                취소
+                예약 내역 확인하기
               </button>
             </div>
           </div>
@@ -252,4 +330,4 @@ function BookingPage() {
   );
 }
 
-export default BookingPage; 
+export default BookingPage;

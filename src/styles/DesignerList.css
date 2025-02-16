@@ -1,23 +1,24 @@
-.designer-container {
-  padding: 24px;
-  max-width: 800px;
-  margin: 0 auto;
-  min-height: 100vh;
-  background-color: #f8f9fa;
-}
-
-.designer-title {
-  text-align: center;
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 32px;
-  font-weight: 600;
-}
-
-.designer-list {
+.designerlist-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: radial-gradient(
+    circle at center right,
+    rgba(228, 120, 139, 0.9),
+    rgba(255, 244, 246, 1)
+  );
+  height: 100vh;
+}
+
+.designerlist-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  margin-bottom: 50px;
 }
 
 .designer-card {
@@ -27,163 +28,105 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   cursor: pointer;
   transition: transform 0.2s;
+  margin-bottom: 16px;
+  width: 373px;
+  height: 208px;
 }
 
 .designer-card:hover {
   transform: translateY(-2px);
 }
 
-.designer-image {
-  width: 120px;
-  height: 120px;
+.designerlist-info {
+  display: flex;
+  max-height: 70px;
+}
+
+.designerlist-info .designerlist-profile {
+  width: 70px;
+  height: 70px;
   border-radius: 60px;
   object-fit: cover;
-  margin: 0 auto 16px;
+  margin: 0 auto 16px 10px;
 }
 
-.designer-info {
+.designerlist-text {
   flex: 1;
-}
-
-.designer-info h2 {
-  color: #333;
-  font-size: 20px;
-  margin-bottom: 8px;
   text-align: center;
+  min-width: 180px;
 }
 
-.experience, .specialty {
-  color: #666;
-  font-size: 14px;
-  margin-bottom: 4px;
-  text-align: center;
+.designerlist-text h2 {
+  color: #090a0a;
+  font-size: 18px;
+  margin-left: 10px;
+  text-align: left;
 }
 
-.description {
-  color: #444;
-  font-size: 15px;
-  line-height: 1.5;
-  margin: 12px 0;
-  text-align: center;
+/* 지역 */
+.designerlist-text .designerlist-region {
+  color: #494949;
+  font-size: 11px;
+  margin-left: 10px;
+  text-align: left;
 }
 
-.rating {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.stars {
-  color: #ffd700;
-}
-
-.review-count {
-  color: #666;
-  font-size: 14px;
-}
-
-.select-designer-button {
-  background-color: #4a90e2;
-  color: white;
+/* 특기 */
+.designerlist-text .designerlist-region .designerlist-field {
+  margin-left: 12px;
+  padding: 10px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  background-color: #888ef1;
+  color: #ffffff;
+  border-radius: 48px;
   border: none;
-  border-radius: 8px;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: 500;
+  text-align: center;
+  font-size: 10px;
+}
+
+/* 한줄 소개 */
+.designerlist-text .introduction {
+  color: #444;
+  font-size: 8px;
+  margin: 5px 0 0 10px;
+  text-align: left;
+}
+
+.select-reserve-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #a42d4e;
+  border: 1px solid #a42d4e;
+  border-radius: 48px;
+  font-size: 10px;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.2s;
-  width: 100%;
+  transition: background-color 5ms;
+  width: 78px;
+  height: 27px;
+  margin-right: 10px;
+  margin-top: 10px;
 }
 
 .select-designer-button:hover {
   background-color: #357abd;
 }
 
-/* 태블릿 이상 화면 */
-@media (min-width: 768px) {
-  .designer-card {
-    flex-direction: row;
-    align-items: center;
-    gap: 24px;
-    padding: 24px;
-  }
-
-  .designer-image {
-    margin: 0;
-  }
-
-  .designer-info {
-    text-align: left;
-  }
-
-  .designer-info h2,
-  .experience,
-  .specialty,
-  .description,
-  .rating {
-    text-align: left;
-  }
-
-  .select-designer-button {
-    width: auto;
-    padding: 12px 24px;
-  }
+.designerlist-portfolio {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 11px;
+  width: 333px;
+  height: 94px;
 }
 
-/* 다크 모드 */
-@media (prefers-color-scheme: dark) {
-  .designer-container {
-    background-color: #1a1a1a;
-  }
-
-  .designer-title {
-    color: #ffffff;
-  }
-
-  .designer-card {
-    background-color: #2a2a2a;
-  }
-
-  .designer-info h2 {
-    color: #ffffff;
-  }
-
-  .experience, .specialty {
-    color: #b0b0b0;
-  }
-
-  .description {
-    color: #cccccc;
-  }
-
-  .review-count {
-    color: #b0b0b0;
-  }
+.designerlist-portfolio .portfolio-image {
+  width: 90px;
+  height: 90px;
+  border-radius: 4px;
 }
-
-/* 기존 CSS에 추가 */
-.area {
-  color: #666;
-  font-size: 14px;
-  margin-bottom: 4px;
-  text-align: center;
-}
-
-.price {
-  color: #4a90e2;
-  font-weight: 600;
-  font-size: 16px;
-  margin: 8px 0;
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .area,
-  .price {
-    text-align: left;
-  }
-} 

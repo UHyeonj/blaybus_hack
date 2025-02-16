@@ -70,7 +70,7 @@
 .booking-button {
   width: 100%;
   padding: 16px;
-  background-color: #4a90e2;
+  background-color: #000000;
   color: white;
   border: none;
   border-radius: 8px;
@@ -81,44 +81,7 @@
 }
 
 .booking-button:hover {
-  background-color: #357abd;
-}
-
-/* 다크 모드 */
-@media (prefers-color-scheme: dark) {
-  .booking-container {
-    background-color: #1a1a1a;
-  }
-
-  .booking-title {
-    color: #ffffff;
-  }
-
-  .booking-form {
-    background-color: #2a2a2a;
-  }
-
-  .form-group label {
-    color: #ffffff;
-  }
-
-  .form-group select {
-    background-color: #333333;
-    border-color: #404040;
-    color: #ffffff;
-  }
-
-  .booking-summary {
-    background-color: #333333;
-  }
-
-  .booking-summary h2 {
-    color: #ffffff;
-  }
-
-  .booking-summary p {
-    color: #cccccc;
-  }
+  background-color: #000000;
 }
 
 .date-picker {
@@ -138,94 +101,107 @@
 }
 
 /* react-datepicker 커스텀 스타일 수정 */
+.react-datepicker__input-container {
+  display: flex;
+  justify-content: center;
+}
+
 .react-datepicker-wrapper {
-  width: 100%;
+  width: auto !important;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.react-datepicker-popper {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
 }
 
 .react-datepicker {
-  font-family: inherit;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  margin: 0 auto;
+  font-family: inherit !important;
+  border: none !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  font-size: 14px;
+  width: 320px !important;
+}
+
+.react-datepicker__month-container {
+  float: none !important;
+  width: 100%;
 }
 
 .react-datepicker__header {
-  padding-top: 6px;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #ddd;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-}
-
-.react-datepicker__month {
-  margin: 0;
-  padding: 4px;
-}
-
-.react-datepicker__day-names {
-  margin-bottom: 0;
-}
-
-.react-datepicker__day-name {
-  width: 28px;
-  line-height: 28px;
-  margin: 2px;
-  color: #666;
-  font-size: 12px;
-}
-
-.react-datepicker__day {
-  width: 28px;
-  line-height: 28px;
-  margin: 2px;
-  border-radius: 4px;
-  font-size: 13px;
+  background-color: white !important;
+  border-bottom: 1px solid #eee;
+  padding: 16px 0 8px 0 !important;
 }
 
 .react-datepicker__current-month {
-  font-size: 14px;
-  padding: 4px 0;
+  font-size: 16px !important;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-.react-datepicker__navigation {
-  top: 8px;
+.react-datepicker__day-names {
+  display: flex;
+  justify-content: space-around;
+  margin: 8px 0;
 }
 
-/* 다크 모드 */
-@media (prefers-color-scheme: dark) {
-  .date-picker {
-    background-color: #333333;
-    border-color: #404040;
-    color: #ffffff;
+.react-datepicker__day-name {
+  width: 40px !important;
+  color: #666;
+  font-size: 14px !important;
+}
+
+.react-datepicker__month {
+  margin: 0 !important;
+  padding: 10px;
+}
+
+.react-datepicker__day {
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  margin: 2px !important;
+  font-size: 14px !important;
+  border-radius: 50% !important;
+}
+
+.react-datepicker__day:hover {
+  background-color: #f0f0f0 !important;
+}
+
+.react-datepicker__day--selected {
+  background-color: #4a90e2 !important;
+  color: white !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: rgba(74, 144, 226, 0.1) !important;
+  color: #4a90e2 !important;
+}
+
+/* 모바일 대응 */
+@media (max-width: 480px) {
+  .booking-container {
+    padding: 12px;
+  }
+
+  .booking-form {
+    padding: 12px;
   }
 
   .react-datepicker {
-    background-color: #2a2a2a;
-    border-color: #404040;
+    width: 300px !important;
   }
 
-  .react-datepicker__header {
-    background-color: #333333;
-    border-color: #404040;
-  }
-
-  .react-datepicker__current-month,
+  .react-datepicker__day,
   .react-datepicker__day-name {
-    color: #ffffff;
-  }
-
-  .react-datepicker__day {
-    color: #ffffff;
-    background-color: #2a2a2a;
-  }
-
-  .react-datepicker__day:hover {
-    background-color: #404040;
-  }
-
-  .react-datepicker__day--disabled {
-    color: #666;
+    width: 35px !important;
+    height: 35px !important;
+    line-height: 35px !important;
   }
 }
 
@@ -288,56 +264,6 @@
   font-size: 16px;
 }
 
-/* 다크 모드에 추가 */
-@media (prefers-color-scheme: dark) {
-  .designer-info-summary {
-    background-color: #333333;
-  }
-
-  .designer-name {
-    color: #ffffff;
-  }
-
-  .designer-info-summary h2 {
-    color: #ffffff;
-  }
-
-  .consultation-price {
-    color: #66b0ff;  /* 밝은 파란색으로 변경 */
-  }
-
-  .payment-info {
-    background-color: #332b1a;
-    border-color: #665429;
-  }
-
-  .payment-info h2,
-  .account-info,
-  .account-holder {
-    color: #ffffff;
-  }
-
-  .payment-notice {
-    color: #b0b0b0;
-  }
-
-  .price-info {
-    color: #66b0ff;  /* 밝은 파란색으로 변경 */
-  }
-
-  .booking-summary {
-    background-color: #333333;
-  }
-
-  .booking-summary h2 {
-    color: #ffffff;
-  }
-
-  .booking-summary p {
-    color: #cccccc;
-  }
-}
-
 .time-selection {
   margin-bottom: 16px;
 }
@@ -382,43 +308,6 @@
   background-color: #4a90e2;
   color: white;
   border-color: #4a90e2;
-}
-
-/* 모바일 화면에서는 2열로 표시 */
-@media (max-width: 480px) {
-  .booking-container {
-    padding: 12px;
-  }
-
-  .booking-form {
-    padding: 12px;
-  }
-
-  .time-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* 다크 모드 */
-@media (prefers-color-scheme: dark) {
-  .time-section h3 {
-    color: #ffffff;
-  }
-
-  .time-slot {
-    background-color: #2a2a2a;
-    border-color: #404040;
-    color: #ffffff;
-  }
-
-  .time-slot:hover {
-    background-color: #333333;
-  }
-
-  .time-slot.selected {
-    background-color: #4a90e2;
-    color: white;
-  }
 }
 
 /* 기존 CSS에 추가 */
@@ -488,13 +377,13 @@
 }
 
 .confirm-button {
-  background-color: #4a90e2;
+  background-color: #000000;
   color: white;
   border: none;
 }
 
 .confirm-button:hover {
-  background-color: #357abd;
+  background-color: #000000;
 }
 
 .cancel-button {
@@ -507,35 +396,387 @@
   background-color: #f5f5f5;
 }
 
-/* 다크 모드 */
-@media (prefers-color-scheme: dark) {
-  .confirmation-popup {
-    background-color: #2a2a2a;
-  }
+.booking-confirmation-container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
 
-  .confirmation-popup h2 {
-    color: #ffffff;
-  }
+.booking-confirmation-container h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #333;
+}
 
-  .confirmation-content p {
-    color: #b0b0b0;
-  }
+.booking-info {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-  .confirmation-content strong {
-    color: #ffffff;
-  }
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
 
-  .payment-info-summary {
-    border-color: #404040;
-  }
+.info-item:last-child {
+  border-bottom: none;
+}
 
-  .cancel-button {
-    background-color: #2a2a2a;
-    border-color: #404040;
-    color: #b0b0b0;
-  }
+.info-item span:first-child {
+  color: #666;
+}
 
-  .cancel-button:hover {
-    background-color: #333333;
+.info-item span:last-child {
+  font-weight: 500;
+  color: #333;
+}
+
+.payment-section {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.payment-section h3 {
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.payment-button {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.payment-button.selected {
+  background-color: #000000;
+  color: white;
+  border-color: #000000;
+}
+
+.account-info {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.account-info p {
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.booking-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.cancel-button, .confirm-button {
+  padding: 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-button {
+  background: #f1f3f5;
+  color: #666;
+}
+
+.confirm-button {
+  background: #000000;
+  color: white;
+}
+
+.confirm-button:hover {
+  background: #000000;
+}
+
+.cancel-button:hover {
+  background: #e9ecef;
+}
+
+.payment-modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+  animation: slideUp 0.3s ease-out;
+}
+
+.payment-content {
+  background: white;
+  padding: 24px;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.payment-content h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.payment-button {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.payment-button.selected {
+  background-color: #000000;
+  color: white;
+  border-color: #000000;
+}
+
+.account-info {
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 12px;
+  margin: 16px 0;
+}
+
+.account-info p {
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.payment-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.cancel-button, .confirm-button {
+  padding: 16px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-button {
+  background: #f1f3f5;
+  color: #666;
+}
+
+.confirm-button {
+  background: #000000;
+  color: white;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
   }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.show-payment-button {
+  width: 100%;
+  padding: 16px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 20px;
+}
+
+.show-payment-button:hover {
+  background-color: #000000;
+}
+
+.payment-modal::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.payment-modal.closing {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+.confirm-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.confirm-content {
+  background: white;
+  padding: 32px;
+  border-radius: 20px;
+  text-align: center;
+  animation: scaleIn 0.3s ease-out;
+  min-width: 320px;
+  max-width: 90%;
+}
+
+.confirm-icon {
+  width: 60px;
+  height: 60px;
+  background: #000000;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  margin: 0 auto 20px;
+}
+
+.confirm-content h3 {
+  color: #333;
+  font-size: 20px;
+  margin-bottom: 24px;
+}
+
+.confirm-details {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 20px 0;
+}
+
+.confirm-detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.confirm-detail-item:last-child {
+  border-bottom: none;
+}
+
+.confirm-detail-item span:first-child {
+  color: #666;
+  font-size: 14px;
+}
+
+.confirm-detail-item span:last-child {
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.redirect-message {
+  color: #666;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.confirm-actions {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.go-to-reservations {
+  padding: 16px 32px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.go-to-reservations:hover {
+  background-color: #000000;
+}
+
+.google-meet-link {
+  color: #4285f4;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.google-meet-link:hover {
+  color: #1a73e8;
+  text-decoration: underline;
 } 

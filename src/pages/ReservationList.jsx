@@ -1,122 +1,150 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../styles/ReservationList.css';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import * as R from "../styles/ReservationListStyles";
+import Back from "../assets/back.png";
+import RectangleGray from "../assets/rectanglegray.png";
+import Footer from "../components/Footer.jsx";
+import HeaderReservation from "../components/HeaderReservation.jsx";
 
-function ReservationList() {
-  const navigate = useNavigate();
+axios.defaults.baseURL = "https://blaybus-glowup.com";
+
+const ReservationList = () => {
   const [reservations, setReservations] = useState([]);
+  const [meetingLink, setMeetingLink] = useState("");
+  const navigate = useNavigate();
 
-  // 예약 내역 불러오기
   useEffect(() => {
-    const savedReservations = JSON.parse(localStorage.getItem('reservations') || '[]');
-    // 날짜 기준으로 정렬 (최신순)
-    savedReservations.sort((a, b) => new Date(b.date) - new Date(a.date));
-    setReservations(savedReservations);
+    const fetchReservations = async () => {
+      try {
+        const tokenResponse = await axios.get("/api/oauth2/token");
+        const authToken = tokenResponse.data;
+
+        const response = await axios.get("/reservation", {
+          params: { userId: "user_id" }, // userId를 실제 값으로 교체
+        });
+        setReservations(response.data);
+
+        const meetingResponse = await axios.post(
+          "/api/google-calendar/create-event-with-meeting",
+          {
+            reservationId: "reservation_id",
+            userId: "user_id",
+            summary: "미용실 컨설팅 예약",
+            startTime: "2025-06-06T10:00:00+09:00",
+            endTime: "2025-06-06T11:00:00+09:00",
+          },
+          { headers: { Authorization: "google_oauth_token" } }
+        );
+
+        setMeetingLink(
+          meetingResponse.data.meetingLink || "링크 생성 실패"
+        );
+      } catch (error) {
+        console.error("데이터 불러오기 실패:", error);
+      }
+    };
+
+    fetchReservations();
   }, []);
 
-  const getStatusText = (status) => {
-    const statusMap = {
-      confirmed: "예약 확정",
-      pending: "입금 대기",
-      completed: "상담 완료",
-      cancelled: "예약 취소"
-    };
-    return statusMap[status] || status;
-  };
-
-  const getStatusClass = (status) => {
-    return `status-badge ${status}`;
-  };
-
-  const handleCancelReservation = (id) => {
-    if (window.confirm('예약을 취소하시겠습니까?')) {
-      // 예약 상태 업데이트
-      const updatedReservations = reservations.map(res => 
-        res.id === id ? { ...res, status: 'cancelled' } : res
-      );
-      
-      // localStorage 업데이트
-      localStorage.setItem('reservations', JSON.stringify(updatedReservations));
-      setReservations(updatedReservations);
+  const handleRCancelClick = async () => {
+    try {
+      await axios.delete("/reservation", {
+        params: { userId: "user_id" }, // 실제 userId 예약 ID 필요
+      });
+      alert("예약이 취소되었습니다.");
+      setShowPopup(false);
+    } catch (error) {
+      console.error("예약 취소 실패:", error);
+      alert("예약 취소에 실패했습니다.");
     }
   };
 
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleCancelClick = () => setShowPopup(true);
+  const handleClosePopup = () => setShowPopup(false);
+
   return (
-    <div className="reservation-container">
-      <div className="reservation-header">
-        <h1 className="reservation-title">나의 예약 내역</h1>
-        <button 
-          className="back-to-main"
-          onClick={() => navigate('/main')}
+    <R.Container>
+      <HeaderReservation />
+      <R.Title>
+        <R.BackImage
+          src={Back}
+          alt="Back"
+          onClick={() => navigate("/main")}
+        />
+        <R.TitleContent>예약 내역 조회</R.TitleContent>
+      </R.Title>
+      <R.Title2>예약 내역</R.Title2>
+      <R.Consulting>
+        <R.CT>
+          비대면 컨설팅은 <br /> 하단 구글 미트에서 진행됩니다
+        </R.CT>
+        <R.CLink
+          href={meetingLink}
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          메인으로
-        </button>
-      </div>
-      <div className="reservation-list">
-        {reservations.length === 0 ? (
-          <div className="no-reservations">
-            <p>예약 내역이 없습니다.</p>
-            <button 
-              className="make-reservation-button"
-              onClick={() => navigate('/main')}
-            >
-              예약하기
-            </button>
-          </div>
-        ) : (
-          reservations.map((reservation) => (
-            <div key={reservation.id} className="reservation-card">
-              <div className="reservation-header">
-                <span className={getStatusClass(reservation.status)}>
-                  {getStatusText(reservation.status)}
-                </span>
-                <span className="reservation-date">
-                  {new Date(reservation.date).toLocaleDateString('ko-KR', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </span>
-              </div>
-              
-              <div className="reservation-details">
-                <h2>{reservation.designerName}</h2>
-                <p className="consultation-type">
-                  {reservation.type === 'offline' ? '대면' : '화상'} 상담
-                </p>
-                <p className="consultation-time">
-                  예약 시간: {reservation.time}
-                </p>
-                <p className="consultation-location">
-                  {reservation.location}
-                </p>
-                <p className="consultation-price">
-                  상담 비용: {reservation.price.toLocaleString()}원
-                </p>
-                {reservation.status === 'pending' && (
-                  <div className="payment-details">
-                    <p className="account-info">입금 계좌: {reservation.account}</p>
-                    <p className="account-holder">예금주: {reservation.accountHolder}</p>
-                  </div>
-                )}
-              </div>
+          {meetingLink || "링크 생성 중..."}
+        </R.CLink>
+      </R.Consulting>
+      <R.ConsultingContent>
+        <R.D>
+          <R.De>디자이너</R.De>
+          <R.Des>아초 디자이너</R.Des>
+          {/* <R.Des>{res.designer}</R.Des> */}
+        </R.D>
+        <R.C>
+          <R.Co>컨설팅 유형</R.Co>
+          <R.Con>비대면 컨설팅</R.Con>
+          {/* <R.Con>{res.type}</R.Con> */}
+        </R.C>
+        <R.D2>
+          <R.Da>날짜</R.Da>
+          <R.Dat>2025.06.06</R.Dat>
+          {/* <R.Dat>{res.date}</R.Dat> */}
+        </R.D2>
+        <R.T>
+          <R.Ti>시간</R.Ti>
+          <R.Tim>10:00</R.Tim>
+          {/* <R.Tim>{res.time}</R.Tim> */}
+        </R.T>
+        <R.P>
+          <R.Pr>가격</R.Pr>
+          <R.Pri>40,000원</R.Pri>
+          {/* <R.Pri>{res.price}</R.Pri> */}
+        </R.P>
+      </R.ConsultingContent>
+      <R.Button onClick={handleCancelClick}>예약 취소</R.Button>
 
-              {reservation.status === 'pending' && (
-                <div className="reservation-actions">
-                  <button 
-                    className="cancel-button"
-                    onClick={() => handleCancelReservation(reservation.id)}
-                  >
-                    예약 취소
-                  </button>
-                </div>
-              )}
-            </div>
-          ))
-        )}
-      </div>
-    </div>
+      {showPopup && (
+        <R.PopupOverlay onClick={handleClosePopup}>
+          <R.Popup>
+            <R.RectangleGrayImage
+              src={RectangleGray}
+              alt="RectangleGray"
+            />
+            <R.PopupTitle>정말 취소하시겠습니까?</R.PopupTitle>
+            <R.PopupText>
+              선택하신 날짜와 시간은 취소되고, <br /> 메인 화면으로
+              돌아갑니다.
+            </R.PopupText>
+            <R.PopupButtonGroup>
+              <R.PopupButton primary onClick={handleRCancelClick}>
+                예약 취소
+              </R.PopupButton>
+              <R.PopupButton onClick={handleClosePopup}>
+                돌아가기
+              </R.PopupButton>
+            </R.PopupButtonGroup>
+          </R.Popup>
+        </R.PopupOverlay>
+      )}
+      <Footer />
+    </R.Container>
   );
-}
+};
 
-export default ReservationList; 
+export default ReservationList;

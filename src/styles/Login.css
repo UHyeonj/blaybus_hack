@@ -6,16 +6,16 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
+html,
+body {
   width: 100%;
-  overflow-x: hidden !important;  /* 강제 적용 */
+  overflow-x: hidden !important; /* 강제 적용 */
   margin: 0;
   padding: 0;
   position: relative;
 }
 
-
-.main_container { 
+.main_container {
   width: 100vw;
   max-width: 100%; /* 내부 요소가 초과하지 않도록 제한 */
   height: 100vh;
@@ -27,7 +27,7 @@ html, body {
 }
 
 .main_container span {
-  color: var(--font-090-a-0-a, #090A0A);
+  color: var(--font-090-a-0-a, #090a0a);
   font-family: Pretendard;
   font-size: 1.5rem;
   font-style: normal;
@@ -40,7 +40,7 @@ html, body {
 }
 
 .google_login_state {
-  color: var(--font-090-a-0-a, #090A0A);
+  color: var(--font-090-a-0-a, #090a0a);
   font-family: Inter;
   font-size: 1rem;
   font-style: normal;
@@ -50,7 +50,7 @@ html, body {
 }
 
 .google_login_link {
-  color: var(--brand-e-35-a-80, #E35A80);
+  color: var(--brand-e-35-a-80, #e35a80);
   font-family: Inter;
   font-size: 0.7rem;
   font-style: normal;

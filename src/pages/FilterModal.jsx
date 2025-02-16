@@ -32,7 +32,12 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
         {/* 2. 지역 선택 */}
         <h3>지역</h3>
         <div className="filter-section">
-          {["서울 전체", "성수/건대", "강남/청담/압구정", "홍대/합정/연남"].map((region) => (
+          {[
+            "서울 전체",
+            "성수/건대",
+            "강남/청담/압구정",
+            "홍대/합정/연남",
+          ].map((region) => (
             <button
               key={region}
               className={filter.region === region ? "active" : ""}
@@ -47,9 +52,17 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
         <h3>가격</h3>
         <div className="filter-section">
           <div className="price-inputs">
-            <input type="text" value={`${filter.minPrice.toLocaleString()} 원`} readOnly />
+            <input
+              type="text"
+              value={`${filter.minPrice.toLocaleString()} 원`}
+              readOnly
+            />
             <span>~</span>
-            <input type="text" value={`${filter.maxPrice.toLocaleString()} 원`} readOnly />
+            <input
+              type="text"
+              value={`${filter.maxPrice.toLocaleString()} 원`}
+              readOnly
+            />
           </div>
           <div className="slider-container">
             <input
@@ -58,7 +71,12 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               max="50000"
               step="1000"
               value={filter.minPrice}
-              onChange={(e) => setFilter({ ...filter, minPrice: parseInt(e.target.value) })}
+              onChange={(e) =>
+                setFilter({
+                  ...filter,
+                  minPrice: parseInt(e.target.value),
+                })
+              }
             />
             <input
               type="range"
@@ -66,16 +84,25 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               max="100000"
               step="1000"
               value={filter.maxPrice}
-              onChange={(e) => setFilter({ ...filter, maxPrice: parseInt(e.target.value) })}
+              onChange={(e) =>
+                setFilter({
+                  ...filter,
+                  maxPrice: parseInt(e.target.value),
+                })
+              }
             />
           </div>
         </div>
 
         {/* 4. 적용 버튼 */}
-        <button className="apply-btn" onClick={() => onApply(filter)}>적용하기</button>
+        <button className="apply-btn" onClick={() => onApply(filter)}>
+          적용하기
+        </button>
 
         {/* 닫기 버튼 */}
-        <button className="close-btn" onClick={onClose}>닫기</button>
+        <button className="close-btn" onClick={onClose}>
+          닫기
+        </button>
       </div>
     </div>
   );

@@ -1,54 +1,90 @@
 .designer-detail-container {
-  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 1px;
   max-width: 600px;
   margin: 0 auto;
   min-height: 100vh;
 }
 
-.designer-profile {
+.designer-detail-container .header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.designer-reserve-page {
+  margin: 0 16px 110px 16px;
+  overflow-y: auto;
+}
+
+.designer-reserve-page .designer-profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+
   background: white;
   border-radius: 16px;
-  padding: 24px;
+  padding: 10px;
+  margin-top: 16px;
   margin-bottom: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
+
   gap: 20px;
   align-items: center;
 }
 
-.designer-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 60px;
+/* 디자이너 프로필 사진 */
+.designer-detail-image {
+  margin-left: 0;
+  width: 130px;
+  height: 160px;
   object-fit: cover;
 }
 
+.designer-info {
+  width: 150px;
+}
+
+/* 디자이너 특기 */
+.designer-info .specialty {
+  margin-bottom: 4px;
+  width: 34px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  background-color: #888ef1;
+  color: #ffffff;
+  border-radius: 48px;
+  border: none;
+  text-align: center;
+  font-size: 10px;
+}
+
+/* 디자이너 이름 */
 .designer-info h1 {
   font-size: 24px;
   color: #333;
   margin-bottom: 8px;
+  text-align: left;
 }
 
-.area, .specialty, .career {
+/* 디자이너 지역 */
+.designer-info .area {
   color: #666;
-  font-size: 14px;
+  font-size: 11px;
   margin-bottom: 4px;
+  text-align: left;
 }
 
-.rating {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 8px;
+.designer-info .area img {
+  margin-right: 5px;
 }
 
-.stars {
-  color: #ffd700;
-}
-
-.review-count {
-  color: #666;
-  font-size: 14px;
+.blank {
+  width: 50px;
 }
 
 .consultation-info {
@@ -94,19 +130,17 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.designer-introduction h2 {
-  font-size: 18px;
-  color: #333;
-  margin-bottom: 16px;
-}
-
 .designer-introduction p {
   color: #666;
   line-height: 1.6;
   margin-bottom: 12px;
 }
 
-.reviews-section {
+.designer-introduction .description {
+  font-weight: bold;
+}
+
+.designer-detail-portfolio {
   background: white;
   border-radius: 16px;
   padding: 24px;
@@ -114,52 +148,39 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.reviews-section h2 {
+.designer-detail-portfolio h2 {
   font-size: 18px;
   color: #333;
   margin-bottom: 16px;
 }
 
-.review-item {
+.portfolio-item {
   padding: 16px 0;
   border-bottom: 1px solid #eee;
 }
 
-.review-item:last-child {
+.portfolio-item:last-child {
   border-bottom: none;
 }
 
-.review-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.review-stars {
-  color: #ffd700;
-}
-
-.review-date {
-  color: #666;
-  font-size: 14px;
-}
-
-.review-comment {
-  color: #333;
-  line-height: 1.5;
-}
-
-.booking-button {
-  width: 100%;
+.designer-detail-container .booking-button {
+  width: 95%;
   padding: 16px;
-  background-color: #000000;
+  background-color: #e4788b;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
+  border-radius: 48px;
+  font-size: 18px;
+  font-weight: 1000;
   cursor: pointer;
   transition: background-color 0.2s;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  margin-bottom: 70px;
+
+  transform: translateX(-50%);
+  z-index: 1000;
 }
 
 .booking-button:hover {
@@ -349,7 +370,7 @@
 }
 
 .proceed-booking-button:hover {
-  background-color: #FF5252;
+  background-color: #ff5252;
 }
 
 /* DatePicker 선택된 날짜 스타일 */
@@ -377,4 +398,4 @@
 .react-datepicker__month-container {
   width: 100% !important;
   float: none !important;
-} 
+}
