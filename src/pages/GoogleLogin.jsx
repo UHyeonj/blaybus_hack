@@ -2,9 +2,8 @@ import '../styles/GoogleLogin.css';
 
 function GoogleLogin() {
     const handleLogin = () => {
-        window.location.href = "https://blaybus-glowup.com/oauth2/authorization/google?redirect_uri=https://uhyeon.blaybus-glowup.com/oauth2/callback&mode=main";
+        window.location.href = "https://blaybus-glowup.com/oauth2/authorization/google?redirect_uri=https://https:/uhyeon.blaybus-glowup.com/&mode=login";
     };
-    
     
     const googleimg = './src/assets/google-logo.png'; 
 
