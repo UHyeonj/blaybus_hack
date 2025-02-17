@@ -23,11 +23,11 @@ const ReservationList = () => {
           .split('; ')
           .find(row => row.startsWith('access_token='))?.split('=')[1]
           ?.trim(); // 앞뒤 공백 제거
-        console.log(token);
+          console.log("Token from cookie: ", token);
         const response = await fetch("https://blaybus-glowup.com/reservation/user", {
           method: "GET",
           headers: {
-            "Authorization": `Bearer ${token?.trim()}`,
+            "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
           }
         });
