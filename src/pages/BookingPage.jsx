@@ -378,55 +378,55 @@ function BookingPage() {
     setShowPaymentModal(true);
   };
 
-  // // 토큰 인증
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     try {
-  //       const accesstoken = document.cookie
-  //         .split("; ")
-  //         .find((row) => row.startsWith("access_token="))
-  //         ?.split("=")[1]
-  //         ?.trim(); // 앞뒤 공백 제거
+  // 토큰 인증
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const accesstoken = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("access_token="))
+          ?.split("=")[1]
+          ?.trim(); // 앞뒤 공백 제거
 
-  //       console.log("Raw Cookies:", document.cookie);
-  //       console.log("Access Token:", accesstoken);
+        console.log("Raw Cookies:", document.cookie);
+        console.log("Access Token:", accesstoken);
 
-  //       if (!accesstoken) {
-  //         throw new Error("토큰이 없습니다.");
-  //       }
+        if (!accesstoken) {
+          throw new Error("토큰이 없습니다.");
+        }
 
-  //       const headers = {
-  //         Authorization: `Bearer ${accesstoken}`,
-  //       };
+        const headers = {
+          Authorization: `Bearer ${accesstoken}`,
+        };
 
-  //       console.log("Request Headers:", headers);
+        console.log("Request Headers:", headers);
 
-  //       // 인증 체크를 위한 별도의 엔드포인트 사용
-  //       const response = await fetch(
-  //         "https://blaybus-glowup.com/auth/validate",
-  //         {
-  //           method: "GET",
-  //           credentials: "include", // 쿠키 포함 설정
-  //           headers,
-  //         }
-  //       );
+        // 인증 체크를 위한 별도의 엔드포인트 사용
+        const response = await fetch(
+          "https://blaybus-glowup.com/auth/validate",
+          {
+            method: "GET",
+            credentials: "include", // 쿠키 포함 설정
+            headers,
+          }
+        );
 
-  //       console.log("인증 응답 상태:", response.status);
-  //       const data = await response.json();
-  //       console.log("인증 응답 데이터:", data);
+        console.log("인증 응답 상태:", response.status);
+        const data = await response.json();
+        console.log("인증 응답 데이터:", data);
 
-  //       if (!response.ok) {
-  //         throw new Error("인증 실패");
-  //       }
-  //     } catch (error) {
-  //       console.error("인증 확인 실패:", error);
-  //       alert("로그인이 필요한 서비스입니다.");
-  //       navigate("/login");
-  //     }
-  //   };
+        if (!response.ok) {
+          throw new Error("인증 실패");
+        }
+      } catch (error) {
+        console.error("인증 확인 실패:", error);
+        alert("로그인이 필요한 서비스입니다.");
+        navigate("/login");
+      }
+    };
 
-  //   checkAuth();
-  // }, [navigate]);
+    checkAuth();
+  }, [navigate]);
 
   if (!designer) return <div>로딩중...</div>;
 
