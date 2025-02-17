@@ -24,6 +24,18 @@ const ReservationList = () => {
           return;
         }
 
+        console.log("Token from cookie: ", token);
+        const arr = {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+          credentials: 'include'
+        };
+        console.log(
+          arr
+        );
         const response = await fetch("https://blaybus-glowup.com/reservation/user", {
           method: "GET",
           headers: {
@@ -41,6 +53,8 @@ const ReservationList = () => {
         }
 
         const data = await response.json();
+        console.log(response);
+        console.log(data);
         setReservations(data);
       } catch (error) {
         console.error("예약 목록 조회 실패:", error);
@@ -95,9 +109,9 @@ const ReservationList = () => {
           <p>예약 내역이 없습니다.</p>
         </div>
       ) : (
-        reservations.map((reservation) => (
-          <div key={reservation.id} className="reservation-wrapper">
-            <div className="reservation-card">
+        <div className="reservation-wrapper">
+          {reservations.map((reservation) => (
+            <div key={reservation.id} className="reservation-card">
               <div className="reservation-info">
                 <div className="info-row">
                   <span>디자이너</span>
@@ -145,8 +159,8 @@ const ReservationList = () => {
                 예약 취소
               </button>
             </div>
-          </div>
-        ))
+          ))}
+        </div>
       )}
 
       {showPopup && (
