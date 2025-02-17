@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import filteringbtn from "./../assets/filteringbtn.png";
-import backbtnimage from "./../assets/backbtnimage.png";
+import filteringbtn from "./../assets/filteringbtn.svg";
+import backbtnimage from "./../assets/backbtnimage.svg";
 import FilterModal from "../pages/FilterModal";
 import "./../styles/Header.css";
 
