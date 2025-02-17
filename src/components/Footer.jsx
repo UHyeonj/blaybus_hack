@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import homebtn_blue from "./../assets/homebtn_blue.png";
-import mypagebtn_gray from "./../assets/mypagebtn_gray.png";
-import Calendarbtn_gray from "./../assets/Calendarbtn_gray.png";
+import homebtn_blue from "./../assets/homebtn_blue.svg";
+import mypagebtn_gray from "./../assets/mypagebtn_gray.svg";
+import calendarbtn_gray from "./../assets/calendarbtn_gray.svg";
 import "../styles/Footer.css";
 
 const Footer = () => {
@@ -36,7 +36,7 @@ const Footer = () => {
         onClick={() => navigate("/reservations")}
       >
         <img
-          src={Calendarbtn_gray}
+          src={calendarbtn_gray}
           alt="예약내역조회"
           className="footer-icon"
         />
