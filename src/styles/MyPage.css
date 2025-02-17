@@ -5,8 +5,8 @@
   min-height: 100vh;
   background: radial-gradient(
     circle at center right,
-    rgba(228, 120, 139, 0.9),
-    rgba(255, 244, 246, 1)
+    rgba(98, 142, 205, 0.9),
+    rgba(213, 222, 239, 1)
   );
 }
 
@@ -80,9 +80,9 @@
 }
 
 .style-button.active {
-  background: #E35A80;
+  background: #5a6ed5;
   color: white;
-  border-color: #E35A80;
+  border-color: #5a6ed5;
 }
 
 .divider {
@@ -94,7 +94,7 @@
 .logout-button {
   width: 100%;
   padding: 12px;
-  background: #E35A80;
+  background: #e35a80;
   color: white;
   border: none;
   border-radius: 8px;
@@ -105,5 +105,5 @@
 }
 
 .logout-button:hover {
-  background: #d14670;
-} 
+  background: #5a6ed5;
+}
