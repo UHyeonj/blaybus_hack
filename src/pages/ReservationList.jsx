@@ -9,18 +9,20 @@ const ReservationList = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedReservation, setSelectedReservation] = useState(null);
   const navigate = useNavigate();
+  const token = document.cookie.split('; ').find(row => row.startsWith('access_token='))?.split('=')[1];
+  console.log(token);
 
   useEffect(() => {
     const fetchReservations = async () => {
       try {
         const token = document.cookie.split('; ').find(row => row.startsWith('access_token='))?.split('=')[1];
-        console.log(token); 
+        console.log(token);
         const response = await fetch("https://blaybus-glowup.com/reservation/user", {
           headers: {
             "Authorization": `Bearer ${token}`
           }
         });
-        
+
         if (!response.ok) {
           throw new Error("예약 목록 조회에 실패했습니다.");
         }
@@ -74,7 +76,7 @@ const ReservationList = () => {
   return (
     <div className="reservation-container">
       <Header text="예약 내역 조회" />
-      
+
       {reservations.length === 0 ? (
         <div className="no-reservations">
           <p>예약 내역이 없습니다.</p>
@@ -111,9 +113,9 @@ const ReservationList = () => {
               ) : (
                 <div className="info-row">
                   <span>미팅 링크</span>
-                  <a 
-                    href={reservation.meetLink} 
-                    target="_blank" 
+                  <a
+                    href={reservation.meetLink}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="meet-link"
                   >
@@ -122,7 +124,7 @@ const ReservationList = () => {
                 </div>
               )}
             </div>
-            <button 
+            <button
               className="cancel-button"
               onClick={() => handleCancelClick(reservation)}
             >
@@ -137,7 +139,7 @@ const ReservationList = () => {
           <div className="popup">
             <h3>정말 취소하시겠습니까?</h3>
             <p>
-              선택하신 날짜와 시간은 취소되고, <br /> 
+              선택하신 날짜와 시간은 취소되고, <br />
               메인 화면으로 돌아갑니다.
             </p>
             <div className="popup-buttons">
