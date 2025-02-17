@@ -70,7 +70,7 @@
 .booking-button {
   width: 100%;
   padding: 16px;
-  background-color: #000000;
+  background-color: #5a6ed5;
   color: white;
   border: none;
   border-radius: 8px;
@@ -81,7 +81,7 @@
 }
 
 .booking-button:hover {
-  background-color: #000000;
+  background-color: #5a6ed5;
 }
 
 .date-picker {
@@ -244,7 +244,8 @@
   margin-bottom: 12px;
 }
 
-.account-info, .account-holder {
+.account-info,
+.account-holder {
   font-size: 16px;
   color: #333;
   margin-bottom: 8px;
@@ -385,7 +386,7 @@
 
 /* 결제 방식이 선택되었을 때의 스타일 */
 .confirm-button.active {
-  background: #E35A80;
+  background: #e35a80;
   color: white;
 }
 
@@ -487,7 +488,7 @@
 }
 
 .payment-button.selected {
-  border: 2px solid #E35A80;
+  border: 2px solid #e35a80;
   background: white;
 }
 
@@ -501,15 +502,15 @@
 }
 
 .payment-button.selected .radio-circle {
-  border-color: #E35A80;
+  border-color: #e35a80;
 }
 
 .payment-button.selected .radio-circle:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 10px;
   height: 10px;
-  background: #E35A80;
+  background: #e35a80;
   border-radius: 50%;
   top: 50%;
   left: 50%;
@@ -540,7 +541,8 @@
   gap: 12px;
 }
 
-.cancel-button, .confirm-button {
+.cancel-button,
+.confirm-button {
   padding: 16px;
   border-radius: 8px;
   border: none;
@@ -620,7 +622,8 @@
   padding: 0 16px;
 }
 
-.cancel-button, .confirm-button {
+.cancel-button,
+.confirm-button {
   width: 100%;
   height: 52px;
   padding: 0;
@@ -639,7 +642,7 @@
 }
 
 .cancel-button {
-  background: #E35A80;
+  background: #e35a80;
   color: white;
   margin-bottom: 0;
 }
@@ -665,7 +668,7 @@
   width: 373px;
   align-self: center;
   padding: 16px;
-  background-color: #E35A80;
+  background-color: #e35a80;
   color: white;
   border: none;
   border-radius: 12px;
@@ -681,7 +684,7 @@
 }
 
 .payment-modal::before {
-  content: '';
+  content: "";
   position: fixed;
   top: 0;
   left: 0;
@@ -833,4 +836,4 @@
 .google-meet-link:hover {
   color: #1a73e8;
   text-decoration: underline;
-} 
+}
