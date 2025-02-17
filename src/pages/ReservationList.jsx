@@ -9,13 +9,20 @@ const ReservationList = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedReservation, setSelectedReservation] = useState(null);
   const navigate = useNavigate();
-  const token = document.cookie.split('; ').find(row => row.startsWith('access_token='))?.split('=')[1];
+  const token = document.cookie
+  .split('; ')
+  .find(row => row.startsWith('accessToken='))?.split('=')[1]
+  ?.trim(); // 앞뒤 공백 제거
+
   console.log(token);
 
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const token = document.cookie.split('; ').find(row => row.startsWith('access_token='))?.split('=')[1];
+        const token = document.cookie
+          .split('; ')
+          .find(row => row.startsWith('accessToken='))?.split('=')[1]
+          ?.trim(); // 앞뒤 공백 제거
         console.log(token);
         const response = await fetch("https://blaybus-glowup.com/reservation/user", {
           headers: {
