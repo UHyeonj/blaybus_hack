@@ -3,11 +3,7 @@
   flex-direction: column;
   margin: 0 auto;
   min-height: 100vh;
-  background: radial-gradient(
-    circle at center right,
-    rgba(228, 120, 139, 0.9),
-    rgba(255, 244, 246, 1)
-  );
+  background-color: white;
 }
 
 .mainpage-content {
@@ -72,7 +68,7 @@
 .consulting-button {
   width: 100%;
   padding: 12px;
-  background-color: none;
+  background-color: #e35a80;
   color: white;
   border: none;
   border-radius: 8px;
