@@ -70,7 +70,7 @@
 .booking-button {
   width: 100%;
   padding: 16px;
-  background-color: #5a6ed5;
+  background-color: #000000;
   color: white;
   border: none;
   border-radius: 8px;
@@ -81,7 +81,7 @@
 }
 
 .booking-button:hover {
-  background-color: #5a6ed5;
+  background-color: #000000;
 }
 
 .date-picker {
@@ -179,7 +179,7 @@
 }
 
 .react-datepicker__day--keyboard-selected {
-  background-color: #5a6ed5 !important;
+  background-color: rgba(74, 144, 226, 0.1) !important;
   color: #4a90e2 !important;
 }
 
@@ -488,7 +488,7 @@
 }
 
 .payment-button.selected {
-  border: 2px solid #628ecd;
+  border: 2px solid #e35a80;
   background: white;
 }
 
@@ -502,7 +502,7 @@
 }
 
 .payment-button.selected .radio-circle {
-  border-color: #5a6ed5;
+  border-color: #e35a80;
 }
 
 .payment-button.selected .radio-circle:after {
@@ -510,7 +510,7 @@
   position: absolute;
   width: 10px;
   height: 10px;
-  background: #5a6ed5;
+  background: #e35a80;
   border-radius: 50%;
   top: 50%;
   left: 50%;
