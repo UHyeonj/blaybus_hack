@@ -33,8 +33,9 @@ const ReservationList = () => {
           },
           credentials: 'include'
         };
-        console.log(arr);
-
+        console.log(
+          arr
+        );
         const response = await fetch("https://blaybus-glowup.com/reservation/user", {
           method: "GET",
           headers: {
@@ -121,15 +122,11 @@ const ReservationList = () => {
               </div>
               <div className="info-row">
                 <span>날짜</span>
-                <span>{reservation.date || '정보 없음'}</span>
+                <span>{reservation.date}</span>
               </div>
               <div className="info-row">
                 <span>시간</span>
-                <span>
-                  {reservation.start
-                    ? `${reservation.start.hour}:${String(reservation.start.minute).padStart(2, '0')}`
-                    : '정보 없음'}
-                </span>
+                <span>{`${reservation.start.hour}:${String(reservation.start.minute).padStart(2, '0')}`}</span>
               </div>
               <div className="info-row">
                 <span>가격</span>
@@ -138,7 +135,7 @@ const ReservationList = () => {
               {!reservation.meet ? (
                 <div className="info-row">
                   <span>컨설팅 위치</span>
-                  <span>{reservation.shop || '정보 없음'}</span>
+                  <span>{reservation.shop}</span>
                 </div>
               ) : (
                 <div className="info-row">
