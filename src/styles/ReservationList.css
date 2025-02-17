@@ -8,19 +8,14 @@
     rgba(228, 120, 139, 0.9),
     rgba(255, 244, 246, 1)
   );
-}
-
-.reservation-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: #333;
+  overflow-y: auto; /* 화면이 넘칠 경우 스크롤 */
 }
 
 .reservation-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  flex-grow: 1; /* 예약 카드들이 있을 경우 공간을 차지하도록 설정 */
 }
 
 .reservation-card {
@@ -31,6 +26,15 @@
   width: 373px;
   align-self: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* 카드가 줄어들지 않도록 설정 */
+}
+
+
+.reservation-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .reservation-header {
