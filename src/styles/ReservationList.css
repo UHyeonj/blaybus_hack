@@ -33,11 +33,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.reservation-card:last-child {
-  margin-bottom: 70px; /* 마지막 카드에만 마진 추가 */
-}
-
-
 .reservation-header {
   display: flex;
   justify-content: space-between;
