@@ -25,15 +25,16 @@ const ReservationList = () => {
         }
 
         console.log("Token from cookie: ", token);
+        const arr = {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+          credentials: 'include'
+        };
         console.log(
-          {
-            method: "GET",
-            headers: {
-              "Authorization": `Bearer ${token}`,
-              "Content-Type": "application/json"
-            },
-            credentials: 'include'
-          }
+          arr
         );
         const response = await fetch("https://blaybus-glowup.com/reservation/user", {
           method: "GET",
