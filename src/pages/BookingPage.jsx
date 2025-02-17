@@ -387,11 +387,18 @@ function BookingPage() {
           ?.split("=")[1]
           ?.trim(); // 앞뒤 공백 제거
 
+        console.log("Raw Cookies:", document.cookie);
         console.log("Access Token:", accesstoken);
 
         if (!accesstoken) {
           throw new Error("토큰이 없습니다.");
         }
+
+        const headers = {
+          Authorization: `Bearer ${accesstoken}`,
+        };
+
+        console.log("Request Headers:", headers);
 
         // 인증 체크를 위한 별도의 엔드포인트 사용
         const response = await fetch(
@@ -399,14 +406,13 @@ function BookingPage() {
           {
             method: "GET",
             credentials: "include", // 쿠키 포함 설정
-            headers: {
-              Authorization: `Bearer ${accesstoken}`,
-            },
+            headers,
           }
         );
 
         console.log("인증 응답 상태:", response.status);
-        console.log("인증 응답 데이터:", await response.json());
+        const data = await response.json();
+        console.log("인증 응답 데이터:", data);
 
         if (!response.ok) {
           throw new Error("인증 실패");
