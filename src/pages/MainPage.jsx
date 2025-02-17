@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Haertz from "../assets/haertz.png";
+import Haertz from "../assets/haertz.svg";
 import Users from "../assets/Users.png";
 import Mirroring from "../assets/mirroring.png";
 import Check from "../assets/check.png";
