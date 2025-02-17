@@ -16,12 +16,6 @@ const COMPANY_ACCOUNT = {
   accountHolder: "Bliss(김아정)",
 };
 
-const accesstoken = document.cookie
-  .split("; ")
-  .find((row) => row.startsWith("access_token="))
-  ?.split("=")[1]
-  ?.trim(); // 앞뒤 공백 제거
-
 function BookingPage() {
   const navigate = useNavigate();
   const { type, designerId } = useParams();
@@ -388,32 +382,14 @@ function BookingPage() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const accesstoken = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("access_token="))
-          ?.split("=")[1]
-          ?.trim(); // 앞뒤 공백 제거
-
-        console.log("Access Token:", accesstoken);
-
-        if (!accesstoken) {
-          throw new Error("토큰이 없습니다.");
-        }
-
         // 인증 체크를 위한 별도의 엔드포인트 사용
         const response = await fetch(
           "https://blaybus-glowup.com/auth/validate",
           {
             method: "GET",
             credentials: "include", // 쿠키 포함 설정
-            headers: {
-              Authorization: `Bearer ${accesstoken}`,
-            },
           }
         );
-
-        console.log("인증 응답 상태:", response.status);
-        console.log("인증 응답 데이터:", await response.json());
 
         if (!response.ok) {
           throw new Error("인증 실패");
