@@ -6,6 +6,12 @@ import location from "./../assets/location.png";
 import "../styles/DesignerList.css";
 import FilterModal from "./FilterModal";
 
+const accesstoken = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("access_token="))
+  ?.split("=")[1]
+  ?.trim(); // 앞뒤 공백 제거
+
 function DesignerList() {
   const navigate = useNavigate();
   const { type } = useParams();
@@ -18,6 +24,8 @@ function DesignerList() {
     minPrice: 0,
     maxPrice: 200000,
   });
+
+  console.log(document.cookie);
 
   useEffect(() => {
     const fetchDesigners = async () => {
@@ -37,10 +45,10 @@ function DesignerList() {
 
   useEffect(() => {
     const filtered = designers.filter((designer) => {
-      const regionMatch = 
-        activeFilter.region === "서울 전체" || 
-        designer.region.includes(activeFilter.region.split('/')[0]);
-      
+      const regionMatch =
+        activeFilter.region === "서울 전체" ||
+        designer.region.includes(activeFilter.region.split("/")[0]);
+
       return regionMatch;
     });
 
@@ -62,10 +70,7 @@ function DesignerList() {
 
   return (
     <div className="designerlist-container">
-      <Header 
-        text={headerText} 
-        onApplyFilter={handleApplyFilter}
-      />
+      <Header text={headerText} onApplyFilter={handleApplyFilter} />
       <div className="designerlist-list">
         {filteredDesigners
           .filter((designer) =>
