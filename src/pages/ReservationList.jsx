@@ -33,7 +33,9 @@ const ReservationList = () => {
         });
 
         if (!response.ok) {
-          console.log(response);
+          console.log("Response status:", response.status); // 상태 코드 출력
+          const errorMessage = await response.text(); // 응답 본문 출력
+          console.log("Error message:", errorMessage);
           throw new Error("예약 목록 조회에 실패했습니다.");
         }
 
