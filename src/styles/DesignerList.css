@@ -3,7 +3,11 @@
   flex-direction: column;
   margin: 0 auto;
   min-height: 100vh;
-  background-color: white;
+  background: radial-gradient(
+    circle at center right,
+    rgba(98, 142, 205, 0.9),
+    rgba(213, 222, 239, 1)
+  );
   height: 100vh;
 }
 
