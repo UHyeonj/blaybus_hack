@@ -1,0 +1,109 @@
+.mypage-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: radial-gradient(
+    circle at center right,
+    rgba(228, 120, 139, 0.9),
+    rgba(255, 244, 246, 1)
+  );
+}
+
+.mypage-content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  flex: 1;
+}
+
+.mypage-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.back-image {
+  width: 24px;
+  height: 24px;
+}
+
+.title-content {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.style-section {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 10px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.section-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.style-button {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.style-button.active {
+  background: #E35A80;
+  color: white;
+  border-color: #E35A80;
+}
+
+.divider {
+  height: 1px;
+  background: #eee;
+  margin: 20px 0;
+}
+
+.logout-button {
+  width: 100%;
+  padding: 12px;
+  background: #E35A80;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.logout-button:hover {
+  background: #d14670;
+} 

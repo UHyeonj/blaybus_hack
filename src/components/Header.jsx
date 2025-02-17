@@ -2,7 +2,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import filteringbtn from "./../assets/filteringbtn.png";
 import backbtnimage from "./../assets/backbtnimage.png";
-import FilterModal from "../pages/FilterModal"; // 모달 추가
+import FilterModal from "../pages/FilterModal";
 import "./../styles/Header.css";
 
 const Header = ({ text, onApplyFilter }) => {
@@ -12,6 +12,7 @@ const Header = ({ text, onApplyFilter }) => {
   const showFilterButton =
     location.pathname === "/consulting/offline" ||
     location.pathname === "/consulting/online";
+
   return (
     <div className="header">
       <div className="backbtn">
@@ -36,7 +37,6 @@ const Header = ({ text, onApplyFilter }) => {
       ) : (
         <div className="filter-placeholder"></div>
       )}
-      {/* 필터 모달 */}
       <FilterModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -48,4 +48,5 @@ const Header = ({ text, onApplyFilter }) => {
     </div>
   );
 };
+
 export default Header;
