@@ -238,9 +238,10 @@ function BookingPage() {
         "https://blaybus-glowup.com/api/google-calendar/create-event-with-meeting",
         {
           method: "POST",
+          credentials: "include", // 쿠키 포함 설정
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             reservationId: reservationId,
@@ -322,9 +323,10 @@ function BookingPage() {
         "https://blaybus-glowup.com/reservation/create",
         {
           method: "POST",
+          credentials: "include", // 쿠키 포함 설정
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(reservationData),
         }
@@ -387,11 +389,27 @@ function BookingPage() {
 
   // 토큰 확인 로직 추가 필요
   useEffect(() => {
-    const token = accesstoken;
-    if (!token) {
-      navigate("/login");
-      return;
-    }
+    const checkAuth = async () => {
+      try {
+        const response = await fetch(
+          "https://blaybus-glowup.com/reservation/create",
+          {
+            method: "GET",
+            credentials: "include", // 쿠키 포함 설정
+          }
+        );
+
+        if (!response.ok) {
+          navigate("/login");
+          return;
+        }
+      } catch (error) {
+        console.error("인증 확인 실패:", error);
+        navigate("/login");
+      }
+    };
+
+    checkAuth();
   }, []);
 
   if (!designer) return <div>로딩중...</div>;
