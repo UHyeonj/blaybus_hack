@@ -9,12 +9,6 @@ const ReservationList = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedReservation, setSelectedReservation] = useState(null);
   const navigate = useNavigate();
-  const token = document.cookie
-    .split('; ')
-    .find(row => row.startsWith('access_token='))?.split('=')[1]
-    ?.trim(); // 앞뒤 공백 제거
-
-  console.log(token);
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -23,7 +17,14 @@ const ReservationList = () => {
           .split('; ')
           .find(row => row.startsWith('access_token='))?.split('=')[1]
           ?.trim(); // 앞뒤 공백 제거
-          console.log("Token from cookie: ", token);
+
+        if (!token) {
+          alert("로그인이 필요합니다.");
+          navigate("/login");
+          return;
+        }
+
+        console.log("Token from cookie: ", token);
         const response = await fetch("https://blaybus-glowup.com/reservation/user", {
           method: "GET",
           headers: {
@@ -47,7 +48,7 @@ const ReservationList = () => {
     };
 
     fetchReservations();
-  }, []);
+  }, [navigate]);
 
   // 예약 취소
   const handleRCancelClick = async () => {
