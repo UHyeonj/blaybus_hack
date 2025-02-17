@@ -394,6 +394,8 @@ function BookingPage() {
           ?.split("=")[1]
           ?.trim(); // 앞뒤 공백 제거
 
+        console.log("Access Token:", accesstoken);
+
         if (!accesstoken) {
           throw new Error("토큰이 없습니다.");
         }
@@ -409,6 +411,9 @@ function BookingPage() {
             },
           }
         );
+
+        console.log("인증 응답 상태:", response.status);
+        console.log("인증 응답 데이터:", await response.json());
 
         if (!response.ok) {
           throw new Error("인증 실패");
