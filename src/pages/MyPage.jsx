@@ -62,14 +62,15 @@ const MyPage = () => {
     "붙임머리",
   ];
 
-  const deleteCookie = (name) => {
-    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
+  const deleteCookie = (name, domain) => {
+    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;domain=${domain};`;
   };
-
+  
   const handleLogout = () => {
-    deleteCookie("access_token");
-    deleteCookie("google_oauth_token");
-    deleteCookie("refresh_token");
+    const domain = window.location.hostname;
+    deleteCookie("access_token", domain);
+    deleteCookie("google_oauth_token", domain);
+    deleteCookie("refresh_token", domain);
     sessionStorage.clear();
     navigate("/login");
   };
