@@ -53,7 +53,7 @@
   display: flex;
   align-items: center;
   margin: 8px 0;
-  text-align: center;
+  justify-content: center;
 }
 
 .check-icon {
