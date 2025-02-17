@@ -386,12 +386,12 @@
 
 /* 결제 방식이 선택되었을 때의 스타일 */
 .confirm-button.active {
-  background: #e35a80;
+  background: #5a6ed5;
   color: white;
 }
 
 .confirm-button.active:hover {
-  background: #d14670;
+  background: #5a6ed5;
 }
 
 .cancel-button {
@@ -484,7 +484,7 @@
 }
 
 .payment-button.selected {
-  border: 2px solid #e35a80;
+  border: 2px solid #5a6ed5;
   background: white;
 }
 
@@ -498,7 +498,7 @@
 }
 
 .payment-button.selected .radio-circle {
-  border-color: #e35a80;
+  border-color: #5a6ed5;
 }
 
 .payment-button.selected .radio-circle:after {
@@ -506,7 +506,7 @@
   position: absolute;
   width: 10px;
   height: 10px;
-  background: #e35a80;
+  background: #5a6ed5;
   border-radius: 50%;
   top: 50%;
   left: 50%;
