@@ -16,6 +16,12 @@ const COMPANY_ACCOUNT = {
   accountHolder: "Bliss(김아정)",
 };
 
+const accesstoken = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("access_token="))
+  ?.split("=")[1]
+  ?.trim(); // 앞뒤 공백 제거
+
 function BookingPage() {
   const navigate = useNavigate();
   const { type, designerId } = useParams();
@@ -86,9 +92,7 @@ function BookingPage() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem(
-              "accessToken"
-            )}`,
+            Authorization: `Bearer ${accesstoken}`,
           },
           body: JSON.stringify({
             reservationId: reservationId,
@@ -126,9 +130,7 @@ function BookingPage() {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem(
-                  "accessToken"
-                )}`,
+                Authorization: `Bearer ${accesstoken}`,
               },
               body: JSON.stringify({
                 pgToken,
@@ -168,9 +170,7 @@ function BookingPage() {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem(
-                  "accessToken"
-                )}`,
+                Authorization: `Bearer ${accesstoken}`,
               },
               body: JSON.stringify({
                 reservationId: reservationId,
@@ -207,9 +207,7 @@ function BookingPage() {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem(
-                  "accessToken"
-                )}`,
+                Authorization: `Bearer ${accesstoken}`,
               },
               body: JSON.stringify({
                 reservationId: reservationId,
@@ -235,7 +233,7 @@ function BookingPage() {
   // Google Meet 링크 생성 함수 수정
   const createGoogleMeetEvent = async (reservationId) => {
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = accesstoken;
       const response = await fetch(
         "https://blaybus-glowup.com/api/google-calendar/create-event-with-meeting",
         {
@@ -287,7 +285,7 @@ function BookingPage() {
       return;
     }
 
-    const token = localStorage.getItem("accessToken");
+    const token = accesstoken;
     if (!token) {
       alert("로그인이 필요합니다.");
       navigate("/login");
@@ -388,7 +386,7 @@ function BookingPage() {
 
   // 토큰 확인 로직 추가 필요
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+    const token = accesstoken;
     if (!token) {
       navigate("/login");
       return;
