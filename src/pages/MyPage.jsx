@@ -63,8 +63,9 @@ const MyPage = () => {
   ];
 
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    deleteCookie("access_token");
+    deleteCookie("google_oauth_token");
+    deleteCookie("refresh_token");
     sessionStorage.clear();
     navigate("/login");
   };
