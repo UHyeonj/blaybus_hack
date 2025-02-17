@@ -13,7 +13,7 @@ const ReservationList = () => {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const token = localStorage.getItem("accessToken");
+        const token = localStorage.getItem("access_token");
         const response = await fetch("https://blaybus-glowup.com/reservation/user", {
           headers: {
             "Authorization": `Bearer ${token}`
@@ -39,7 +39,6 @@ const ReservationList = () => {
     if (!selectedReservation) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await fetch("https://blaybus-glowup.com/reservation", {
         method: "DELETE",
         headers: {
