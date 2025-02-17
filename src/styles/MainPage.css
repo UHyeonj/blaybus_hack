@@ -81,11 +81,11 @@
   cursor: pointer;
 }
 
-.main-container .memo {
+.memo {
   text-align: center;
   color: #494949;
   font-size: 12px;
-  margin: 10px 0 20px 0;
+  margin: 20px 0;
   line-height: 1.5;
 }
 
