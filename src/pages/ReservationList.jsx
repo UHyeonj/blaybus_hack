@@ -53,6 +53,7 @@ const ReservationList = () => {
         }
 
         const data = await response.json();
+        console.log(response);
         console.log(data);
         setReservations(data);
       } catch (error) {
