@@ -5,44 +5,11 @@ import Header from "../components/Header";
 import "../styles/ReservationList.css";
 
 const ReservationList = () => {
-  // 더미 데이터로 초기화 (대면, 비대면 각각 하나씩)
-  const [reservations, setReservations] = useState([
-    {
-      id: 1,
-      designerName: "김철수 디자이너",
-      meet: false, // false는 대면
-      date: "2024-02-20",
-      start: {
-        hour: 14,
-        minute: 30,
-        second: 0,
-        nano: 0
-      },
-      price: "30000",
-      shop: "서울시 강남구 테헤란로 123 4층"
-    },
-    {
-      id: 2,
-      designerName: "이영희 디자이너",
-      meet: true, // true는 비대면
-      date: "2024-02-22",
-      start: {
-        hour: 15,
-        minute: 0,
-        second: 0,
-        nano: 0
-      },
-      price: "20000",
-      shop: null, // 비대면은 shop 정보 없음
-      meetLink: "https://meet.google.com/abc-defg-hij" // 구글 미트 링크 추가
-    }
-  ]);
+  const [reservations, setReservations] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
-  const [selectedReservationId, setSelectedReservationId] = useState(null);
+  const [selectedReservation, setSelectedReservation] = useState(null);
   const navigate = useNavigate();
 
-  // 기존 useEffect는 주석 처리
-  /*
   useEffect(() => {
     const fetchReservations = async () => {
       try {
@@ -66,23 +33,19 @@ const ReservationList = () => {
 
     fetchReservations();
   }, []);
-  */
 
   // 예약 취소
   const handleRCancelClick = async () => {
-    if (!selectedReservationId) return;
+    if (!selectedReservation) return;
 
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await fetch(`https://blaybus-glowup.com/reservation/user`, {
+      const response = await fetch("https://blaybus-glowup.com/reservation", {
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          reservationId: selectedReservationId
-        })
+          "reservationId": selectedReservation.id,
+          "designerId": selectedReservation.designerId
+        }
       });
 
       if (!response.ok) {
@@ -91,29 +54,21 @@ const ReservationList = () => {
 
       alert("예약이 취소되었습니다.");
       setShowPopup(false);
-      
-      // 예약 목록 새로고침
-      const updatedResponse = await fetch("https://blaybus-glowup.com/reservation/user", {
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
-      const updatedData = await updatedResponse.json();
-      setReservations(updatedData);
+      setReservations(prev => prev.filter(r => r.id !== selectedReservation.id));
     } catch (error) {
       console.error("예약 취소 실패:", error);
       alert("예약 취소에 실패했습니다.");
     }
   };
 
-  const handleCancelClick = (reservationId) => {
-    setSelectedReservationId(reservationId);
+  const handleCancelClick = (reservation) => {
+    setSelectedReservation(reservation);
     setShowPopup(true);
   };
 
   const handleClosePopup = () => {
     setShowPopup(false);
-    setSelectedReservationId(null);
+    setSelectedReservation(null);
   };
 
   return (
@@ -169,7 +124,7 @@ const ReservationList = () => {
             </div>
             <button 
               className="cancel-button"
-              onClick={() => handleCancelClick(reservation.id)}
+              onClick={() => handleCancelClick(reservation)}
             >
               예약 취소
             </button>
