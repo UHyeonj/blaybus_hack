@@ -53,6 +53,7 @@ const ReservationList = () => {
         }
 
         const data = await response.json();
+        console.log(data);
         setReservations(data);
       } catch (error) {
         console.error("예약 목록 조회 실패:", error);
