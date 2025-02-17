@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import location from "./../assets/location.png";
+import location from "./../assets/location.svg";
 import "../styles/DesignerList.css";
 
 function DesignerList() {
