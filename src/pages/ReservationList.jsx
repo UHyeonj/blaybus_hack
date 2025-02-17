@@ -13,7 +13,7 @@ const ReservationList = () => {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const token = localStorage.getItem("access_token");
+        const token = document.cookie.split('; ').find(row => row.startsWith('access_token='))?.split('=')[1];
         const response = await fetch("https://blaybus-glowup.com/reservation/user", {
           headers: {
             "Authorization": `Bearer ${token}`
