@@ -7,15 +7,17 @@ import "../styles/ReservationList.css";
 const ReservationList = () => {
   const [reservations, setReservations] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
-  const [selectedReservation, setSelectedReservation] = useState(null);
+  const [selectedReservation, setSelectedReservation] =
+    useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchReservations = async () => {
       try {
         const token = document.cookie
-          .split('; ')
-          .find(row => row.startsWith('access_token='))?.split('=')[1]
+          .split("; ")
+          .find((row) => row.startsWith("access_token="))
+          ?.split("=")[1]
           ?.trim(); // 앞뒤 공백 제거
 
         if (!token) {
@@ -28,22 +30,23 @@ const ReservationList = () => {
         const arr = {
           method: "GET",
           headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
-          credentials: 'include'
+          credentials: "include",
         };
-        console.log(
-          arr
+        console.log(arr);
+        const response = await fetch(
+          "https://blaybus-glowup.com/reservation/user",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
         );
-        const response = await fetch("https://blaybus-glowup.com/reservation/user", {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          },
-          credentials: 'include'
-        });
 
         if (!response.ok) {
           console.log("Response status:", response.status); // 상태 코드 출력
@@ -69,13 +72,15 @@ const ReservationList = () => {
     if (!selectedReservation) return;
 
     try {
-      const response = await fetch("https://blaybus-glowup.com/reservation", {
-        method: "DELETE",
-        headers: {
-          "reservationId": selectedReservation.id,
-          "designerId": selectedReservation.designerId
+      const response = await fetch(
+        "https://blaybus-glowup.com/reservation",
+        {
+          method: "DELETE",
+          headers: {
+            reservationId: selectedReservation.id,
+          },
         }
-      });
+      );
 
       if (!response.ok) {
         throw new Error("예약 취소에 실패했습니다.");
@@ -83,7 +88,9 @@ const ReservationList = () => {
 
       alert("예약이 취소되었습니다.");
       setShowPopup(false);
-      setReservations(prev => prev.filter(r => r.id !== selectedReservation.id));
+      setReservations((prev) =>
+        prev.filter((r) => r.id !== selectedReservation.id)
+      );
     } catch (error) {
       console.error("예약 취소 실패:", error);
       alert("예약 취소에 실패했습니다.");
@@ -119,7 +126,11 @@ const ReservationList = () => {
                 </div>
                 <div className="info-row">
                   <span>컨설팅 유형</span>
-                  <span>{reservation.meet ? "비대면 컨설팅" : "대면 컨설팅"}</span>
+                  <span>
+                    {reservation.meet
+                      ? "비대면 컨설팅"
+                      : "대면 컨설팅"}
+                  </span>
                 </div>
                 <div className="info-row">
                   <span>날짜</span>
@@ -127,11 +138,15 @@ const ReservationList = () => {
                 </div>
                 <div className="info-row">
                   <span>시간</span>
-                  <span>{`${reservation.start.hour}:${String(reservation.start.minute).padStart(2, '0')}`}</span>
+                  <span>{`${reservation.start.hour}:${String(
+                    reservation.start.minute
+                  ).padStart(2, "0")}`}</span>
                 </div>
                 <div className="info-row">
                   <span>가격</span>
-                  <span>{`${Number(reservation.price).toLocaleString()}원`}</span>
+                  <span>{`${Number(
+                    reservation.price
+                  ).toLocaleString()}원`}</span>
                 </div>
                 {!reservation.meet ? (
                   <div className="info-row">
