@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import Haertz from "../assets/haertz.svg";
-import Users from "../assets/Users.png";
-import Mirroring from "../assets/mirroring.png";
-import Check from "../assets/check.png";
+import Users from "../assets/Users.svg";
+import Mirroring from "../assets/mirroring.svg";
+import Check from "../assets/check.svg";
 import Footer from "../components/Footer";
 import "../styles/MainPage.css";
 
