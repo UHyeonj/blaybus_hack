@@ -26,7 +26,7 @@ const ReservationList = () => {
         console.log(token);
         const response = await fetch("https://blaybus-glowup.com/reservation/user", {
           headers: {
-            "Authorization": `Bearer ${token}`
+            "Authorization": `Bearer ${token}`.trim()
           }
         });
 
