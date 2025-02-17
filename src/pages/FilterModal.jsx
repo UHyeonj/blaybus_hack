@@ -40,10 +40,13 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
             <input
               type="number"
               value={filter.minPrice}
-              onChange={(e) => 
+              onChange={(e) =>
                 setFilter({
                   ...filter,
-                  minPrice: Math.min(parseInt(e.target.value) || 0, filter.maxPrice)
+                  minPrice: Math.min(
+                    parseInt(e.target.value) || 0,
+                    filter.maxPrice
+                  ),
                 })
               }
               placeholder="최소 가격"
@@ -52,10 +55,13 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
             <input
               type="number"
               value={filter.maxPrice}
-              onChange={(e) => 
+              onChange={(e) =>
                 setFilter({
                   ...filter,
-                  maxPrice: Math.max(parseInt(e.target.value) || 0, filter.minPrice)
+                  maxPrice: Math.max(
+                    parseInt(e.target.value) || 0,
+                    filter.minPrice
+                  ),
                 })
               }
               placeholder="최대 가격"
@@ -71,7 +77,10 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               onChange={(e) =>
                 setFilter({
                   ...filter,
-                  minPrice: Math.min(parseInt(e.target.value), filter.maxPrice)
+                  minPrice: Math.min(
+                    parseInt(e.target.value),
+                    filter.maxPrice
+                  ),
                 })
               }
             />
@@ -84,7 +93,10 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               onChange={(e) =>
                 setFilter({
                   ...filter,
-                  maxPrice: Math.max(parseInt(e.target.value), filter.minPrice)
+                  maxPrice: Math.max(
+                    parseInt(e.target.value),
+                    filter.minPrice
+                  ),
                 })
               }
             />
@@ -92,10 +104,13 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
         </div>
 
         {/* 적용 버튼 */}
-        <button className="apply-btn" onClick={() => {
-          onApply(filter);
-          onClose();
-        }}>
+        <button
+          className="apply-btn"
+          onClick={() => {
+            onApply(filter);
+            onClose();
+          }}
+        >
           적용하기
         </button>
 
