@@ -14,14 +14,16 @@ const MyPage = () => {
   // 모발 상태 처리 (다중 선택 가능, '해당 없음' 선택 시 다른 항목 해제)
   const handleHairStateClick = (state) => {
     if (state === "해당 없음") {
-      setHairState(hairState.includes("해당 없음") ? [] : ["해당 없음"]);
+      setHairState(
+        hairState.includes("해당 없음") ? [] : ["해당 없음"]
+      );
     } else {
-      setHairState(prev => {
+      setHairState((prev) => {
         if (prev.includes("해당 없음")) {
           return [state];
         }
         if (prev.includes(state)) {
-          return prev.filter(item => item !== state);
+          return prev.filter((item) => item !== state);
         }
         return [...prev, state];
       });
@@ -35,9 +37,9 @@ const MyPage = () => {
 
   // 원하는 시술 처리 (다중 선택 가능)
   const handleTreatmentClick = (selectedTreatment) => {
-    setTreatment(prev => {
+    setTreatment((prev) => {
       if (prev.includes(selectedTreatment)) {
-        return prev.filter(item => item !== selectedTreatment);
+        return prev.filter((item) => item !== selectedTreatment);
       }
       return [...prev, selectedTreatment];
     });
@@ -65,7 +67,7 @@ const MyPage = () => {
   const deleteCookie = (name, domain) => {
     document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;domain=${domain};`;
   };
-  
+
   const handleLogout = () => {
     const domain = window.location.hostname;
     deleteCookie("access_token", domain);
@@ -84,15 +86,17 @@ const MyPage = () => {
           <p className="section-subtitle">
             회원님에게 딱 맞는 컨설턴트를 추천 받을 수 있어요
           </p>
-          
+
           <div className="divider" />
-          
+
           <h3 className="section-title">모발 상태</h3>
           <div className="button-group">
             {hairStates.map((state) => (
               <button
                 key={state}
-                className={`style-button ${hairState.includes(state) ? 'active' : ''}`}
+                className={`style-button ${
+                  hairState.includes(state) ? "active" : ""
+                }`}
                 onClick={() => handleHairStateClick(state)}
               >
                 {state}
@@ -105,7 +109,9 @@ const MyPage = () => {
             {hairLengths.map((length) => (
               <button
                 key={length}
-                className={`style-button ${hairLength === length ? 'active' : ''}`}
+                className={`style-button ${
+                  hairLength === length ? "active" : ""
+                }`}
                 onClick={() => handleHairLengthClick(length)}
               >
                 {length}
@@ -118,7 +124,9 @@ const MyPage = () => {
             {treatments.map((t) => (
               <button
                 key={t}
-                className={`style-button ${treatment.includes(t) ? 'active' : ''}`}
+                className={`style-button ${
+                  treatment.includes(t) ? "active" : ""
+                }`}
                 onClick={() => handleTreatmentClick(t)}
               >
                 {t}
