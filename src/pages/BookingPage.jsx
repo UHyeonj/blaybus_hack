@@ -16,6 +16,12 @@ const COMPANY_ACCOUNT = {
   accountHolder: "Bliss(김아정)",
 };
 
+const accesstoken = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("access_token="))
+  ?.split("=")[1]
+  ?.trim(); // 앞뒤 공백 제거
+
 function BookingPage() {
   const navigate = useNavigate();
   const { type, designerId } = useParams();
@@ -86,9 +92,7 @@ function BookingPage() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem(
-              "accessToken"
-            )}`,
+            Authorization: `Bearer ${accesstoken}`,
           },
           body: JSON.stringify({
             reservationId: reservationId,
@@ -126,9 +130,7 @@ function BookingPage() {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem(
-                  "accessToken"
-                )}`,
+                Authorization: `Bearer ${accesstoken}`,
               },
               body: JSON.stringify({
                 pgToken,
@@ -168,9 +170,7 @@ function BookingPage() {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem(
-                  "accessToken"
-                )}`,
+                Authorization: `Bearer ${accesstoken}`,
               },
               body: JSON.stringify({
                 reservationId: reservationId,
@@ -207,9 +207,7 @@ function BookingPage() {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem(
-                  "accessToken"
-                )}`,
+                Authorization: `Bearer ${accesstoken}`,
               },
               body: JSON.stringify({
                 reservationId: reservationId,
@@ -381,12 +379,6 @@ function BookingPage() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const accesstoken = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("access_token="))
-          ?.split("=")[1]
-          ?.trim(); // 앞뒤 공백 제거
-
         console.log("Raw Cookies:", document.cookie);
         console.log("Access Token:", accesstoken);
 
