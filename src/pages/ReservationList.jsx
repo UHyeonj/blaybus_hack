@@ -31,6 +31,7 @@ const ReservationList = () => {
         });
 
         if (!response.ok) {
+          console.log(response);
           throw new Error("예약 목록 조회에 실패했습니다.");
         }
 
