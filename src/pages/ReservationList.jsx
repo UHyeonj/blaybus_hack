@@ -14,6 +14,7 @@ const ReservationList = () => {
     const fetchReservations = async () => {
       try {
         const token = document.cookie.split('; ').find(row => row.startsWith('access_token='))?.split('=')[1];
+        console.log(token); 
         const response = await fetch("https://blaybus-glowup.com/reservation/user", {
           headers: {
             "Authorization": `Bearer ${token}`
