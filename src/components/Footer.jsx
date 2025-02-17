@@ -39,8 +39,6 @@ const Footer = () => {
           src={Calendarbtn_gray}
           alt="예약내역조회"
           className="footer-icon"
-          // 예약내역 조회 페이지로 이동
-          // onClick={()=>navigate("/...")}
         />
       </button>
     </div>
