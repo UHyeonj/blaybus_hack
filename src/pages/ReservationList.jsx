@@ -24,18 +24,6 @@ const ReservationList = () => {
           return;
         }
 
-        console.log("Token from cookie: ", token);
-        const arr = {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          },
-          credentials: 'include'
-        };
-        console.log(
-          arr
-        );
         const response = await fetch("https://blaybus-glowup.com/reservation/user", {
           method: "GET",
           headers: {
@@ -53,8 +41,6 @@ const ReservationList = () => {
         }
 
         const data = await response.json();
-        console.log(response);
-        console.log(data);
         setReservations(data);
       } catch (error) {
         console.error("예약 목록 조회 실패:", error);
@@ -110,53 +96,55 @@ const ReservationList = () => {
         </div>
       ) : (
         reservations.map((reservation) => (
-          <div key={reservation.id} className="reservation-card">
-            <div className="reservation-info">
-              <div className="info-row">
-                <span>디자이너</span>
-                <span>{reservation.designerName}</span>
-              </div>
-              <div className="info-row">
-                <span>컨설팅 유형</span>
-                <span>{reservation.meet ? "비대면 컨설팅" : "대면 컨설팅"}</span>
-              </div>
-              <div className="info-row">
-                <span>날짜</span>
-                <span>{reservation.date}</span>
-              </div>
-              <div className="info-row">
-                <span>시간</span>
-                <span>{`${reservation.start.hour}:${String(reservation.start.minute).padStart(2, '0')}`}</span>
-              </div>
-              <div className="info-row">
-                <span>가격</span>
-                <span>{`${Number(reservation.price).toLocaleString()}원`}</span>
-              </div>
-              {!reservation.meet ? (
+          <div key={reservation.id} className="reservation-wrapper">
+            <div className="reservation-card">
+              <div className="reservation-info">
                 <div className="info-row">
-                  <span>컨설팅 위치</span>
-                  <span>{reservation.shop}</span>
+                  <span>디자이너</span>
+                  <span>{reservation.designerName}</span>
                 </div>
-              ) : (
                 <div className="info-row">
-                  <span>미팅 링크</span>
-                  <a
-                    href={reservation.meetLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="meet-link"
-                  >
-                    구글 미팅 참여하기
-                  </a>
+                  <span>컨설팅 유형</span>
+                  <span>{reservation.meet ? "비대면 컨설팅" : "대면 컨설팅"}</span>
                 </div>
-              )}
+                <div className="info-row">
+                  <span>날짜</span>
+                  <span>{reservation.date}</span>
+                </div>
+                <div className="info-row">
+                  <span>시간</span>
+                  <span>{`${reservation.start.hour}:${String(reservation.start.minute).padStart(2, '0')}`}</span>
+                </div>
+                <div className="info-row">
+                  <span>가격</span>
+                  <span>{`${Number(reservation.price).toLocaleString()}원`}</span>
+                </div>
+                {!reservation.meet ? (
+                  <div className="info-row">
+                    <span>컨설팅 위치</span>
+                    <span>{reservation.shop}</span>
+                  </div>
+                ) : (
+                  <div className="info-row">
+                    <span>미팅 링크</span>
+                    <a
+                      href={reservation.meetLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="meet-link"
+                    >
+                      구글 미팅 참여하기
+                    </a>
+                  </div>
+                )}
+              </div>
+              <button
+                className="cancel-button"
+                onClick={() => handleCancelClick(reservation)}
+              >
+                예약 취소
+              </button>
             </div>
-            <button
-              className="cancel-button"
-              onClick={() => handleCancelClick(reservation)}
-            >
-              예약 취소
-            </button>
           </div>
         ))
       )}
