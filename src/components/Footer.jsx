@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import homebtn_red from "./../assets/homebtn_red.png";
+import homebtn_blue from "./../assets/homebtn_blue.png";
 import mypagebtn_gray from "./../assets/mypagebtn_gray.png";
 import Calendarbtn_gray from "./../assets/Calendarbtn_gray.png";
 import "../styles/Footer.css";
@@ -14,7 +14,7 @@ const Footer = () => {
         onClick={() => navigate("/main")}
       >
         <img
-          src={homebtn_red}
+          src={homebtn_blue}
           alt="홈 이동"
           className="footer-icon"
         />
