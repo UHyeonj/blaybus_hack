@@ -5,6 +5,11 @@
   max-width: 600px;
   margin: 0 auto;
   min-height: 100vh;
+  background: radial-gradient(
+    circle at center right,
+    rgba(98, 142, 205, 1),
+    rgba(213, 222, 239, 1)
+  );
 }
 
 .designer-detail-container .header {
@@ -166,7 +171,7 @@
 .designer-detail-container .booking-button {
   width: 95%;
   padding: 16px;
-  background-color: #e4788b;
+  background-color: #5a6ed5;
   color: white;
   border: none;
   border-radius: 48px;
@@ -370,7 +375,7 @@
 }
 
 .proceed-booking-button:hover {
-  background-color: #ff5252;
+  background-color: #5a6ed5;
 }
 
 /* DatePicker 선택된 날짜 스타일 */
