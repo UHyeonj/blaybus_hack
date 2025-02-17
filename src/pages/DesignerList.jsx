@@ -25,7 +25,7 @@ function DesignerList() {
     maxPrice: 200000,
   });
 
-  console.log(document.cookie);
+  console.log(accesstoken);
 
   useEffect(() => {
     const fetchDesigners = async () => {
