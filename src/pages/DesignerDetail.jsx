@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/locale";
 
-import location from "./../assets/location.png";
+import location from "./../assets/location.svg";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
