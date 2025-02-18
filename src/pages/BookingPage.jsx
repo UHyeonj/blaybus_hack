@@ -331,7 +331,7 @@ function BookingPage() {
             : designer.price.online.toString(),
       };
 
-      console.log(reservationData);
+      console.log(`reservationData : ${reservationData}`);
 
       const response = await fetch(
         "https://blaybus-glowup.com/reservation/create",
