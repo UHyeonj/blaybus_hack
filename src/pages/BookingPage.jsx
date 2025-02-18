@@ -84,7 +84,8 @@ function BookingPage() {
   maxDate.setMonth(maxDate.getMonth() + 3);
 
   // 카카오페이 결제 준비
-  const handleKakaoPayment = async (reservationId) => {
+  const handleKakaoPayment = async (data) => {
+    console.log(data);
     try {
       const response = await fetch(
         "https://blaybus-glowup.com/payment/kakao/ready",
@@ -345,7 +346,7 @@ function BookingPage() {
     
       // 3. 결제 방식에 따른 처리
       if (paymentMethod === "kakaopay") {
-        handleKakaoPayment(data.reservationId);
+        handleKakaoPayment(data);
       } else {
         setShowPaymentModal(false);
         setShowConfirmModal(true);
