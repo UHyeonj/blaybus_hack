@@ -69,6 +69,7 @@ const ReservationList = () => {
 
   // 예약 취소
   const handleRCancelClick = async () => {
+    console.log(selectedReservation.id);
 
     if (!selectedReservation) return;
 
