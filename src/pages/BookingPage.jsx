@@ -139,8 +139,9 @@ function BookingPage() {
                 Authorization: `Bearer ${accesstoken}`,
               },
               body: JSON.stringify({
-                pgToken,
-                reservationId: reservationId,
+                partnerOrderId: data.reservationId, // 예약 ID
+                partnerUserId: data.userId,         // 사용자 ID
+                pgToken: pgToken                    // 결제 승인 토큰
               }),
             }
           );
