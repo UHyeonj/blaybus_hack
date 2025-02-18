@@ -354,6 +354,7 @@ function BookingPage() {
 
       const data = await response.json();
       console.log("예약 생성 성공:", data);
+      console.log(data.method);
 
       // 2. 온라인 컨설팅인 경우 구글 미팅 생성
       if (type === "online") {
