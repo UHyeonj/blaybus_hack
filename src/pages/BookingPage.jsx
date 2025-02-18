@@ -136,6 +136,8 @@ function BookingPage() {
             {
               method: "POST",
               headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accesstoken}`,
               },
               body: JSON.stringify({
                 partnerOrderId: data.reservationId, // 예약 ID
