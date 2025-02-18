@@ -124,7 +124,7 @@ const ReservationList = () => {
               <div className="reservation-info">
                 <div className="info-row">
                   <span>디자이너</span>
-                  <span>{reservation.designerName}</span>
+                  <span>{reservation.designerId}</span>
                 </div>
                 <div className="info-row">
                   <span>컨설팅 유형</span>
