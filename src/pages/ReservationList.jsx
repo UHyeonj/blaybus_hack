@@ -139,11 +139,9 @@ const ReservationList = () => {
                   <span>{reservation.date}</span>
                 </div>
                 <div className="info-row">
-                  <span>시간</span>
-                  <span>{`${reservation.start.hour}:${String(
-                    reservation.start.minute
-                  ).padStart(2, "0")}`}</span>
-                </div>
+  <span>시간</span>
+  <span>{`${reservation.start.slice(0, 5)} ~ ${reservation.end.slice(0, 5)}`}</span>
+</div>
                 <div className="info-row">
                   <span>가격</span>
                   <span>{`${Number(
