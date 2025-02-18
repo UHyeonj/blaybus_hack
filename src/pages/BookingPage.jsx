@@ -241,7 +241,7 @@ function BookingPage() {
   // Google Meet 링크 생성 함수 수정
   const createGoogleMeetEvent = async (data) => {
     try {
-      console.log(data)
+      console.log(data);
       const token = accesstoken;
       const response = await fetch(
         "https://blaybus-glowup.com/api/google-calendar/create-event-with-meeting",
@@ -255,29 +255,24 @@ function BookingPage() {
             reservationId: data.reservationId,
             userId: data.userId,
             summary: `컨설팅 예약 - ${data.shop}`,
-            startTime: `${
-              selectedDateState.toISOString().split("T")[0]
-            }T${selectedTimeState}:00`,
-            endTime: `${
-              selectedDateState.toISOString().split("T")[0]
-            }T${parseInt(selectedTimeState.split(":")[0]) + 1}:${
-              selectedTimeState.split(":")[1]
-            }:00`,
+            startTime: `${selectedDateState.toISOString().split("T")[0]}T${selectedTimeState}:00`,
+            endTime: `${selectedDateState.toISOString().split("T")[0]}T${parseInt(selectedTimeState.split(":")[0]) + 1}:${selectedTimeState.split(":")[1]}:00`,
           }),
         }
       );
-
+  
       if (!response.ok) {
         throw new Error("Google Meet 링크 생성에 실패했습니다.");
       }
-
-      const data = await response.json();
-      return data.meetLink;
+  
+      const responseData = await response.json(); // 'data' 대신 'responseData'
+      return responseData.meetLink; // 여기에 반환되는 링크를 설정
     } catch (error) {
       console.error("Google Meet 링크 생성 중 오류:", error);
       return null;
     }
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
