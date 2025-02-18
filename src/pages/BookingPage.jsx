@@ -241,6 +241,7 @@ function BookingPage() {
   // Google Meet 링크 생성 함수 수정
   const createGoogleMeetEvent = async (data) => {
     try {
+      console.log(data)
       const token = accesstoken;
       const response = await fetch(
         "https://blaybus-glowup.com/api/google-calendar/create-event-with-meeting",
