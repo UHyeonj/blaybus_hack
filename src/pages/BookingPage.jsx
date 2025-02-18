@@ -239,7 +239,7 @@ function BookingPage() {
   }, []);
 
   // Google Meet 링크 생성 함수 수정
-  const createGoogleMeetEvent = async (reservationId) => {
+  const createGoogleMeetEvent = async (data) => {
     try {
       const token = accesstoken;
       const response = await fetch(
@@ -251,9 +251,9 @@ function BookingPage() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            reservationId: reservationId,
-            summary: `컨설팅 예약 - ${designer.name}`,
-            description: `화상 컨설팅\n디자이너: ${designer.name}`,
+            reservationId: data.reservationId,
+            userId: data.userId,
+            summary: `컨설팅 예약 - ${data.shop}`,
             startTime: `${
               selectedDateState.toISOString().split("T")[0]
             }T${selectedTimeState}:00`,
@@ -344,7 +344,7 @@ function BookingPage() {
       // 2. 온라인 컨설팅인 경우 구글 미팅 생성
       if (type === "online") {
         const meetLink = await createGoogleMeetEvent(
-          data.reservationId
+          data
         );
         if (meetLink) {
           setGoogleMeetLink(meetLink);
