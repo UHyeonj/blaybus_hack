@@ -294,22 +294,23 @@ function BookingPage() {
 
     try {
       // 1. 예약 생성
+      const selectedDateString = selectedDate.toISOString(); // selectedDate를 문자열로 변환
+    
       const reservationData = {
         designerId: designerId,
         meet: type === "online",
-        date: selectedDate.toISOString().split("T")[0],
+        date: selectedDateString.split("T")[0], // 'T' 기준으로 날짜만 추출
         start: `${selectedTimeState}:00`,
-        end: `${parseInt(selectedTimeState.split(":")[0]) + 1}:${
-          selectedDate.split(":")[1]
-        }:00`,
+        end: `${parseInt(selectedTimeState.split(":")[0]) + 1}:${selectedTimeState.split(":")[1]}:00`, // 시간, 분 추출
         shop: designer.address,
         price:
           type === "offline"
             ? designer.price.offline.toString()
             : designer.price.online.toString(),
       };
+      
       console.log(reservationData);
-
+    
       const response = await fetch(
         "https://blaybus-glowup.com/reservation/create",
         {
@@ -321,17 +322,17 @@ function BookingPage() {
           body: JSON.stringify(reservationData),
         }
       );
-
+    
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
           errorData.message || "예약 생성에 실패했습니다."
         );
       }
-
+    
       const data = await response.json();
       console.log("예약 생성 성공:", data);
-
+    
       // 2. 온라인 컨설팅인 경우 구글 미팅 생성
       if (type === "online") {
         const meetLink = await createGoogleMeetEvent(
@@ -341,7 +342,7 @@ function BookingPage() {
           setGoogleMeetLink(meetLink);
         }
       }
-
+    
       // 3. 결제 방식에 따른 처리
       if (paymentMethod === "kakaopay") {
         handleKakaoPayment(data.reservationId);
@@ -353,6 +354,7 @@ function BookingPage() {
       console.error("예약 생성 중 오류:", error);
       alert(error.message || "예약 생성 중 오류가 발생했습니다.");
     }
+    
   };
 
   // 예약 내역 페이지로 이동하는 함수 추가
