@@ -1,6 +1,6 @@
 import GoogleLogin from "./GoogleLogin";
 import BackgroundCircle from "./BackgroundCircle";
-import logo from "../assets/logo.svg";
+import logo from "../assets/logo.png";
 import haertz from "../assets/haertz.svg";
 import "../styles/Login.css";
 
