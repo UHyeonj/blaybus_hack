@@ -134,7 +134,7 @@ function BookingPage() {
     const pgToken = urlParams.get("pg_token");
 
     if (pgToken) {
-      const approveKakaoPayment = async () => {
+      const approveKakaoPayment = async (data) => {
         try {
           console.log({
             partnerOrderId: data.reservationId, // 예약 ID
