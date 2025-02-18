@@ -136,7 +136,11 @@ function BookingPage() {
     if (pgToken) {
       const approveKakaoPayment = async () => {
         try {
-          console.log(data);
+          console.log({
+            partnerOrderId: data.reservationId, // 예약 ID
+            partnerUserId: data.userId,         // 사용자 ID
+            pgToken: pgToken                    // 결제 승인 토큰
+          });
           const response = await fetch(
             "https://blaybus-glowup.com/payment/kakao/success",
             {
