@@ -29,6 +29,7 @@ const google_oauth_token = document.cookie
   ?.trim(); // 앞뒤 공백 제거
 
 function BookingPage() {
+  console.log(1);
   const navigate = useNavigate();
   const { type, designerId } = useParams();
   const location = useLocation();
