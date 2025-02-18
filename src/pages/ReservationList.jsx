@@ -72,11 +72,24 @@ const ReservationList = () => {
     if (!selectedReservation) return;
 
     try {
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("access_token="))
+        ?.split("=")[1]
+        ?.trim(); // 앞뒤 공백 제거
+
+      if (!token) {
+        alert("로그인이 필요합니다.");
+        navigate("/login");
+        return;
+      }
+
       const response = await fetch(
         "https://blaybus-glowup.com/reservation",
         {
           method: "DELETE",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
@@ -99,6 +112,7 @@ const ReservationList = () => {
       alert("예약 취소에 실패했습니다.");
     }
   };
+
   const handleCancelClick = (reservation) => {
     setSelectedReservation(reservation);
     setShowPopup(true);
@@ -139,9 +153,12 @@ const ReservationList = () => {
                   <span>{reservation.date}</span>
                 </div>
                 <div className="info-row">
-  <span>시간</span>
-  <span>{`${reservation.start.slice(0, 5)} ~ ${reservation.end.slice(0, 5)}`}</span>
-</div>
+                  <span>시간</span>
+                  <span>{`${reservation.start.slice(
+                    0,
+                    5
+                  )} ~ ${reservation.end.slice(0, 5)}`}</span>
+                </div>
                 <div className="info-row">
                   <span>가격</span>
                   <span>{`${Number(
