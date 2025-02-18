@@ -22,6 +22,12 @@ const accesstoken = document.cookie
   ?.split("=")[1]
   ?.trim(); // 앞뒤 공백 제거
 
+const google_oauth_token = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("google_oauth_token="))
+  ?.split("=")[1]
+  ?.trim(); // 앞뒤 공백 제거
+
 function BookingPage() {
   const navigate = useNavigate();
   const { type, designerId } = useParams();
@@ -242,7 +248,7 @@ function BookingPage() {
   const createGoogleMeetEvent = async (data) => {
     try {
       console.log(data);
-      const token = accesstoken;
+      const token = google_oauth_token;
       const response = await fetch(
         "https://blaybus-glowup.com/api/google-calendar/create-event-with-meeting",
         {
