@@ -12,7 +12,9 @@ const Footer = () => {
   const location = useLocation();
 
   const getButtonImage = (path, blueImage, grayImage) => {
-    return location.pathname === path ? blueImage : grayImage;
+    return location.pathname === path || location.pathname === "/main"
+      ? blueImage
+      : grayImage;
   };
 
   return (
