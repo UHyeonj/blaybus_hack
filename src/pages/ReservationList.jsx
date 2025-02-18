@@ -74,13 +74,26 @@ const ReservationList = () => {
     if (!selectedReservation) return;
 
     try {
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("access_token="))
+        ?.split("=")[1]
+        ?.trim(); // 앞뒤 공백 제거
+
+      if (!token) {
+        alert("로그인이 필요합니다.");
+        navigate("/login");
+        return;
+      }
+
       const response = await fetch(
-        "https://blaybus-glowup.com/reservation",
+        `https://blaybus-glowup.com/reservation?reservationId=${selectedReservation.id}`,
         {
           method: "DELETE",
           headers: {
-            reservationId: selectedReservation.id,
+            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
