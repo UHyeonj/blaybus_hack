@@ -9,7 +9,7 @@ function Kakaopayment() {
         const urlParams = new URLSearchParams(window.location.search);
         const pgToken = urlParams.get("pg_token");
 
-        await fetch("/kakao/payment/success", {
+        await fetch("https://blaybus-glowup.com/kakao/payment/success", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -24,7 +24,7 @@ function Kakaopayment() {
         navigate("/reservations");
     };
 
-    return <button onClick={handlePaymentSuccess}>결제 완료</button>;
+    return (<button onClick={handlePaymentSuccess}>결제 완료</button>);
 }
 
 export default Kakaopayment;
