@@ -11,8 +11,16 @@ const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const getButtonImage = (path, blueImage, grayImage) => {
-    return location.pathname === path ? blueImage : grayImage;
+  const getButtonImage = (path) => {
+    if (location.pathname === "/mypage") {
+      return path === "/mypage" ? mypagebtn_blue : mypagebtn_gray;
+    } else if (location.pathname === "/reservations") {
+      return path === "/reservations"
+        ? calendarbtn_blue
+        : calendarbtn_gray;
+    } else {
+      return path === "/main" ? homebtn_blue : homebtn_gray;
+    }
   };
 
   return (
@@ -23,7 +31,7 @@ const Footer = () => {
         onClick={() => navigate("/main")}
       >
         <img
-          src={getButtonImage("/main", homebtn_blue, homebtn_gray)}
+          src={getButtonImage("/main")}
           alt="홈 이동"
           className="footer-icon"
         />
@@ -34,11 +42,7 @@ const Footer = () => {
         onClick={() => navigate("/mypage")}
       >
         <img
-          src={getButtonImage(
-            "/mypage",
-            mypagebtn_blue,
-            mypagebtn_gray
-          )}
+          src={getButtonImage("/mypage")}
           alt="마이페이지 이동"
           className="footer-icon"
         />
@@ -49,11 +53,7 @@ const Footer = () => {
         onClick={() => navigate("/reservations")}
       >
         <img
-          src={getButtonImage(
-            "/reservations",
-            calendarbtn_blue,
-            calendarbtn_gray
-          )}
+          src={getButtonImage("/reservations")}
           alt="예약내역조회"
           className="footer-icon"
         />
