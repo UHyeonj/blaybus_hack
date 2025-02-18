@@ -10,8 +10,8 @@
   /* 자연스러운 색상 퍼짐을 위한 radial-gradient */
   background: radial-gradient(
     circle,
-    rgba(255, 182, 193, 0.6) 20%,
-    rgba(255, 182, 193, 0.3) 50%,
+    rgba(98, 142, 205, 1) 20%,
+    rgba(213, 222, 239, 1) 50%,
     rgba(255, 255, 255, 0) 100%
   );
 

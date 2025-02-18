@@ -35,6 +35,17 @@ body {
   line-height: 2.5rem;
 }
 
+.login-brandimage {
+  width: 327px;
+  height: 31px;
+  margin-bottom: 30px;
+}
+
+.login-logoimage {
+  width: 327px;
+  height: 327px;
+}
+
 .first_state {
   margin-top: 2rem;
 }

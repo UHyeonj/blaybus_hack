@@ -297,19 +297,11 @@ function BookingPage() {
       const reservationData = {
         designerId: designerId,
         meet: type === "online",
-        date: selectedDateState.toISOString().split("T")[0],
-        start: {
-          hour: parseInt(selectedTimeState.split(":")[0]),
-          minute: parseInt(selectedTimeState.split(":")[1]),
-          second: 0,
-          nano: 0,
-        },
-        end: {
-          hour: parseInt(selectedTimeState.split(":")[0]) + 1,
-          minute: parseInt(selectedTimeState.split(":")[1]),
-          second: 0,
-          nano: 0,
-        },
+        date: selectedDate.toISOString().split("T")[0],
+        start: `${selectedTimeState}:00`,
+        end: `${parseInt(selectedTimeState.split(":")[0]) + 1}:${
+          selectedDate.split(":")[1]
+        }:00`,
         shop: designer.address,
         price:
           type === "offline"

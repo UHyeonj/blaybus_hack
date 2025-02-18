@@ -1,13 +1,14 @@
 import GoogleLogin from "./GoogleLogin";
 import BackgroundCircle from "./BackgroundCircle";
-import Header from "../components/Header";
+import logo from "../assets/logo.svg";
+import haertz from "../assets/haertz.svg";
 import "../styles/Login.css";
 
 function Login() {
   return (
     <div className="main_container">
-      <img src="https://placehold.co/327x31" />
-      <img src="https://placehold.co/327x327" />
+      <img className="login-brandimage" src={haertz} />
+      <img className="login-logoimage" src={logo} />
       <span className="first_state">당신만을 위한 헤어 컨설팅,</span>
       <span className="second_state">오직 헤르츠에서</span>
       <GoogleLogin />
