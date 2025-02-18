@@ -69,6 +69,8 @@ const ReservationList = () => {
 
   // 예약 취소
   const handleRCancelClick = async () => {
+    console.log(selectedReservation.id);
+
     if (!selectedReservation) return;
 
     try {
@@ -77,11 +79,8 @@ const ReservationList = () => {
         {
           method: "DELETE",
           headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
             reservationId: selectedReservation.id,
-          }),
+          },
         }
       );
 
@@ -141,10 +140,9 @@ const ReservationList = () => {
                 </div>
                 <div className="info-row">
                   <span>시간</span>
-                  <span>{`${reservation.start.slice(
-                    0,
-                    5
-                  )} ~ ${reservation.end.slice(0, 5)}`}</span>
+                  <span>{`${reservation.start.hour}:${String(
+                    reservation.start.minute
+                  ).padStart(2, "0")}`}</span>
                 </div>
                 <div className="info-row">
                   <span>가격</span>
