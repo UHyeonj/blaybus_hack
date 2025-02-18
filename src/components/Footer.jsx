@@ -11,6 +11,7 @@ const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // 페이지별 푸터 디자인 변경
   const getButtonImage = (path, blueImage, grayImage) => {
     return location.pathname === path ? blueImage : grayImage;
   };
