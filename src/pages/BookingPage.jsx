@@ -96,19 +96,23 @@ function BookingPage() {
             Authorization: `Bearer ${accesstoken}`,
           },
           body: JSON.stringify({
-            reservationId: reservationId,
-            amount:
-              type === "offline"
-                ? designer.price.offline
-                : designer.price.online,
+            partnerOrderId: data.reservationId, // 예약 ID를 partnerOrderId로 사용
+            partnerUserId: data.userId, // 사용자 ID
+            itemName: "헤어 컨설팅 서비스", // 서비스명 (이 예시에서는 '헤어 컨설팅 서비스')
+            totalAmount: data.price, // 결제 금액
+            vatAmount: "0", // 부가세 (여기서는 0으로 설정)
+            taxFreeAmount: "0", // 면세 금액 (여기서는 0으로 설정)
+            approvalUrl: "https://blaybus-glowup.com/payment/success", // 결제 성공 시 리디렉션 URL
+            failUrl: "https://blaybus-glowup.com/payment/fail", // 결제 실패 시 리디렉션 URL
+            cancelUrl: "https://blaybus-glowup.com/payment/cancel", // 결제 취소 시 리디렉션 URL
           }),
         }
       );
-
+  
       if (!response.ok) {
         throw new Error("카카오페이 결제 준비에 실패했습니다");
       }
-
+  
       const paymentData = await response.json();
       window.location.href = paymentData.next_redirect_pc_url;
     } catch (error) {
@@ -116,6 +120,7 @@ function BookingPage() {
       alert("카카오페이 결제 처리 중 오류가 발생했습니다");
     }
   };
+  
 
   // 카카오페이 결제 승인
   useEffect(() => {
