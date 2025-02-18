@@ -130,6 +130,7 @@ function BookingPage() {
     if (pgToken) {
       const approveKakaoPayment = async () => {
         try {
+          console.log(data);
           const response = await fetch(
             "https://blaybus-glowup.com/payment/kakao/success",
             {
@@ -579,7 +580,7 @@ function BookingPage() {
               </button>
             </div>
           </div>
-        </div>
+        </div> 
       )}
     </div>
   );
