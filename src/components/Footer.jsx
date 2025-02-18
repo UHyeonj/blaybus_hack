@@ -11,23 +11,8 @@ const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const getButtonImage = (path) => {
-    if (location.pathname === "/mypage") {
-      return path === "/mypage" ? mypagebtn_blue : mypagebtn_gray;
-    } else if (location.pathname === "/reservations") {
-      return path === "/reservations"
-        ? calendarbtn_blue
-        : calendarbtn_gray;
-    } else {
-      return path === "/main" ? homebtn_blue : homebtn_gray;
-    }
-  };
-
-  const getHomeButtonImage = () => {
-    return location.pathname === "/mypage" ||
-      location.pathname === "/reservations"
-      ? homebtn_gray
-      : homebtn_blue;
+  const getButtonImage = (path, blueImage, grayImage) => {
+    return location.pathname === path ? blueImage : grayImage;
   };
 
   return (
@@ -38,7 +23,7 @@ const Footer = () => {
         onClick={() => navigate("/main")}
       >
         <img
-          src={getHomeButtonImage()}
+          src={getButtonImage("/main", homebtn_blue, homebtn_gray)}
           alt="홈 이동"
           className="footer-icon"
         />
@@ -49,7 +34,11 @@ const Footer = () => {
         onClick={() => navigate("/mypage")}
       >
         <img
-          src={getButtonImage("/mypage")}
+          src={getButtonImage(
+            "/mypage",
+            mypagebtn_blue,
+            mypagebtn_gray
+          )}
           alt="마이페이지 이동"
           className="footer-icon"
         />
@@ -60,7 +49,11 @@ const Footer = () => {
         onClick={() => navigate("/reservations")}
       >
         <img
-          src={getButtonImage("/reservations")}
+          src={getButtonImage(
+            "/reservations",
+            calendarbtn_blue,
+            calendarbtn_gray
+          )}
           alt="예약내역조회"
           className="footer-icon"
         />
