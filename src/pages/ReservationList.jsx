@@ -75,7 +75,7 @@ const ReservationList = () => {
 
     try {
       const response = await fetch(
-        "https://blaybus-glowup.com/reservation",
+        `https://blaybus-glowup.com/reservation?reservationId=${selectedReservation.id}`,
         {
           method: "DELETE",
           headers: {
@@ -140,7 +140,10 @@ const ReservationList = () => {
                 </div>
                 <div className="info-row">
                   <span>시간</span>
-                  <span>{`${reservation.start.slice(0, 5)} ~ ${reservation.end.slice(0, 5)}`}</span>
+                  <span>{`${reservation.start.slice(
+                    0,
+                    5
+                  )} ~ ${reservation.end.slice(0, 5)}`}</span>
                 </div>
                 <div className="info-row">
                   <span>가격</span>
