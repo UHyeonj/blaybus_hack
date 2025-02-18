@@ -108,7 +108,7 @@ function BookingPage() {
             totalAmount: data.price, // 결제 금액
             vatAmount: "0", // 부가세 (여기서는 0으로 설정)
             taxFreeAmount: "0", // 면세 금액 (여기서는 0으로 설정)
-            approvalUrl: "https://uhyeon.blaybus-glowup.com/login", // 결제 성공 시 리디렉션 URL
+            approvalUrl: "https://blaybus-glowup.com/payment/success", // 결제 성공 시 리디렉션 URL
             failUrl: "https://blaybus-glowup.com/payment/fail", // 결제 실패 시 리디렉션 URL
             cancelUrl: "https://blaybus-glowup.com/payment/cancel", // 결제 취소 시 리디렉션 URL
           }),
