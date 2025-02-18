@@ -61,7 +61,7 @@ body {
 }
 
 .google_login_link {
-  color: var(--brand-e-35-a-80, #e35a80);
+  color: var(--brand-e-35-a-80, #5a6ed5);
   font-family: Inter;
   font-size: 0.7rem;
   font-style: normal;
