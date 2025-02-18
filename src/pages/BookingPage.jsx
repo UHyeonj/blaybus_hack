@@ -346,6 +346,7 @@ function BookingPage() {
     
       // 3. 결제 방식에 따른 처리
       if (paymentMethod === "kakaopay") {
+        console.log(data);
         handleKakaoPayment(data);
       } else {
         setShowPaymentModal(false);
