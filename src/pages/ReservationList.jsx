@@ -91,7 +91,7 @@ const ReservationList = () => {
         {
           method: "DELETE",
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: selectedReservation.id,
           },
           credentials: "include",
         }
