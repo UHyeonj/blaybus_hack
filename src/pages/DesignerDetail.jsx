@@ -154,7 +154,7 @@ function DesignerDetail() {
         <div className="designer-detail-portfolio">
           <h2>Before & After</h2>
           <div className="portfolio-list">
-            {designer.portfolios.map((image, index) => (
+            {designer.videos.map((image, index) => (
               <div key={index} className="portfolio-item">
                 <img
                   src={image}
