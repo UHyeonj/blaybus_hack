@@ -10,6 +10,7 @@ import BookingPage from "./pages/BookingPage";
 import ReservationList from "./pages/ReservationList";
 import DesignerDetail from "./pages/DesignerDetail";
 import MyPage from "./pages/MyPage";
+import Kakaopayment from "./pages/Kakaopayment";
 import "./App.css";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           element={<DesignerDetail />}
         />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/Kakaopayment" element={<Kakaopayment />} />
       </Routes>
     </Router>
   );
