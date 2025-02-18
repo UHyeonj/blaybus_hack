@@ -12,6 +12,8 @@ import DesignerDetail from "./pages/DesignerDetail";
 import MyPage from "./pages/MyPage";
 import Kakaopayment from "./pages/Kakaopayment";
 import "./App.css";
+//주석
+console.log("의미없음");
 
 function App() {
   return (
