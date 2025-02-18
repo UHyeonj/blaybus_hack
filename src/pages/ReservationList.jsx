@@ -75,7 +75,7 @@ const ReservationList = () => {
 
     try {
       const response = await fetch(
-        `https://blaybus-glowup.com/reservation?reservationId=${selectedReservation.id}`,
+        "https://blaybus-glowup.com/reservation",
         {
           method: "DELETE",
           headers: {
