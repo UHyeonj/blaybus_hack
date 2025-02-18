@@ -69,8 +69,6 @@ const ReservationList = () => {
 
   // 예약 취소
   const handleRCancelClick = async () => {
-    console.log(selectedReservation.id);
-
     if (!selectedReservation) return;
 
     try {
@@ -79,8 +77,11 @@ const ReservationList = () => {
         {
           method: "DELETE",
           headers: {
-            reservationId: selectedReservation.id,
+            "Content-Type": "application/json",
           },
+          body: JSON.stringify({
+            reservationId: selectedReservation.id,
+          }),
         }
       );
 
@@ -98,7 +99,6 @@ const ReservationList = () => {
       alert("예약 취소에 실패했습니다.");
     }
   };
-
   const handleCancelClick = (reservation) => {
     setSelectedReservation(reservation);
     setShowPopup(true);
