@@ -170,7 +170,7 @@ const ReservationList = () => {
                   <div className="info-row">
                     <span>미팅 링크</span>
                     <a
-                      href={reservation.meetLink}
+                      href={reservation.googleMeetUri}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="meet-link"
