@@ -114,7 +114,9 @@ function DesignerDetail() {
             className="designer-detail-image"
           />
           <div className="designer-info">
-            <p className="specialty">{designer.field}</p>
+            <p className="specialty" data-field={designer.field}>
+              {designer.field}
+            </p>
             <h1>{designer.name}</h1>
             <p className="area">
               <img src={location} alt="location icon" />

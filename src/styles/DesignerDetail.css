@@ -50,18 +50,32 @@
   width: 150px;
 }
 
-/* 디자이너 특기 */
+/* 디자이너 특기 기본 스타일 */
 .designer-info .specialty {
   margin-bottom: 4px;
   width: 34px;
   padding-top: 1px;
   padding-bottom: 1px;
-  background-color: #888ef1;
   color: #ffffff;
   border-radius: 48px;
   border: none;
   text-align: center;
   font-size: 10px;
+}
+
+/* 펌 태그 - 기존 색상 유지 */
+.designer-info .specialty[data-field="펌"] {
+  background-color: #888ef1;
+}
+
+/* 탈염색 태그 */
+.designer-info .specialty[data-field="탈염색"] {
+  background-color: #BF87DC;
+}
+
+/* 염색 태그 */
+.designer-info .specialty[data-field="염색"] {
+  background-color: #DD7592;
 }
 
 /* 디자이너 이름 */
