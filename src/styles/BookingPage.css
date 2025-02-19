@@ -10,7 +10,7 @@
   font-size: 32px;
   font-weight: bold;
   color: #090A0A;
-  margin: 77px 20px 43px 20px;  /* 상단 77px, 좌우 20px, 하단 43px로 변경 */
+  margin: 77px 20px 43px 20px;
   text-align: center;
 }
 
@@ -810,12 +810,13 @@
 }
 
 .account-transfer-info {
-  border-bottom: 1px solid #eee;
-  margin-bottom: 16px;
-  padding-bottom: 16px;
+  margin: 0 20px 32px 20px;  /* booking-info와의 간격 조정 */
   text-align: center;
 }
 
-.account-transfer-info .info-item:last-child {
-  border-bottom: none;
+.account-transfer-info span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #333;
 }
