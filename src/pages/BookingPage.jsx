@@ -320,9 +320,20 @@ function BookingPage() {
         meet: type === "online",
         date: selectedDateString.split("T")[0], // 'T' 기준으로 날짜만 추출
         start: `${selectedTimeState}:00`,
-        end: `${parseInt(selectedTimeState.split(":")[0]) + 1}:${
-          selectedTimeState.split(":")[1]
-        }:00`, // 시간, 분 추출
+        end: (() => {
+          const [hours, minutes] = selectedTimeState
+            .split(":")
+            .map(Number);
+          const newMinutes = minutes + 30;
+          const newHours = newMinutes >= 60 ? hours + 1 : hours;
+          const finalMinutes =
+            newMinutes >= 60 ? newMinutes - 60 : newMinutes;
+          return `${newHours
+            .toString()
+            .padStart(2, "0")}:${finalMinutes
+            .toString()
+            .padStart(2, "0")}:00`;
+        })(), // 시간, 분 추출
         shop: designer.address,
         method:
           paymentMethod === "kakaopay" ? "KAKAOPAY" : "BANK_TRANSFER",
