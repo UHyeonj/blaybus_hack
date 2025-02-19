@@ -298,86 +298,50 @@ function BookingPage() {
     setShowConfirmation(true);
   };
 
-  const [isProcessing, setIsProcessing] = useState(false);
-
-const handleConfirm = async () => {
-  if (isProcessing) return; // 이미 결제 요청 중이면 무시
-  setIsProcessing(true); // 버튼 비활성화
-
-  if (!paymentMethod) {
-    alert("결제 방식을 선택해주세요.");
-    setIsProcessing(false);
-    return;
-  }
-
-  const token = accesstoken;
-  if (!token) {
-    alert("로그인이 필요합니다.");
-    navigate("/login");
-    setIsProcessing(false);
-    return;
-  }
-
-  try {
-    const selectedDateString = selectedDate.toISOString();
-    const reservationData = {
-      designerId: designerId,
-      meet: type === "online",
-      date: selectedDateString.split("T")[0],
-      start: `${selectedTimeState}:00`,
-      end: (() => {
-        const [hours, minutes] = selectedTimeState.split(":").map(Number);
-        const newMinutes = minutes + 30;
-        const newHours = newMinutes >= 60 ? hours + 1 : hours;
-        const finalMinutes = newMinutes >= 60 ? newMinutes - 60 : newMinutes;
-        return `${newHours.toString().padStart(2, "0")}:${finalMinutes.toString().padStart(2, "0")}:00`;
-      })(),
-      shop: designer.address,
-      method: paymentMethod === "kakaopay" ? "KAKAOPAY" : "BANK_TRANSFER",
-      price: type === "offline" ? designer.price.offline.toString() : designer.price.online.toString(),
-    };
-
-    const response = await fetch("https://blaybus-glowup.com/reservation/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(reservationData),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "예약 생성에 실패했습니다.");
+  const handleConfirm = async () => {
+    if (!paymentMethod) {
+      alert("결제 방식을 선택해주세요.");
+      return;
     }
 
-    const data = await response.json();
-    console.log("예약 생성 성공:", data);
-
-    localStorage.setItem("reservationId", data.reservationId);
-    localStorage.setItem("userId", data.userId);
-
-    if (type === "online") {
-      const meetLink = await createGoogleMeetEvent(data);
-      if (meetLink) {
-        setGoogleMeetLink(meetLink);
-      }
+    const token = accesstoken;
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
+      return;
     }
 
-    if (paymentMethod === "kakaopay") {
-      handleKakaoPayment(data);
-    } else {
-      setShowPaymentModal(false);
-      setShowConfirmModal(true);
-    }
-  } catch (error) {
-    console.error("예약 생성 중 오류:", error);
-    alert(error.message || "예약 생성 중 오류가 발생했습니다.");
-  } finally {
-    setIsProcessing(false); // API 호출 완료 후 버튼 활성화
-  }
-};
+    try {
+      // 1. 예약 생성
+      const selectedDateString = selectedDate.toISOString(); // selectedDate를 문자열로 변환
 
+      const reservationData = {
+        designerId: designerId,
+        meet: type === "online",
+        date: selectedDateString.split("T")[0], // 'T' 기준으로 날짜만 추출
+        start: `${selectedTimeState}:00`,
+        end: (() => {
+          const [hours, minutes] = selectedTimeState
+            .split(":")
+            .map(Number);
+          const newMinutes = minutes + 30;
+          const newHours = newMinutes >= 60 ? hours + 1 : hours;
+          const finalMinutes =
+            newMinutes >= 60 ? newMinutes - 60 : newMinutes;
+          return `${newHours
+            .toString()
+            .padStart(2, "0")}:${finalMinutes
+            .toString()
+            .padStart(2, "0")}:00`;
+        })(), // 시간, 분 추출
+        shop: designer.address,
+        method:
+          paymentMethod === "kakaopay" ? "KAKAOPAY" : "BANK_TRANSFER",
+        price:
+          type === "offline"
+            ? designer.price.offline.toString()
+            : designer.price.online.toString(),
+      };
 
       console.log(`reservationData : ${reservationData.method}`);
       console.log(`reservationDatastringify : ${reservationData}`);
@@ -552,7 +516,7 @@ const handleConfirm = async () => {
                     결제하기
                   </button>
                   <button
-                    className="payment-back-button"
+                    className="cancel-button"
                     onClick={() => setShowPaymentModal(false)}
                   >
                     돌아가기
