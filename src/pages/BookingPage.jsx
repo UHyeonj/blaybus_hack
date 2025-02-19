@@ -542,7 +542,25 @@ function BookingPage() {
             <>
               <h2 className="payment-waiting-title">입금 대기 중</h2>
               <div className="account-transfer-info">
-                <span>{COMPANY_ACCOUNT.account}</span>
+                <div className="account-number-wrapper">
+                  <span>{COMPANY_ACCOUNT.account}</span>
+                  <button 
+                    className="copy-button" 
+                    onClick={() => {
+                      const accountNumber = COMPANY_ACCOUNT.account;
+                      navigator.clipboard.writeText(accountNumber)
+                        .then(() => {
+                          alert('계좌번호가 복사되었습니다.');
+                        })
+                        .catch(err => {
+                          console.error('계좌번호 복사 실패:', err);
+                        });
+                    }}
+                    aria-label="계좌번호 복사"
+                  >
+                    <img src="/assets/Vector.svg" alt="복사" />
+                  </button>
+                </div>
                 <span>{COMPANY_ACCOUNT.accountHolder}</span>
               </div>
             </>
