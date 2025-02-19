@@ -14,6 +14,7 @@
   text-align: center;
   width: 100%;
   display: block;
+  max-width: 373px;
 }
 
 .booking-form {
@@ -415,6 +416,7 @@
   margin: 0 auto;
   min-height: 100vh;
   background: #ffffff;
+  width: 100%;
 }
 
 .booking-confirmation-container h2 {
