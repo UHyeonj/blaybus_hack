@@ -19,6 +19,7 @@ function DesignerDetail() {
   const [isClosing, setIsClosing] = useState(false);
   const [canProceed, setCanProceed] = useState(false);
 
+  console.log("기능 완성");
   // 오늘 날짜와 3개월 후 날짜 설정
   const minDate = new Date();
   const maxDate = new Date();
