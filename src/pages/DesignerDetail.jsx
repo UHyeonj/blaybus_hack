@@ -39,6 +39,8 @@ function DesignerDetail() {
     const selected = new Date(selectedDate);
     const isToday = selected.toDateString() === now.toDateString();
 
+    selected.setDate(selected.getDate() + 1);
+
     // selectedDate를 YYYY-MM-DD 형식으로 변환
     const formattedDate = selectedDate.toISOString().split("T")[0];
     console.log(formattedDate);
