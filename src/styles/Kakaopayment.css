@@ -25,6 +25,8 @@ body {
 .kakao_state_container {
     margin-bottom: 20rem;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
