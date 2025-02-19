@@ -560,7 +560,7 @@ function BookingPage() {
                     }}
                     aria-label="계좌번호 복사"
                   >
-                    <img src={copy} alt="복사" />
+                    <img src={require("../assets/copy.png").default} alt="복사" />
                   </button>
                 </div>
                 <span>{COMPANY_ACCOUNT.accountHolder}</span>
