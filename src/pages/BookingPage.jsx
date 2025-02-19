@@ -516,7 +516,7 @@ function BookingPage() {
                     결제하기
                   </button>
                   <button
-                    className="cancel-button"
+                    className="payment-back-button"
                     onClick={() => setShowPaymentModal(false)}
                   >
                     돌아가기

@@ -136,19 +136,20 @@
 
 .cancel-button {
   width: 100%;
-  padding: 12px;
-  background: #090A0A;
+  padding: 16px;
+  background-color: #090A0A;
   color: white;
   border: none;
-  border-radius: 8px;
-  margin-top: 16px;
-  cursor: pointer;
+  border-radius: 48px;
   font-size: 14px;
-  transition: background-color 0.2s;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 16px;
 }
 
 .cancel-button:hover {
-  background: white;
+  opacity: 0.9;
 }
 
 .no-reservations {
@@ -234,7 +235,7 @@
 .popup-buttons button {
   width: 100%;
   padding: 16px;
-  border-radius: 12px;
+  border-radius: 48px;
   border: none;
   font-size: 14px;
   cursor: pointer;
@@ -250,6 +251,10 @@
   background: #f1f3f5;
   color: #666;
   margin-bottom: 8px;
+}
+
+.popup-buttons button:hover {
+  opacity: 0.9;
 }
 
 .meet-link {
