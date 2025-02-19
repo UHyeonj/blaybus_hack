@@ -11,10 +11,17 @@
   font-weight: bold;
   color: #090A0A;
   margin: 77px 0 43px 0;
+  text-align: left;
+  width: 373px;
+}
+
+.payment-waiting-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #090A0A;
+  margin: 77px auto 43px;
   text-align: center;
   width: 100%;
-  display: block;
-  max-width: 373px;
 }
 
 .booking-form {

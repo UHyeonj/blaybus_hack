@@ -530,14 +530,16 @@ function BookingPage() {
         // 결제 완료 페이지
         <>
           <Header text="결제" />
-          <h2 className="booking-title">
-            {paymentMethod === "account" ? "입금 대기 중" : "예약 완료"}
-          </h2>
-          {paymentMethod === "account" && (
-            <div className="account-transfer-info">
-              <span>{COMPANY_ACCOUNT.account}</span>
-              <span>{COMPANY_ACCOUNT.accountHolder}</span>
-            </div>
+          {paymentMethod === "account" ? (
+            <>
+              <h2 className="payment-waiting-title">입금 대기 중</h2>
+              <div className="account-transfer-info">
+                <span>{COMPANY_ACCOUNT.account}</span>
+                <span>{COMPANY_ACCOUNT.accountHolder}</span>
+              </div>
+            </>
+          ) : (
+            <h2 className="booking-title">예약 완료</h2>
           )}
           <div className="booking-info">
             <div className="info-item">
