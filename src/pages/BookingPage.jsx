@@ -9,6 +9,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/locale";
 import "../styles/BookingPage.css";
 import Header from "../components/Header";
+import copy from "../assets/copy.png";
+
 
 // 공통 계좌 정보
 const COMPANY_ACCOUNT = {
