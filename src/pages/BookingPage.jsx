@@ -333,6 +333,7 @@ function BookingPage() {
       };
 
       console.log(`reservationData : ${reservationData.method}`);
+      console.log(`reservationDatastringify : ${reservationData}`);
 
       const response = await fetch(
         "https://blaybus-glowup.com/reservation/create",
@@ -375,6 +376,7 @@ function BookingPage() {
         console.log(data);
         handleKakaoPayment(data);
       } else {
+        // 결제 방식 선택 모달 OFF
         setShowPaymentModal(false);
         setShowConfirmModal(true);
       }
