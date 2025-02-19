@@ -17,7 +17,7 @@
 .footer-button {
   background: none;
   border: none;
-  color: #333;
+  color: #494949;
   font-size: 16px;
   display: flex;
   flex-direction: column;
@@ -35,7 +35,17 @@
   height: 24px;
 }
 
+.footer-icon.mypage {
+  stroke: #090A0A;
+  stroke-width: 2.5;
+}
+
 .footer-button span {
   margin-top: 4px;
   font-size: 12px;
+  color: #494949;
+}
+
+.footer-button.active span {
+  color: #090A0A;
 }
