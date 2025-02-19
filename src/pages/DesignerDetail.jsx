@@ -131,18 +131,18 @@ function DesignerDetail() {
         </div>
 
         <div className="consultation-info">
-          <h2>상담 정보</h2>
+          <h2>컨설팅 정보</h2>
           <div className="price-info">
             {type === "offline" ? (
               <div className="price-item">
-                <span>대면 상담</span>
+                <span>대면 컨설팅</span>
                 <span>
                   {designer.price.offline.toLocaleString()}원
                 </span>
               </div>
             ) : (
               <div className="price-item">
-                <span>화상 상담</span>
+                <span>비대면 컨설팅</span>
                 <span>
                   {designer.price.online.toLocaleString()}원
                 </span>
