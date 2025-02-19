@@ -38,6 +38,7 @@ function DesignerDetail() {
     const now = new Date();
     const selected = new Date(selectedDate);
     const isToday = selected.toDateString() === now.toDateString();
+    console.log(selectedDate);
 
     try {
       const response = await fetch(
