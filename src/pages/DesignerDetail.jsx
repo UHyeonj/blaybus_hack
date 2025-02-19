@@ -43,8 +43,8 @@ function DesignerDetail() {
 
     // selectedDate를 YYYY-MM-DD 형식으로 변환
     const formattedDate = selectedDate.toISOString().split("T")[0];
-    console.log(selectedDate);
-    console.log(formattedDate);
+    console.log(`selectedDate : ${selectedDate}`);
+    console.log(`formattedDate : ${formattedDate}`);
 
     try {
       const response = await fetch(
