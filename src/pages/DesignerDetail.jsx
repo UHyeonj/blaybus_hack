@@ -18,6 +18,10 @@ function DesignerDetail() {
   const [selectedTime, setSelectedTime] = useState(null);
   const [isClosing, setIsClosing] = useState(false);
   const [canProceed, setCanProceed] = useState(false);
+  const [availableTimes, setAvailableTimes] = useState({
+    morning: [],
+    afternoon: [],
+  });
 
   console.log("기능 완성");
   // 오늘 날짜와 3개월 후 날짜 설정
@@ -26,8 +30,7 @@ function DesignerDetail() {
   maxDate.setMonth(maxDate.getMonth() + 3);
 
   // 예약 가능 시간대 생성 함수
-  const generateTimeSlots = (selectedDate) => {
-    //여기에 예약 가능 시간을 받아와야 된다.
+  const generateTimeSlots = async (selectedDate) => {
     const slots = {
       morning: [], // 오전
       afternoon: [], // 오후
@@ -36,30 +39,45 @@ function DesignerDetail() {
     const selected = new Date(selectedDate);
     const isToday = selected.toDateString() === now.toDateString();
 
-    // 8시부터 20시까지 30분 간격으로 시간대 생성
-    for (let hour = 10; hour <= 20; hour++) {
-      for (let minute of [0, 30]) {
-        // 20시는 00분만 포함
-        if (hour === 20 && minute === 30) continue;
+    try {
+      const response = await fetch(
+        `https://blaybus-glowup.com/designer/available?date=${
+          selectedDate.toISOString().split("T")[0]
+        }&designerId=${designerId}`
+      );
+      const data = await response.json();
+      const availableTimes = data.availableTimes;
 
-        const timeString = `${hour
-          .toString()
-          .padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
-        const timeSlot = new Date(selected.setHours(hour, minute));
+      // 10시부터 20시까지 30분 간격으로 시간대 생성
+      for (let hour = 10; hour <= 20; hour++) {
+        for (let minute of [0, 30]) {
+          // 20시는 00분만 포함
+          if (hour === 20 && minute === 30) continue;
 
-        // 현재 시간이 지난 시간대는 제외
-        if (isToday && timeSlot <= now) continue;
+          const timeString = `${hour
+            .toString()
+            .padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
+          const timeSlot = new Date(selected.setHours(hour, minute));
 
-        // 오전/오후 나누기
-        if (hour < 12) {
-          slots.morning.push(timeString);
-        } else {
-          slots.afternoon.push(timeString);
+          // 현재 시간이 지난 시간대는 제외
+          if (isToday && timeSlot <= now) continue;
+
+          // 예약 가능한 시간대만 포함
+          if (!availableTimes.includes(timeString)) continue;
+
+          // 오전/오후 나누기
+          if (hour < 12) {
+            slots.morning.push(timeString);
+          } else {
+            slots.afternoon.push(timeString);
+          }
         }
       }
+    } catch (err) {
+      console.log("Error fetching available times: ", err);
     }
 
-    return slots;
+    setAvailableTimes(slots);
   };
 
   useEffect(() => {
@@ -85,6 +103,7 @@ function DesignerDetail() {
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
+    generateTimeSlots(date);
   };
 
   const handleTimeSelect = (time) => {
@@ -205,37 +224,33 @@ function DesignerDetail() {
                 <div className="time-section">
                   <h5>오전</h5>
                   <div className="time-grid">
-                    {generateTimeSlots(selectedDate).morning.map(
-                      (time) => (
-                        <button
-                          key={time}
-                          onClick={() => handleTimeSelect(time)}
-                          className={`time-button ${
-                            selectedTime === time ? "selected" : ""
-                          }`}
-                        >
-                          {time}
-                        </button>
-                      )
-                    )}
+                    {availableTimes.morning.map((time) => (
+                      <button
+                        key={time}
+                        onClick={() => handleTimeSelect(time)}
+                        className={`time-button ${
+                          selectedTime === time ? "selected" : ""
+                        }`}
+                      >
+                        {time}
+                      </button>
+                    ))}
                   </div>
                 </div>
                 <div className="time-section">
                   <h5>오후</h5>
                   <div className="time-grid">
-                    {generateTimeSlots(selectedDate).afternoon.map(
-                      (time) => (
-                        <button
-                          key={time}
-                          onClick={() => handleTimeSelect(time)}
-                          className={`time-button ${
-                            selectedTime === time ? "selected" : ""
-                          }`}
-                        >
-                          {time}
-                        </button>
-                      )
-                    )}
+                    {availableTimes.afternoon.map((time) => (
+                      <button
+                        key={time}
+                        onClick={() => handleTimeSelect(time)}
+                        className={`time-button ${
+                          selectedTime === time ? "selected" : ""
+                        }`}
+                      >
+                        {time}
+                      </button>
+                    ))}
                   </div>
                 </div>
                 <button
