@@ -670,7 +670,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
-  margin: 0 20px;
+  margin: 32px 20px;  /* 상하 마진 32px로 변경 */
 }
 
 .show-payment-button:hover {
