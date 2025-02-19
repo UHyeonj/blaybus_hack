@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden !important; /* 강제 적용 */
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.kakao_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.kakao_state_container {
+    margin-bottom: 50rem;
+}
+
+.kakao_btn {
+    width: 300px;
+    height: 50px;
+    background-color: #FFEB00;
+    border: none;
+    border-radius: 5px;
+    margin-top: 1rem;
+}
