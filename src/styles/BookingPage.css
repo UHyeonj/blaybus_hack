@@ -664,7 +664,8 @@
 }
 
 .cancel-button:hover {
-  background: #f5f5f5;
+  background: transparent;
+  opacity: 0.7;
 }
 
 @keyframes slideUp {
