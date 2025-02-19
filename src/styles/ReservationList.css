@@ -137,8 +137,8 @@
 .cancel-button {
   width: 100%;
   padding: 12px;
-  background: #5a6ed5;
-  color: white;
+  background: white;
+  color: black;
   border: none;
   border-radius: 8px;
   margin-top: 16px;
@@ -148,7 +148,7 @@
 }
 
 .cancel-button:hover {
-  background: #5a6ed5;
+  background: white;
 }
 
 .no-reservations {
