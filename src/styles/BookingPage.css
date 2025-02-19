@@ -10,7 +10,7 @@
   font-size: 32px;
   font-weight: bold;
   color: #090A0A;
-  margin: 77px 20px 43px 20px;
+  margin: 77px 0 43px 0;
   text-align: center;
   width: 100%;
   display: block;
@@ -411,6 +411,7 @@
 .booking-confirmation-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   min-height: 100vh;
   background: #ffffff;
