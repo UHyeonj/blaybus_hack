@@ -137,8 +137,8 @@
 .cancel-button {
   width: 100%;
   padding: 12px;
-  background: white;
-  color: black;
+  background: #090A0A;
+  color: white;
   border: none;
   border-radius: 8px;
   margin-top: 16px;
@@ -242,7 +242,7 @@
 }
 
 .popup-buttons button:first-child {
-  background: #5a6ed5;
+  background: #090A0A;
   color: white;
 }
 
