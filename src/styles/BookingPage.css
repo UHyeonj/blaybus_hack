@@ -12,6 +12,8 @@
   color: #090A0A;
   margin: 77px 20px 43px 20px;
   text-align: center;
+  width: 100%;
+  display: block;
 }
 
 .booking-form {
@@ -810,7 +812,7 @@
 }
 
 .account-transfer-info {
-  margin: 0 20px 32px 20px;  /* booking-info와의 간격 조정 */
+  margin: 0 20px 32px 20px;
   text-align: center;
 }
 
