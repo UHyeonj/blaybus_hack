@@ -43,7 +43,13 @@ function DesignerDetail() {
       const response = await fetch(
         `https://blaybus-glowup.com/designer/available?date=${
           selectedDate.toISOString().split("T")[0]
-        }&designerId=${designerId}`
+        }&designerId=${designerId}`,
+        {
+          body: JSON.stringify({
+            date: selectedDate,
+            designerId: designerId,
+          }),
+        }
       );
       const data = await response.json();
       const availableTimes = data.availableTimes;
