@@ -90,9 +90,6 @@ const ReservationList = () => {
         `https://blaybus-glowup.com/reservation?reservationId=${selectedReservation.id}`,
         {
           method: "DELETE",
-          headers: {
-            reservationId: selectedReservation.id,
-          },
           credentials: "include",
         }
       );
