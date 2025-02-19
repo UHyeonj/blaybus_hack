@@ -101,5 +101,5 @@
 }
 
 .logout-button:hover {
-  background: #5a6ed5;
+  opacity: 0.8;
 }
