@@ -298,6 +298,8 @@ function BookingPage() {
     setShowConfirmation(true);
   };
 
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+
   const handleConfirm = async () => {
     if (!paymentMethod) {
       alert("결제 방식을 선택해주세요.");
@@ -312,7 +314,8 @@ function BookingPage() {
     }
 
     try {
-      // 1. 예약 생성
+      // 1. 예약 생성'
+      setIsLoading(true); // 로딩 상태 변경
       const selectedDateString = selectedDate.toISOString(); // selectedDate를 문자열로 변환
 
       const reservationData = {
@@ -394,6 +397,8 @@ function BookingPage() {
     } catch (error) {
       console.error("예약 생성 중 오류:", error);
       alert(error.message || "예약 생성 중 오류가 발생했습니다.");
+    } finally {
+      setIsLoading(false); // 요청 완료 후 로딩 상태 해제
     }
   };
 
@@ -512,8 +517,9 @@ function BookingPage() {
                       paymentMethod ? "active" : ""
                     }`}
                     onClick={handleConfirm}
+                    disabled={isLoading} // 로딩 중이면 비활성화
                   >
-                    결제하기
+                    {isLoading ? "결제 중..." : "결제하기"}
                   </button>
                   <button
                     className="cancel-button"
