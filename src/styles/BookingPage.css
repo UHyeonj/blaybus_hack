@@ -15,6 +15,12 @@
   width: 373px;
 }
 
+.confirm-button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+  pointer-events: none; /* 🔹 클릭 자체를 차단 */
+}
+
 .payment-waiting-title {
   font-size: 32px;
   font-weight: bold;

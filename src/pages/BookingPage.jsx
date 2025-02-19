@@ -482,10 +482,13 @@ function BookingPage() {
           </div>
 
           <button
-            className="show-payment-button"
-            onClick={handleShowPayment}
+            className={`confirm-button ${
+              paymentMethod ? "active" : ""
+            } ${isLoading ? "loading" : ""}`}
+            onClick={handleConfirm}
+            disabled={isLoading} // 🔹 isLoading이 true일 때 비활성화
           >
-            결제하기
+            {isLoading ? "결제 중..." : "결제하기"}
           </button>
 
           {showPaymentModal && (
