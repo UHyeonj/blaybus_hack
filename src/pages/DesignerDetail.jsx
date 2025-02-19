@@ -45,7 +45,7 @@ function DesignerDetail() {
 
     try {
       const response = await fetch(
-        `https://blaybus-glowup.com/designer/available?date=${formattedDate}&designerId=${designerId}`
+        `https://blaybus-glowup.com/reservation/available?date=${formattedDate}&designerId=${designerId}`
       );
       const data = await response.json();
       const availableTimes = data.availableTimes;
