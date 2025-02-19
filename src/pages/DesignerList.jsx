@@ -86,7 +86,7 @@ function DesignerList() {
                   <p className="designerlist-region">
                     <img src={location} alt="location icon" />
                     {designer.region}
-                    <span className="designerlist-field">
+                    <span className="designerlist-field" data-field={designer.field}>
                       {designer.field}
                     </span>
                   </p>

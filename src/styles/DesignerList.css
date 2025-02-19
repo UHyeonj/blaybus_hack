@@ -3,11 +3,7 @@
   flex-direction: column;
   margin: 0 auto;
   min-height: 100vh;
-  background: radial-gradient(
-    circle at center right,
-    rgba(98, 142, 205, 1),
-    rgba(213, 222, 239, 1)
-  );
+  background: #FFFFFF;
   height: 100vh;
 }
 
@@ -149,4 +145,28 @@
 
 .filter-button:hover {
   background-color: #d14670;
+}
+
+/* 디자이너 전문분야 태그 기본 스타일 */
+.designerlist-field {
+  font-size: 10px;
+  color: #ffffff;
+  padding: 1px 8px;
+  border-radius: 48px;
+  margin-left: 8px;
+}
+
+/* 펌 태그 - 기존 색상 유지 */
+.designerlist-field[data-field="펌"] {
+  background-color: #888ef1;
+}
+
+/* 탈염색 태그 */
+.designerlist-field[data-field="탈염색"] {
+  background-color: #BF87DC;
+}
+
+/* 염색 태그 */
+.designerlist-field[data-field="염색"] {
+  background-color: #DD7592;
 }
