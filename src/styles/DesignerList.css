@@ -3,8 +3,16 @@
   flex-direction: column;
   margin: 0 auto;
   min-height: 100vh;
-  background: #FFFFFF;
+  background: #ffffff;
   height: 100vh;
+}
+
+.designer-grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .designerlist-list {
@@ -78,7 +86,7 @@
   padding: 10px;
   padding-top: 1px;
   padding-bottom: 1px;
-  color: #ffffff;  /* 배경색 제거하고 글자색만 유지 */
+  color: #ffffff; /* 배경색 제거하고 글자색만 유지 */
   border-radius: 48px;
   border: none;
   text-align: center;
@@ -86,18 +94,24 @@
 }
 
 /* 펌 태그 - 기존 색상 유지 */
-.designerlist-text .designerlist-region .designerlist-field[data-field="펌"] {
+.designerlist-text
+  .designerlist-region
+  .designerlist-field[data-field="펌"] {
   background-color: #888ef1;
 }
 
 /* 탈염색 태그 */
-.designerlist-text .designerlist-region .designerlist-field[data-field="탈염색"] {
-  background-color: #BF87DC;
+.designerlist-text
+  .designerlist-region
+  .designerlist-field[data-field="탈염색"] {
+  background-color: #bf87dc;
 }
 
 /* 염색 태그 */
-.designerlist-text .designerlist-region .designerlist-field[data-field="염색"] {
-  background-color: #DD7592;
+.designerlist-text
+  .designerlist-region
+  .designerlist-field[data-field="염색"] {
+  background-color: #dd7592;
 }
 
 /* 한줄 소개 */
@@ -110,8 +124,8 @@
 
 .select-reserve-button {
   background-color: rgba(255, 255, 255, 0.2);
-  color: #090A0A;
-  border: 1px solid #090A0A;
+  color: #090a0a;
+  border: 1px solid #090a0a;
   border-radius: 48px;
   font-size: 10px;
   font-weight: bold;
@@ -124,7 +138,7 @@
 }
 
 .select-designer-button:hover {
-  background-color: #090A0A;
+  background-color: #090a0a;
   color: white;
 }
 
@@ -178,10 +192,10 @@
 
 /* 탈염색 태그 */
 .designerlist-field[data-field="탈염색"] {
-  background-color: #BF87DC;
+  background-color: #bf87dc;
 }
 
 /* 염색 태그 */
 .designerlist-field[data-field="염색"] {
-  background-color: #DD7592;
+  background-color: #dd7592;
 }
