@@ -793,12 +793,13 @@
 }
 
 .account-transfer-info {
+  text-align: center;
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin: 16px 0;
   padding: 16px;
-  background: #f8f9fa;
+  background: #ffffff;
   border-radius: 8px;
 }
 
