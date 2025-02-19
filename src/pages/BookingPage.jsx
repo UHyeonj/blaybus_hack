@@ -313,6 +313,8 @@ function BookingPage() {
       return;
     }
 
+    if (isLoading) return; // 이미 요청 중이면 함수 실행 중단
+
     try {
       // 1. 예약 생성'
       setIsLoading(true); // 로딩 상태 변경
