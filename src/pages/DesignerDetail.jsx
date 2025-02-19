@@ -38,11 +38,14 @@ function DesignerDetail() {
     const now = new Date();
     const selected = new Date(selectedDate);
     const isToday = selected.toDateString() === now.toDateString();
-    console.log(selectedDate);
+
+    // selectedDate를 YYYY-MM-DD 형식으로 변환
+    const formattedDate = selectedDate.toISOString().split("T")[0];
+    console.log(formattedDate);
 
     try {
       const response = await fetch(
-        `https://blaybus-glowup.com/designer/available?date=${selectedDate}&designerId=${designerId}`
+        `https://blaybus-glowup.com/designer/available?date=${formattedDate}&designerId=${designerId}`
       );
       const data = await response.json();
       const availableTimes = data.availableTimes;
