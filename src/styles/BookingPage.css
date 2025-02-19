@@ -748,15 +748,22 @@
 }
 
 .go-to-reservations {
-  width: 100%;
+  width: 373px;
+  align-self: center;
   padding: 16px;
-  background: #090A0A;
+  background-color: #090A0A;
   color: white;
   border: none;
   border-radius: 48px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s;
+  margin: 64px 20px;
+}
+
+.go-to-reservations:hover {
+  opacity: 0.9;
 }
 
 .redirect-message {
@@ -800,4 +807,14 @@
 .google-meet-link:hover {
   color: #1a73e8;
   text-decoration: underline;
+}
+
+.account-transfer-info {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+}
+
+.account-transfer-info .info-item:last-child {
+  border-bottom: none;
 }

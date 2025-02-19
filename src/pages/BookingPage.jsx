@@ -529,59 +529,64 @@ function BookingPage() {
       ) : (
         // 결제 완료 페이지
         <>
-          <Header text="예약 완료" />
-          <div className="confirm-content">
-            <div className="confirm-icon">✓</div>
-            <h3>
-              {paymentMethod === "account"
-                ? "입금 확인 후 예약이 확정됩니다"
-                : "예약이 완료되었습니다!"}
-            </h3>
-            <div className="confirm-details">
-              <div className="confirm-detail-item">
-                <span>디자이너</span>
-                <span>{designer.name}</span>
-              </div>
-              <div className="confirm-detail-item">
-                <span>컨설팅 유형</span>
-                <span>
-                  {type === "offline" ? "대면 컨설팅" : "화상 컨설팅"}
-                </span>
-              </div>
-              {type === "offline" && (
-                <div className="confirm-detail-item">
-                  <span>컨설팅 위치</span>
-                  <span>{designer.address}</span>
+          <Header text="결제" />
+          <h2 className="booking-title">
+            {paymentMethod === "account" ? "입금 대기 중" : "예약 완료"}
+          </h2>
+          <div className="booking-info">
+            {paymentMethod === "account" && (
+              <div className="account-transfer-info">
+                <div className="info-item">
+                  <span>입금 계좌</span>
+                  <span>{COMPANY_ACCOUNT.account}</span>
                 </div>
-              )}
-              <div className="confirm-detail-item">
-                <span>날짜</span>
-                <span>{selectedDateState.toLocaleDateString()}</span>
+                <div className="info-item">
+                  <span>예금주</span>
+                  <span>{COMPANY_ACCOUNT.accountHolder}</span>
+                </div>
               </div>
-              <div className="confirm-detail-item">
-                <span>시간</span>
-                <span>{selectedTimeState}</span>
-              </div>
-              <div className="confirm-detail-item">
-                <span>결제 금액</span>
-                <span>
-                  {(type === "offline"
-                    ? designer.price.offline
-                    : designer.price.online
-                  ).toLocaleString()}
-                  원
-                </span>
-              </div>
+            )}
+            <div className="info-item">
+              <span>디자이너</span>
+              <span>{designer.name}</span>
             </div>
-            <div className="confirm-actions">
-              <button
-                className="go-to-reservations"
-                onClick={handleGoToReservations}
-              >
-                예약 내역 확인하기
-              </button>
+            <div className="info-item">
+              <span>컨설팅 유형</span>
+              <span>
+                {type === "offline" ? "대면 컨설팅" : "화상 컨설팅"}
+              </span>
             </div>
+            <div className="info-item">
+              <span>날짜</span>
+              <span>{selectedDateState.toLocaleDateString()}</span>
+            </div>
+            <div className="info-item">
+              <span>시간</span>
+              <span>{selectedTimeState}</span>
+            </div>
+            <div className="info-item">
+              <span>결제 금액</span>
+              <span>
+                {(type === "offline"
+                  ? designer.price.offline
+                  : designer.price.online
+                ).toLocaleString()}
+                원
+              </span>
+            </div>
+            {type === "offline" && (
+              <div className="info-item">
+                <span>컨설팅 위치</span>
+                <span>{designer.address}</span>
+              </div>
+            )}
           </div>
+          <button
+            className="go-to-reservations"
+            onClick={handleGoToReservations}
+          >
+            예약 내역 확인하기
+          </button>
         </>
       )}
     </div>
