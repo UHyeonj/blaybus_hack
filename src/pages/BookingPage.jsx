@@ -11,7 +11,6 @@ import "../styles/BookingPage.css";
 import Header from "../components/Header";
 import copy from "../assets/copy.png";
 
-
 // 공통 계좌 정보
 const COMPANY_ACCOUNT = {
   account: "신한은행 110-123-456789",
@@ -546,21 +545,22 @@ function BookingPage() {
               <div className="account-transfer-info">
                 <div className="account-number-wrapper">
                   <span>{COMPANY_ACCOUNT.account}</span>
-                  <button 
-                    className="copy-button" 
+                  <button
+                    className="copy-button"
                     onClick={() => {
                       const accountNumber = COMPANY_ACCOUNT.account;
-                      navigator.clipboard.writeText(accountNumber)
+                      navigator.clipboard
+                        .writeText(accountNumber)
                         .then(() => {
-                          alert('계좌번호가 복사되었습니다.');
+                          alert("계좌번호가 복사되었습니다.");
                         })
-                        .catch(err => {
-                          console.error('계좌번호 복사 실패:', err);
+                        .catch((err) => {
+                          console.error("계좌번호 복사 실패:", err);
                         });
                     }}
                     aria-label="계좌번호 복사"
                   >
-                    <img src={require("../assets/copy.png").default} alt="복사" />
+                    <img src="/assets/copy.png" alt="복사" />
                   </button>
                 </div>
                 <span>{COMPANY_ACCOUNT.accountHolder}</span>
