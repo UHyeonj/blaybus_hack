@@ -115,7 +115,7 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
           적용하기
         </button>
 
-        {/* 닫기 버튼1 */}
+        {/* 닫기 버튼2 */}
         <button className="close-btn" onClick={onClose}>
           닫기
         </button>

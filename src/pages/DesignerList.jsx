@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import location from "./../assets/location.svg";
 import "../styles/DesignerList.css";
-import FilterModal from "../components/FilterModal";
+import FilterModal from "../pages/FilterModal";
 
 function DesignerList() {
   const navigate = useNavigate();
