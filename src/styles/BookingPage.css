@@ -7,11 +7,11 @@
 }
 
 .booking-title {
-  text-align: center;
-  color: #333;
-  font-size: 22px;
-  margin-bottom: 20px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: bold;
+  color: #090A0A;
+  margin: 24px 20px 32px 20px;  /* 상단 24px, 좌우 20px, 하단 32px */
+  text-align: left;  /* 좌측 정렬 추가 */
 }
 
 .booking-form {
@@ -419,12 +419,10 @@
 }
 
 .booking-info {
-  padding: 20px;
-  margin: 20px;
-  width: 373px;
-  align-self: center;
   background: white;
   border-radius: 16px;
+  padding: 24px;
+  margin: 0 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 

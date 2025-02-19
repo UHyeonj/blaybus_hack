@@ -432,8 +432,8 @@ function BookingPage() {
 
   return (
     <div className="booking-confirmation-container">
-      <Header text="예약 확인" />
-
+      <Header text="결제" />
+      <h2 className="booking-title">예약 확인</h2>
       <div className="booking-info">
         <div className="info-item">
           <span>디자이너</span>
