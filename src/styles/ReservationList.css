@@ -8,6 +8,10 @@
 
 .reservation-wrapper {
   margin-bottom: 70px; /* 각 카드 아래에 마진 추가 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .reservation-title {
