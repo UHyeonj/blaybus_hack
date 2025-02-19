@@ -55,9 +55,9 @@
 }
 
 .filter-section button.active {
-  background: #596dd3;
+  background: #090A0A;
   color: white;
-  border: 1px solid #596dd3;
+  border: 1px solid #090A0A;
 }
 
 /* 가격 입력창 스타일 */
@@ -94,7 +94,7 @@
   -webkit-appearance: none;
   width: 45%;
   height: 4px;
-  background: #596dd3;
+  background: #090A0A;
   border-radius: 4px;
   cursor: pointer;
   margin: 0 5px;
@@ -104,7 +104,7 @@
   -webkit-appearance: none;
   width: 20px;
   height: 20px;
-  background: #596dd3;
+  background: #090A0A;
   border-radius: 50%;
   cursor: pointer;
   position: relative;
@@ -115,7 +115,7 @@
 .apply-btn {
   width: 100%;
   padding: 10px;
-  background: #596dd3;
+  background: #090A0A;
   color: white;
   border: none;
   border-radius: 10px;
