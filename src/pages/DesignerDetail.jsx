@@ -27,6 +27,7 @@ function DesignerDetail() {
 
   // 예약 가능 시간대 생성 함수
   const generateTimeSlots = (selectedDate) => {
+    //여기에 예약 가능 시간을 받아와야 된다.
     const slots = {
       morning: [], // 오전
       afternoon: [], // 오후
@@ -102,10 +103,10 @@ function DesignerDetail() {
   };
 
   const formatDate = (date) => {
-    return date.toLocaleDateString('ko-KR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return date.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
@@ -239,7 +240,9 @@ function DesignerDetail() {
                 </div>
                 <button
                   onClick={handleProceedBooking}
-                  className={`proceed-booking-button ${canProceed ? 'active' : ''}`}
+                  className={`proceed-booking-button ${
+                    canProceed ? "active" : ""
+                  }`}
                   disabled={!canProceed}
                 >
                   예약 진행하기
