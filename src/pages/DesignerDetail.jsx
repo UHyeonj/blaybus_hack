@@ -48,6 +48,8 @@ function DesignerDetail() {
       const data = await response.json();
       const availableTimes = data.availableTimes;
 
+      console.log(data);
+
       if (!availableTimes) {
         console.log("No available times returned from API");
         return;
