@@ -19,9 +19,9 @@
   font-size: 32px;
   font-weight: bold;
   color: #090A0A;
-  margin: 77px auto 43px;
+  margin: 77px 0 43px 0;
   text-align: center;
-  width: 100%;
+  width: 373px;
 }
 
 .booking-form {
@@ -436,7 +436,7 @@
   background: white;
   border-radius: 16px;
   padding: 32px;
-  margin: 0 20px;
+  margin: 0 auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 373px;
 }
@@ -825,7 +825,8 @@
 }
 
 .account-transfer-info {
-  margin: 0 20px 32px 20px;
+  width: 373px;
+  margin: 0 auto 32px;
   text-align: center;
 }
 
