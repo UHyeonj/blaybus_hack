@@ -154,12 +154,13 @@ function DesignerDetail() {
         <div className="designer-detail-portfolio">
           <h2>Before & After</h2>
           <div className="portfolio-list">
-            {designer.videos.map((image, index) => (
+            {designer.videos.map((video, index) => (
               <div key={index} className="portfolio-item">
-                <img
-                  src={image}
+                <video
+                  src={video}
                   alt={`${designer.name} 포트폴리오 ${index + 1}`}
-                  className="portfolio-image"
+                  className="portfolio-video"
+                  controls
                 />
               </div>
             ))}
