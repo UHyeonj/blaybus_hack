@@ -42,7 +42,7 @@ function DesignerDetail() {
     selected.setDate(selected.getDate() + 1);
 
     // selectedDate를 YYYY-MM-DD 형식으로 변환
-    const formattedDate = selectedDate.toISOString().split("T")[0];
+    const formattedDate = selected.toISOString().split("T")[0];
 
     // 콘솔 확인
     console.log(`selectedDate : ${selectedDate}`);
