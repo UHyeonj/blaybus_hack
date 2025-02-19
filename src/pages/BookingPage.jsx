@@ -301,6 +301,8 @@ function BookingPage() {
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
 
   const handleConfirm = async () => {
+    if (isLoading) return;
+
     if (!paymentMethod) {
       alert("결제 방식을 선택해주세요.");
       return;
@@ -313,7 +315,7 @@ function BookingPage() {
       return;
     }
 
-    if (isLoading) return; // 이미 요청 중이면 함수 실행 중단
+    // 이미 요청 중이면 함수 실행 중단
 
     try {
       // 1. 예약 생성'
@@ -482,10 +484,13 @@ function BookingPage() {
           </div>
 
           <button
-            className="show-payment-button"
-            onClick={handleShowPayment}
+            className={`confirm-button ${
+              paymentMethod ? "active" : ""
+            } ${isLoading ? "loading" : ""}`}
+            onClick={handleConfirm}
+            disabled={isLoading} // 🔹 isLoading이 true일 때 비활성화
           >
-            결제하기
+            {isLoading ? "결제 중..." : "결제하기"}
           </button>
 
           {showPaymentModal && (
