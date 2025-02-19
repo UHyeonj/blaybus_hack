@@ -432,106 +432,104 @@ function BookingPage() {
 
   return (
     <div className="booking-confirmation-container">
-      <Header text="결제" />
-      <h2 className="booking-title">예약 확인</h2>
-      <div className="booking-info">
-        <div className="info-item">
-          <span>디자이너</span>
-          <span>{designer.name}</span>
-        </div>
-        <div className="info-item">
-          <span>컨설팅 유형</span>
-          <span>
-            {type === "offline" ? "대면 컨설팅" : "화상 컨설팅"}
-          </span>
-        </div>
-        <div className="info-item">
-          <span>날짜</span>
-          <span>{selectedDateState.toLocaleDateString()}</span>
-        </div>
-        <div className="info-item">
-          <span>시간</span>
-          <span>{selectedTimeState}</span>
-        </div>
-        <div className="info-item">
-          <span>가격</span>
-          <span>
-            {(type === "offline"
-              ? designer.price.offline
-              : designer.price.online
-            ).toLocaleString()}
-            원
-          </span>
-        </div>
-        {type === "offline" && (
-          <div className="info-item">
-            <span>컨설팅 위치</span>
-            <span>{designer.address}</span>
-          </div>
-        )}
-      </div>
-
-      <button
-        className="show-payment-button"
-        onClick={handleShowPayment}
-      >
-        결제하기
-      </button>
-
-      {showPaymentModal && (
-        <div className="payment-modal">
-          <div className="payment-content">
-            <h3>결제 방식 선택</h3>
-            <div className="payment-methods">
-              <button
-                className={`payment-button ${
-                  paymentMethod === "account" ? "selected" : ""
-                }`}
-                onClick={() => handlePaymentSelect("account")}
-              >
-                <div className="radio-circle" />
-                <span>계좌이체</span>
-              </button>
-              <button
-                className={`payment-button ${
-                  paymentMethod === "kakaopay" ? "selected" : ""
-                }`}
-                onClick={() => handlePaymentSelect("kakaopay")}
-              >
-                <div className="radio-circle" />
-                <span>카카오페이</span>
-              </button>
+      {!showConfirmModal ? (
+        // 기존 결제 페이지
+        <>
+          <Header text="결제" />
+          <h2 className="booking-title">예약 확인</h2>
+          <div className="booking-info">
+            <div className="info-item">
+              <span>디자이너</span>
+              <span>{designer.name}</span>
             </div>
-
-            {paymentMethod === "account" && (
-              <div className="account-info">
-                <p>입금 계좌: {COMPANY_ACCOUNT.account}</p>
-                <p>예금주: {COMPANY_ACCOUNT.accountHolder}</p>
+            <div className="info-item">
+              <span>컨설팅 유형</span>
+              <span>
+                {type === "offline" ? "대면 컨설팅" : "화상 컨설팅"}
+              </span>
+            </div>
+            <div className="info-item">
+              <span>날짜</span>
+              <span>{selectedDateState.toLocaleDateString()}</span>
+            </div>
+            <div className="info-item">
+              <span>시간</span>
+              <span>{selectedTimeState}</span>
+            </div>
+            <div className="info-item">
+              <span>가격</span>
+              <span>
+                {(type === "offline"
+                  ? designer.price.offline
+                  : designer.price.online
+                ).toLocaleString()}
+                원
+              </span>
+            </div>
+            {type === "offline" && (
+              <div className="info-item">
+                <span>컨설팅 위치</span>
+                <span>{designer.address}</span>
               </div>
             )}
-
-            <div className="payment-actions">
-              <button
-                className={`confirm-button ${
-                  paymentMethod ? "active" : ""
-                }`}
-                onClick={handleConfirm}
-              >
-                결제하기
-              </button>
-              <button
-                className="cancel-button"
-                onClick={() => setShowPaymentModal(false)}
-              >
-                돌아가기
-              </button>
-            </div>
           </div>
-        </div>
-      )}
 
-      {showConfirmModal && (
-        <div className="confirm-modal">
+          <button
+            className="show-payment-button"
+            onClick={handleShowPayment}
+          >
+            결제하기
+          </button>
+
+          {showPaymentModal && (
+            <div className="payment-modal">
+              <div className="payment-content">
+                <h3>결제 수단</h3>
+                <div className="payment-methods">
+                  <button
+                    className={`payment-button ${
+                      paymentMethod === "account" ? "selected" : ""
+                    }`}
+                    onClick={() => handlePaymentSelect("account")}
+                  >
+                    <div className="radio-circle" />
+                    <span>계좌이체</span>
+                  </button>
+                  <button
+                    className={`payment-button ${
+                      paymentMethod === "kakaopay" ? "selected" : ""
+                    }`}
+                    onClick={() => handlePaymentSelect("kakaopay")}
+                  >
+                    <div className="radio-circle" />
+                    <span>카카오페이</span>
+                  </button>
+                </div>
+
+                <div className="payment-actions">
+                  <button
+                    className={`confirm-button ${
+                      paymentMethod ? "active" : ""
+                    }`}
+                    onClick={handleConfirm}
+                  >
+                    결제하기
+                  </button>
+                  <button
+                    className="cancel-button"
+                    onClick={() => setShowPaymentModal(false)}
+                  >
+                    돌아가기
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
+        // 결제 완료 페이지
+        <>
+          <Header text="예약 완료" />
           <div className="confirm-content">
             <div className="confirm-icon">✓</div>
             <h3>
@@ -574,33 +572,6 @@ function BookingPage() {
                   원
                 </span>
               </div>
-              {paymentMethod === "account" ? (
-                <>
-                  <div className="confirm-detail-item">
-                    <span>입금 계좌</span>
-                    <span>{COMPANY_ACCOUNT.account}</span>
-                  </div>
-                  <div className="confirm-detail-item">
-                    <span>예금주</span>
-                    <span>{COMPANY_ACCOUNT.accountHolder}</span>
-                  </div>
-                </>
-              ) : (
-                type === "online" &&
-                googleMeetLink && (
-                  <div className="confirm-detail-item">
-                    <span>화상 미팅 링크</span>
-                    <a
-                      href={googleMeetLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="google-meet-link"
-                    >
-                      구글 미팅 참여하기
-                    </a>
-                  </div>
-                )
-              )}
             </div>
             <div className="confirm-actions">
               <button
@@ -611,7 +582,7 @@ function BookingPage() {
               </button>
             </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

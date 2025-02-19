@@ -583,10 +583,10 @@
 }
 
 .payment-content h3 {
-  text-align: center;
+  text-align: left;
   margin-bottom: 20px;
   color: #333;
-  font-size: 18px;
+  font-size: 22px;
 }
 
 .payment-methods {
@@ -720,18 +720,16 @@
 
 .confirm-content {
   background: white;
-  padding: 32px;
-  border-radius: 20px;
+  padding: 32px 20px;
+  margin: 24px 20px;
+  border-radius: 16px;
   text-align: center;
-  animation: scaleIn 0.3s ease-out;
-  min-width: 320px;
-  max-width: 90%;
 }
 
 .confirm-icon {
   width: 60px;
   height: 60px;
-  background: #000000;
+  background: #090A0A;
   color: white;
   border-radius: 50%;
   display: flex;
@@ -741,39 +739,24 @@
   margin: 0 auto 20px;
 }
 
-.confirm-content h3 {
-  color: #333;
-  font-size: 20px;
-  margin-bottom: 24px;
-}
-
 .confirm-details {
   background: #f8f9fa;
   border-radius: 12px;
+  padding: 24px;
+  margin: 32px 0;
+  text-align: left;
+}
+
+.go-to-reservations {
+  width: 100%;
   padding: 16px;
-  margin: 20px 0;
-}
-
-.confirm-detail-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.confirm-detail-item:last-child {
-  border-bottom: none;
-}
-
-.confirm-detail-item span:first-child {
-  color: #666;
-  font-size: 14px;
-}
-
-.confirm-detail-item span:last-child {
-  color: #333;
+  background: #090A0A;
+  color: white;
+  border: none;
+  border-radius: 48px;
+  font-size: 16px;
   font-weight: 500;
-  font-size: 14px;
+  cursor: pointer;
 }
 
 .redirect-message {
@@ -805,22 +788,6 @@
 .confirm-actions {
   margin-top: 24px;
   text-align: center;
-}
-
-.go-to-reservations {
-  padding: 16px 32px;
-  background-color: #000000;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.go-to-reservations:hover {
-  background-color: #000000;
 }
 
 .google-meet-link {
