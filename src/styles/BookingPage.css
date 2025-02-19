@@ -378,30 +378,32 @@
 }
 
 .confirm-button {
-  background: #090A0A;
-  color: white;
+  background: #f1f3f5;
+  color: #666;
   margin-bottom: 8px;
 }
 
 /* 결제 방식이 선택되었을 때의 스타일 */
 .confirm-button.active {
-  background: #5a6ed5;
+  background: #090A0A;
   color: white;
 }
 
 .confirm-button.active:hover {
-  background: #5a6ed5;
+  background: #090A0A;
+  opacity: 0.9;
 }
 
 .cancel-button {
-  background: #FFFFFF;
+  background: transparent;
   color: #090A0A;
   margin-bottom: 0;
   border: none;
 }
 
 .cancel-button:hover {
-  background: #f5f5f5;
+  background: transparent;
+  opacity: 0.7;
 }
 
 .booking-confirmation-container {
@@ -504,7 +506,7 @@
   position: absolute;
   width: 10px;
   height: 10px;
-  background: white;
+  background: #090A0A;
   border-radius: 50%;
   top: 50%;
   left: 50%;
@@ -551,8 +553,8 @@
 }
 
 .confirm-button {
-  background: #000000;
-  color: white;
+  background: #f1f3f5;
+  color: #666;
 }
 
 .confirm-button:hover {
@@ -630,8 +632,8 @@
 }
 
 .confirm-button {
-  background: #090A0A;
-  color: white;
+  background: #f1f3f5;
+  color: #666;
   margin-bottom: 8px;
 }
 
