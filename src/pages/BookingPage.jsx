@@ -301,8 +301,6 @@ function BookingPage() {
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
 
   const handleConfirm = async () => {
-    if (isLoading) return;
-
     if (!paymentMethod) {
       alert("결제 방식을 선택해주세요.");
       return;
@@ -315,7 +313,7 @@ function BookingPage() {
       return;
     }
 
-    // 이미 요청 중이면 함수 실행 중단
+    if (isLoading) return; // 이미 요청 중이면 함수 실행 중단
 
     try {
       // 1. 예약 생성'
