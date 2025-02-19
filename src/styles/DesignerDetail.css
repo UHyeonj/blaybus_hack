@@ -70,12 +70,12 @@
 
 /* 탈염색 태그 */
 .designer-info .specialty[data-field="탈염색"] {
-  background-color: #BF87DC;
+  background-color: #bf87dc;
 }
 
 /* 염색 태그 */
 .designer-info .specialty[data-field="염색"] {
-  background-color: #DD7592;
+  background-color: #dd7592;
 }
 
 /* 디자이너 이름 */
@@ -193,7 +193,7 @@
 .designer-detail-container .booking-button {
   width: 95%;
   padding: 16px;
-  background-color: #090A0A;
+  background-color: #090a0a;
   color: white;
   border: none;
   border-radius: 48px;
@@ -248,6 +248,7 @@
   overflow-y: auto;
   position: relative;
   animation: slideUp 0.3s ease-out;
+  display: flex;
 }
 
 .close-button {
@@ -386,7 +387,7 @@
 .proceed-booking-button {
   width: 100%;
   padding: 16px;
-  background-color: #979C9E;  /* 기본 색상 */
+  background-color: #979c9e; /* 기본 색상 */
   color: white;
   border: none;
   border-radius: 48px;
@@ -398,7 +399,7 @@
 }
 
 .proceed-booking-button.active {
-  background-color: #090A0A;  /* 활성화됐을 때 색상 */
+  background-color: #090a0a; /* 활성화됐을 때 색상 */
 }
 
 .proceed-booking-button:disabled {
