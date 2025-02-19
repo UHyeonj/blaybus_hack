@@ -35,7 +35,7 @@ function DesignerDetail() {
     const isToday = selected.toDateString() === now.toDateString();
 
     // 8시부터 20시까지 30분 간격으로 시간대 생성
-    for (let hour = 8; hour <= 20; hour++) {
+    for (let hour = 10; hour <= 20; hour++) {
       for (let minute of [0, 30]) {
         // 20시는 00분만 포함
         if (hour === 20 && minute === 30) continue;
