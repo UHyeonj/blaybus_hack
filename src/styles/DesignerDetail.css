@@ -386,18 +386,31 @@
 .proceed-booking-button {
   width: 100%;
   padding: 16px;
-  margin-top: 24px;
-  background-color: #000000;
+  background-color: #979C9E;  /* 기본 색상 */
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 48px;
+  font-size: 18px;
+  font-weight: 1000;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background-color 0.2s;
+  margin-top: 24px;
 }
 
-.proceed-booking-button:hover {
-  background-color: #5a6ed5;
+.proceed-booking-button.active {
+  background-color: #090A0A;  /* 활성화됐을 때 색상 */
+}
+
+.proceed-booking-button:disabled {
+  cursor: not-allowed;
+}
+
+.selected-datetime {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 8px;
+  color: #666;
 }
 
 /* DatePicker 선택된 날짜 스타일 */

@@ -101,6 +101,14 @@ function DesignerDetail() {
     );
   };
 
+  const formatDate = (date) => {
+    return date.toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
   if (!designer) return <div>로딩중...</div>;
 
   return (
@@ -229,14 +237,18 @@ function DesignerDetail() {
                     )}
                   </div>
                 </div>
-                {canProceed && (
-                  <button
-                    onClick={handleProceedBooking}
-                    className="proceed-booking-button"
-                  >
-                    예약 진행하기
-                  </button>
-                )}
+                <button
+                  onClick={handleProceedBooking}
+                  className={`proceed-booking-button ${canProceed ? 'active' : ''}`}
+                  disabled={!canProceed}
+                >
+                  예약 진행하기
+                  {selectedDate && selectedTime && (
+                    <span className="selected-datetime">
+                      {formatDate(selectedDate)} {selectedTime}
+                    </span>
+                  )}
+                </button>
               </div>
             )}
           </div>
