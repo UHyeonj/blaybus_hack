@@ -72,18 +72,32 @@
   text-align: left;
 }
 
-/* 특기 */
+/* 특기 기본 스타일 제거 */
 .designerlist-text .designerlist-region .designerlist-field {
   margin-left: 12px;
   padding: 10px;
   padding-top: 1px;
   padding-bottom: 1px;
-  background-color: #888ef1;
-  color: #ffffff;
+  color: #ffffff;  /* 배경색 제거하고 글자색만 유지 */
   border-radius: 48px;
   border: none;
   text-align: center;
   font-size: 10px;
+}
+
+/* 펌 태그 - 기존 색상 유지 */
+.designerlist-text .designerlist-region .designerlist-field[data-field="펌"] {
+  background-color: #888ef1;
+}
+
+/* 탈염색 태그 */
+.designerlist-text .designerlist-region .designerlist-field[data-field="탈염색"] {
+  background-color: #BF87DC;
+}
+
+/* 염색 태그 */
+.designerlist-text .designerlist-region .designerlist-field[data-field="염색"] {
+  background-color: #DD7592;
 }
 
 /* 한줄 소개 */
@@ -96,8 +110,8 @@
 
 .select-reserve-button {
   background-color: rgba(255, 255, 255, 0.2);
-  color: #5a6ed5;
-  border: 1px solid #5a6ed5;
+  color: #090A0A;
+  border: 1px solid #090A0A;
   border-radius: 48px;
   font-size: 10px;
   font-weight: bold;
@@ -110,7 +124,8 @@
 }
 
 .select-designer-button:hover {
-  background-color: #357abd;
+  background-color: #090A0A;
+  color: white;
 }
 
 .designerlist-portfolio {
