@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/locale";
 import "../styles/BookingPage.css";
 import Header from "../components/Header";
-import copy from "../assets/copy.png";
+import copybtn from "../assets/copybtn.png";
 
 // 공통 계좌 정보
 const COMPANY_ACCOUNT = {
@@ -560,7 +560,7 @@ function BookingPage() {
                     }}
                     aria-label="계좌번호 복사"
                   >
-                    <img src="/assets/copy.png" alt="복사" />
+                    <img src={copybtn} alt="복사" />
                   </button>
                 </div>
                 <span>{COMPANY_ACCOUNT.accountHolder}</span>
