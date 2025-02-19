@@ -563,7 +563,7 @@
 }
 
 .cancel-button {
-  background: #f1f3f5;
+  background: #FFFFFF;
   color: #666;
 }
 
@@ -577,7 +577,7 @@
 }
 
 .cancel-button:hover {
-  background: #e9ecef;
+  background: #ffffff;
 }
 
 .payment-modal {
@@ -653,7 +653,7 @@
 }
 
 .cancel-button {
-  background: #FFFFFF;
+  background: transparent;
   color: #090A0A;
   margin-bottom: 0;
   border: none;
