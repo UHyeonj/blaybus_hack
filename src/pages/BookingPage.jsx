@@ -108,7 +108,8 @@ function BookingPage() {
             totalAmount: data.price, // 결제 금액
             vatAmount: "0", // 부가세 (여기서는 0으로 설정)
             taxFreeAmount: "0", // 면세 금액 (여기서는 0으로 설정)
-            approvalUrl: "https://uhyeon.blaybus-glowup.com/Kakaopayment", // 결제 성공 시 리디렉션 URL
+            approvalUrl:
+              "https://uhyeon.blaybus-glowup.com/Kakaopayment", // 결제 성공 시 리디렉션 URL
             failUrl: "https://blaybus-glowup.com/payment/fail", // 결제 실패 시 리디렉션 URL
             cancelUrl: "https://blaybus-glowup.com/payment/cancel", // 결제 취소 시 리디렉션 URL
           }),
@@ -331,7 +332,7 @@ function BookingPage() {
             : designer.price.online.toString(),
       };
 
-      console.log(`reservationData : ${reservationData}`);
+      console.log(`reservationData : ${reservationData.method}`);
 
       const response = await fetch(
         "https://blaybus-glowup.com/reservation/create",
@@ -360,7 +361,6 @@ function BookingPage() {
       //초기화
       localStorage.setItem("reservationId", data.reservationId);
       localStorage.setItem("userId", data.userId);
-
 
       // 2. 온라인 컨설팅인 경우 구글 미팅 생성
       if (type === "online") {
