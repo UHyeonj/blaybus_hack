@@ -47,6 +47,7 @@ function DesignerDetail() {
       );
       const data = await response.json();
       const availableTimes = data.availableTimes;
+      console.log(availableTimes);
 
       // 10시부터 20시까지 30분 간격으로 시간대 생성
       for (let hour = 10; hour <= 20; hour++) {
