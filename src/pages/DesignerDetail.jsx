@@ -46,6 +46,7 @@ function DesignerDetail() {
 
     // 콘솔 확인
     console.log(`selectedDate : ${selectedDate}`);
+    console.log(`selected (1일 더한 후) : ${selected}`);
     console.log(`formattedDate : ${formattedDate}`);
 
     try {
