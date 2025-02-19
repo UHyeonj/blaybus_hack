@@ -9,6 +9,12 @@ import location from "./../assets/location.svg";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
+const accesstoken = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("access_token="))
+  ?.split("=")[1]
+  ?.trim(); // 앞뒤 공백 제거
+
 function DesignerDetail() {
   const navigate = useNavigate();
   const { type, designerId } = useParams();
@@ -43,7 +49,12 @@ function DesignerDetail() {
       const response = await fetch(
         `https://blaybus-glowup.com/designer/available?date=${
           selectedDate.toISOString().split("T")[0]
-        }&designerId=${designerId}`
+        }&designerId=${designerId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accesstoken}`, // 여기에 실제 토큰을 넣으세요
+          },
+        }
       );
       const data = await response.json();
       const availableTimes = data.availableTimes;
