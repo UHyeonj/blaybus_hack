@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import "../styles/FilterModal.css";
 
@@ -27,7 +26,10 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
             <button
               key={region}
               className={filter.region === region ? "active" : ""}
-              onClick={() => setFilter({ ...filter, region })}
+              onClick={() => {
+                setFilter({ ...filter, region });
+                console.log(`Selected region: ${region}`);
+              }}
             >
               {region}
             </button>
