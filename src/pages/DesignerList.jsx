@@ -11,7 +11,7 @@ function DesignerList() {
   const { type } = useParams();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [designers, setDesigners] = useState([]);
-  const [filteredDesigners, setFilteredDesigners] = useState([]);
+  const [filteredDesigners, setFilteredDesigners] = useState(null);
   const [filter, setFilter] = useState({
     type: "대면",
     region: "서울 전체",
@@ -19,7 +19,6 @@ function DesignerList() {
     maxPrice: 100000,
   });
 
-  // 디자이너 데이터 가져오기
   useEffect(() => {
     const fetchDesigners = async () => {
       try {
@@ -28,7 +27,7 @@ function DesignerList() {
         );
         const data = await response.json();
         setDesigners(data);
-        setFilteredDesigners(data); // 초기 데이터도 설정
+        setFilteredDesigners(null);
       } catch (err) {
         console.log("Error fetching designers: ", err);
       }
@@ -37,40 +36,44 @@ function DesignerList() {
   }, []);
 
   // 필터 적용 함수
-  const handleFilterApply = (newFilter) => {
-    console.log("Received new filter:", newFilter); // 디버깅
-    
-    const filtered = designers.filter((designer) => {
-      const regionMatch = 
-        newFilter.region === "서울 전체" || 
-        designer.address.includes(newFilter.region);
+  const handleFilterApply = (filter) => {
+    console.log('Applying filter:', filter); // 디버깅용
 
-      const price = type === "offline" ? 
+    const filtered = designers.filter((designer) => {
+      // 지역 필터
+      const regionMatch = 
+        filter.region === "서울 전체" || 
+        designer.address.includes(filter.region);
+
+      // 가격 필터
+      const price = filter.type === "대면" ? 
         designer.price.offline : 
         designer.price.online;
       
       const priceMatch = 
-        price >= newFilter.minPrice && 
-        price <= newFilter.maxPrice;
+        price >= filter.minPrice && 
+        price <= filter.maxPrice;
 
+      // 모든 조건이 만족되어야 함
       return regionMatch && priceMatch;
     });
 
-    console.log("Filtered results:", filtered); // 디버깅
+    console.log('Filtered designers:', filtered); // 디버깅용
     setFilteredDesigners(filtered);
-    setFilter(newFilter);
-    setIsFilterOpen(false);
   };
 
   const handleDesignerSelect = (designerId) => {
     navigate(`/designer/${type}/${designerId}`);
   };
 
-  const headerText = type === "offline" ? "대면 디자이너 검색" : "비대면 디자이너 검색";
+  const headerText =
+    type === "offline"
+      ? "대면 디자이너 검색"
+      : "비대면 디자이너 검색";
 
   return (
     <div className="designer-list-container">
-      <Header text={headerText} />
+      <Header text={headerText} onApplyFilter={handleFilterApply} />
       <FilterModal 
         isOpen={isFilterOpen} 
         onClose={() => setIsFilterOpen(false)}
@@ -78,45 +81,89 @@ function DesignerList() {
         initialFilter={filter}
       />
       <div className="designer-grid">
-        {designers.map((designer) => (
-          <div
-            key={designer.id}
-            className="designer-card"
-            onClick={() => handleDesignerSelect(designer.id)}
-          >
-            <div className="designerlist-info">
-              <img
-                src={designer.profile}
-                alt={designer.name}
-                className="designerlist-profile"
-              />
-              <div className="designerlist-text">
-                <h2>{designer.name}</h2>
-                <p className="designerlist-region">
-                  <img src={location} alt="location icon" />
-                  {designer.region}
-                  <span className="designerlist-field" data-field={designer.field}>
-                    {designer.field}
-                  </span>
-                </p>
-                <p className="introduction">{`# ${designer.introduction}`}</p>
-              </div>
-              <button className="select-reserve-button">
-                예약하기
-              </button>
-            </div>
-            <div className="designerlist-portfolio">
-              {designer.portfolios.map((image, index) => (
+        {filteredDesigners === null ? (
+          designers.map((designer) => (
+            <div
+              key={designer.id}
+              className="designer-card"
+              onClick={() => handleDesignerSelect(designer.id)}
+            >
+              <div className="designerlist-info">
                 <img
-                  key={index}
-                  src={image}
-                  alt={`${designer.name} 포트폴리오 ${index + 1}`}
-                  className="portfolio-image"
+                  src={designer.profile}
+                  alt={designer.name}
+                  className="designerlist-profile"
                 />
-              ))}
+                <div className="designerlist-text">
+                  <h2>{designer.name}</h2>
+                  <p className="designerlist-region">
+                    <img src={location} alt="location icon" />
+                    {designer.region}
+                    <span className="designerlist-field" data-field={designer.field}>
+                      {designer.field}
+                    </span>
+                  </p>
+                  <p className="introduction">{`# ${designer.introduction}`}</p>
+                </div>
+                <button className="select-reserve-button">
+                  예약하기
+                </button>
+              </div>
+              <div className="designerlist-portfolio">
+                {designer.portfolios.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`${designer.name} 포트폴리오 ${index + 1}`}
+                    className="portfolio-image"
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : filteredDesigners.length > 0 ? (
+          filteredDesigners.map((designer) => (
+            <div
+              key={designer.id}
+              className="designer-card"
+              onClick={() => handleDesignerSelect(designer.id)}
+            >
+              <div className="designerlist-info">
+                <img
+                  src={designer.profile}
+                  alt={designer.name}
+                  className="designerlist-profile"
+                />
+                <div className="designerlist-text">
+                  <h2>{designer.name}</h2>
+                  <p className="designerlist-region">
+                    <img src={location} alt="location icon" />
+                    {designer.region}
+                    <span className="designerlist-field" data-field={designer.field}>
+                      {designer.field}
+                    </span>
+                  </p>
+                  <p className="introduction">{`# ${designer.introduction}`}</p>
+                </div>
+                <button className="select-reserve-button">
+                  예약하기
+                </button>
+              </div>
+              <div className="designerlist-portfolio">
+                {designer.portfolios.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`${designer.name} 포트폴리오 ${index + 1}`}
+                    className="portfolio-image"
+                  />
+                ))}
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="no-results">검색 결과가 없습니다.</div>
+        )}
       </div>
       <Footer />
     </div>
