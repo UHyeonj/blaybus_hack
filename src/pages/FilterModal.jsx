@@ -21,7 +21,7 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
             "서울 전체",
             "성수/건대",
             "강남/청담/압구정",
-            "홍대/합정/연남",
+            "홍대/연남/합정",
           ].map((region) => (
             <button
               key={region}
