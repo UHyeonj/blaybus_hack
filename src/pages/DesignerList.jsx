@@ -11,6 +11,7 @@ function DesignerList() {
   const { type } = useParams();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [designers, setDesigners] = useState([]);
+  const [filteredDesigners, setFilteredDesigners] = useState([]);
   const [filter, setFilter] = useState({
     type: "대면",
     region: "서울 전체",
@@ -33,22 +34,31 @@ function DesignerList() {
     fetchDesigners();
   }, []);
 
-  // 필터링된 디자이너 목록을 반환하는 함수
-  const getFilteredDesigners = () => {
-    return designers.filter((designer) => {
-      // 지역 필터링
-      if (filter.region !== "서울 전체" && designer.area !== filter.region) {
-        return false;
-      }
+  // 필터 적용 함수
+  const handleFilterApply = (filter) => {
+    console.log('Applying filter:', filter); // 디버깅용
 
-      // 가격 필터링
-      const price = filter.type === "대면" ? designer.price.offline : designer.price.online;
-      if (price < filter.minPrice || price > filter.maxPrice) {
-        return false;
-      }
+    const filtered = designers.filter((designer) => {
+      // 지역 필터
+      const regionMatch = 
+        filter.region === "서울 전체" || 
+        designer.address.includes(filter.region);
 
-      return true;
+      // 가격 필터
+      const price = filter.type === "대면" ? 
+        designer.price.offline : 
+        designer.price.online;
+      
+      const priceMatch = 
+        price >= filter.minPrice && 
+        price <= filter.maxPrice;
+
+      // 모든 조건이 만족되어야 함
+      return regionMatch && priceMatch;
     });
+
+    console.log('Filtered designers:', filtered); // 디버깅용
+    setFilteredDesigners(filtered);
   };
 
   const handleDesignerSelect = (designerId) => {
@@ -60,22 +70,17 @@ function DesignerList() {
       ? "대면 디자이너 검색"
       : "비대면 디자이너 검색";
 
-  // 필터 적용 핸들러
-  const handleApplyFilter = (newFilter) => {
-    setFilter(newFilter);
-  };
-
   return (
     <div className="designer-list-container">
-      <Header text={headerText} onApplyFilter={handleApplyFilter} />
+      <Header text={headerText} onApplyFilter={handleFilterApply} />
       <FilterModal 
         isOpen={isFilterOpen} 
         onClose={() => setIsFilterOpen(false)}
-        onApply={handleApplyFilter}
+        onApply={handleFilterApply}
         initialFilter={filter}
       />
       <div className="designer-grid">
-        {getFilteredDesigners().map((designer) => (
+        {filteredDesigners.map((designer) => (
           <div
             key={designer.id}
             className="designer-card"
