@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import location from "./../assets/location.svg";
@@ -11,13 +11,11 @@ function DesignerList() {
   const { type } = useParams();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [designers, setDesigners] = useState([]);
-  const [filteredDesigners, setFilteredDesigners] = useState([]);
-  const [filterModalOpen, setFilterModalOpen] = useState(false);
-  const [currentFilter, setCurrentFilter] = useState({
+  const [filter, setFilter] = useState({
     type: "대면",
     region: "서울 전체",
     minPrice: 0,
-    maxPrice: 200000,
+    maxPrice: 100000,
   });
 
   useEffect(() => {
@@ -35,40 +33,23 @@ function DesignerList() {
     fetchDesigners();
   }, []);
 
-  // 필터 적용 함수 수정
-  const applyFilters = useCallback((filter) => {
-    setFilteredDesigners(designers.filter((designer) => {
-      // 지역 필터
-      const regionMatch = 
-        filter.region === "서울 전체" || 
-        designer.address.includes(filter.region);
+  // 필터링된 디자이너 목록을 반환하는 함수
+  const getFilteredDesigners = () => {
+    return designers.filter((designer) => {
+      // 지역 필터링
+      if (filter.region !== "서울 전체" && designer.area !== filter.region) {
+        return false;
+      }
 
-      // 가격 필터 (대면/비대면 구분)
-      const price = filter.type === "대면" ? 
-        designer.price.offline : 
-        designer.price.online;
-      
-      const priceMatch = 
-        price >= filter.minPrice && 
-        price <= filter.maxPrice;
+      // 가격 필터링
+      const price = filter.type === "대면" ? designer.price.offline : designer.price.online;
+      if (price < filter.minPrice || price > filter.maxPrice) {
+        return false;
+      }
 
-      // 모든 조건을 만족해야 함
-      return regionMatch && priceMatch;
-    }));
-  }, [designers]);
-
-  // 필터 적용 핸들러
-  const handleFilterApply = useCallback((newFilter) => {
-    setCurrentFilter(newFilter);
-    applyFilters(newFilter);
-  }, [applyFilters]);
-
-  // 초기 데이터 로드 시 필터 적용
-  useEffect(() => {
-    if (designers.length > 0) {
-      applyFilters(currentFilter);
-    }
-  }, [designers, currentFilter, applyFilters]);
+      return true;
+    });
+  };
 
   const handleDesignerSelect = (designerId) => {
     navigate(`/designer/${type}/${designerId}`);
@@ -79,17 +60,22 @@ function DesignerList() {
       ? "대면 디자이너 검색"
       : "비대면 디자이너 검색";
 
+  // 필터 적용 핸들러
+  const handleApplyFilter = (newFilter) => {
+    setFilter(newFilter);
+  };
+
   return (
     <div className="designer-list-container">
-      <Header text={headerText} onApplyFilter={handleFilterApply} />
+      <Header text={headerText} onApplyFilter={handleApplyFilter} />
       <FilterModal 
-        isOpen={filterModalOpen} 
-        onClose={() => setFilterModalOpen(false)}
-        onApply={handleFilterApply}
-        initialFilter={currentFilter}
+        isOpen={isFilterOpen} 
+        onClose={() => setIsFilterOpen(false)}
+        onApply={handleApplyFilter}
+        initialFilter={filter}
       />
       <div className="designer-grid">
-        {filteredDesigners.map((designer) => (
+        {getFilteredDesigners().map((designer) => (
           <div
             key={designer.id}
             className="designer-card"
