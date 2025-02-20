@@ -1,13 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "../styles/FilterModal.css";
 
-const FilterModal = ({ isOpen, onClose, onApply }) => {
-  const [filter, setFilter] = useState({
-    type: "대면",
-    region: "서울 전체",
-    minPrice: 0,
-    maxPrice: 100000,
-  });
+const FilterModal = ({ isOpen, onClose, onApply, initialFilter }) => {
+  const [filter, setFilter] = useState(initialFilter);
+
+  // 필터 변경 시마다 상태 업데이트
+  const updateFilter = useCallback((updates) => {
+    setFilter(prev => ({
+      ...prev,
+      ...updates
+    }));
+  }, []);
+
+  // 지역 선택 핸들러
+  const handleRegionSelect = useCallback((region) => {
+    updateFilter({ region });
+  }, [updateFilter]);
+
+  // 가격 변경 핸들러
+  const handlePriceChange = useCallback((type, value) => {
+    const numValue = parseInt(value) || 0;
+    if (type === 'min') {
+      updateFilter({ 
+        minPrice: Math.min(numValue, filter.maxPrice) 
+      });
+    } else {
+      updateFilter({ 
+        maxPrice: Math.max(numValue, filter.minPrice) 
+      });
+    }
+  }, [filter.maxPrice, filter.minPrice, updateFilter]);
+
+  // 필터 적용 핸들러
+  const handleApply = useCallback(() => {
+    onApply(filter);
+    onClose();
+  }, [filter, onApply, onClose]);
 
   if (!isOpen) return null;
 
@@ -26,7 +54,7 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
             <button
               key={region}
               className={filter.region === region ? "active" : ""}
-              onClick={() => setFilter({ ...filter, region })}
+              onClick={() => handleRegionSelect(region)}
             >
               {region}
             </button>
@@ -40,30 +68,14 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
             <input
               type="number"
               value={filter.minPrice}
-              onChange={(e) =>
-                setFilter({
-                  ...filter,
-                  minPrice: Math.min(
-                    parseInt(e.target.value) || 0,
-                    filter.maxPrice
-                  ),
-                })
-              }
+              onChange={(e) => handlePriceChange('min', e.target.value)}
               placeholder="최소 가격"
             />
             <span>~</span>
             <input
               type="number"
               value={filter.maxPrice}
-              onChange={(e) =>
-                setFilter({
-                  ...filter,
-                  maxPrice: Math.max(
-                    parseInt(e.target.value) || 0,
-                    filter.minPrice
-                  ),
-                })
-              }
+              onChange={(e) => handlePriceChange('max', e.target.value)}
               placeholder="최대 가격"
             />
           </div>
@@ -74,15 +86,7 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               max="200000"
               step="1000"
               value={filter.minPrice}
-              onChange={(e) =>
-                setFilter({
-                  ...filter,
-                  minPrice: Math.min(
-                    parseInt(e.target.value),
-                    filter.maxPrice
-                  ),
-                })
-              }
+              onChange={(e) => handlePriceChange('min', e.target.value)}
             />
             <input
               type="range"
@@ -90,15 +94,7 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               max="200000"
               step="1000"
               value={filter.maxPrice}
-              onChange={(e) =>
-                setFilter({
-                  ...filter,
-                  maxPrice: Math.max(
-                    parseInt(e.target.value),
-                    filter.minPrice
-                  ),
-                })
-              }
+              onChange={(e) => handlePriceChange('max', e.target.value)}
             />
           </div>
         </div>
@@ -106,10 +102,7 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
         {/* 적용 버튼 */}
         <button
           className="apply-btn"
-          onClick={() => {
-            onApply(filter);
-            onClose();
-          }}
+          onClick={handleApply}
         >
           적용하기
         </button>
