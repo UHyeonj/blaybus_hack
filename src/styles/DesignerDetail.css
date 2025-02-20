@@ -147,9 +147,14 @@
 }
 
 .designer-introduction p {
-  color: #666;
+  color: #090a0a;
   line-height: 1.6;
   margin-bottom: 12px;
+  text-align: center;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 27px;
 }
 
 .designer-introduction .description {
