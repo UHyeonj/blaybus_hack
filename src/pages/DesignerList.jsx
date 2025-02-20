@@ -36,30 +36,31 @@ function DesignerList() {
   }, []);
 
   // 필터 적용 함수
-  const handleFilterApply = (filter) => {
-    console.log('Applying filter:', filter); // 디버깅용
+  const handleFilterApply = (newFilter) => {
+    console.log('Applying filter:', newFilter);
 
     const filtered = designers.filter((designer) => {
-      // 지역 필터
+      // 지역 필터링 - region 사용
       const regionMatch = 
-        filter.region === "서울 전체" || 
-        designer.address.includes(filter.region);
+        newFilter.region === "서울 전체" || 
+        designer.region.includes(newFilter.region);
 
-      // 가격 필터
-      const price = filter.type === "대면" ? 
+      // 가격 필터링
+      const price = type === "offline" ? 
         designer.price.offline : 
         designer.price.online;
       
       const priceMatch = 
-        price >= filter.minPrice && 
-        price <= filter.maxPrice;
+        price >= newFilter.minPrice && 
+        price <= newFilter.maxPrice;
 
-      // 모든 조건이 만족되어야 함
       return regionMatch && priceMatch;
     });
 
-    console.log('Filtered designers:', filtered); // 디버깅용
+    console.log('Filtered results:', filtered);
     setFilteredDesigners(filtered);
+    setFilter(newFilter);
+    setIsFilterOpen(false);
   };
 
   const handleDesignerSelect = (designerId) => {
