@@ -17,6 +17,13 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
     }));
   };
 
+  // 적용하기 버튼 클릭 핸들러 수정
+  const handleApply = () => {
+    console.log("Applying filter:", filter); // 디버깅
+    onApply(filter);  // 부모 컴포넌트로 필터 전달
+    onClose();        // 모달 닫기
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -87,13 +94,10 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
           </div>
         </div>
 
-        {/* 적용 버튼 */}
+        {/* 적용하기 버튼 수정 */}
         <button
           className="apply-btn"
-          onClick={() => {
-            onApply(filter);
-            onClose();
-          }}
+          onClick={handleApply}  // handleApply 함수 연결
         >
           적용하기
         </button>

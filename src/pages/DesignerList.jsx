@@ -27,26 +27,23 @@ function DesignerList() {
         );
         const data = await response.json();
         setDesigners(data);
-        setFilteredDesigners(data); // 초기 데이터도 설정
       } catch (err) {
-        console.log("Error fetching designers: ", err);
+        console.log("Error fetching desingers: ", err);
       }
     };
     fetchDesigners();
   }, []);
 
-  // 필터 적용 함수만 수정
+  // 필터 적용 함수 수정
   const handleFilterApply = (newFilter) => {
-    console.log('Applying filter:', newFilter); // 디버깅용
-
+    console.log("Received new filter:", newFilter); // 디버깅
+    
     const filtered = designers.filter((designer) => {
-      // 지역 필터
       const regionMatch = 
         newFilter.region === "서울 전체" || 
         designer.address.includes(newFilter.region);
 
-      // 가격 필터
-      const price = newFilter.type === "대면" ? 
+      const price = type === "offline" ? 
         designer.price.offline : 
         designer.price.online;
       
@@ -57,9 +54,10 @@ function DesignerList() {
       return regionMatch && priceMatch;
     });
 
-    console.log('Filtered designers:', filtered); // 디버깅용
+    console.log("Filtered results:", filtered); // 디버깅
     setFilteredDesigners(filtered);
     setFilter(newFilter);
+    setIsFilterOpen(false);  // 모달 닫기
   };
 
   const handleDesignerSelect = (designerId) => {
@@ -73,15 +71,15 @@ function DesignerList() {
 
   return (
     <div className="designer-list-container">
-      <Header text={headerText} />
+      <Header text={headerText} onApplyFilter={handleFilterApply} />
       <FilterModal 
         isOpen={isFilterOpen} 
         onClose={() => setIsFilterOpen(false)}
-        onApply={handleFilterApply}
+        onApply={handleFilterApply}  // 함수 전달 확인
         initialFilter={filter}
       />
       <div className="designer-grid">
-        {(filteredDesigners.length > 0 ? filteredDesigners : designers).map((designer) => (
+        {filteredDesigners.map((designer) => (
           <div
             key={designer.id}
             className="designer-card"
