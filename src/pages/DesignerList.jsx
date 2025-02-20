@@ -27,38 +27,39 @@ function DesignerList() {
         );
         const data = await response.json();
         setDesigners(data);
+        setFilteredDesigners(data); // 초기 데이터도 설정
       } catch (err) {
-        console.log("Error fetching desingers: ", err);
+        console.log("Error fetching designers: ", err);
       }
     };
     fetchDesigners();
   }, []);
 
-  // 필터 적용 함수
-  const handleFilterApply = (filter) => {
-    console.log('Applying filter:', filter); // 디버깅용
+  // 필터 적용 함수만 수정
+  const handleFilterApply = (newFilter) => {
+    console.log('Applying filter:', newFilter); // 디버깅용
 
     const filtered = designers.filter((designer) => {
       // 지역 필터
       const regionMatch = 
-        filter.region === "서울 전체" || 
-        designer.address.includes(filter.region);
+        newFilter.region === "서울 전체" || 
+        designer.address.includes(newFilter.region);
 
       // 가격 필터
-      const price = filter.type === "대면" ? 
+      const price = newFilter.type === "대면" ? 
         designer.price.offline : 
         designer.price.online;
       
       const priceMatch = 
-        price >= filter.minPrice && 
-        price <= filter.maxPrice;
+        price >= newFilter.minPrice && 
+        price <= newFilter.maxPrice;
 
-      // 모든 조건이 만족되어야 함
       return regionMatch && priceMatch;
     });
 
     console.log('Filtered designers:', filtered); // 디버깅용
     setFilteredDesigners(filtered);
+    setFilter(newFilter);
   };
 
   const handleDesignerSelect = (designerId) => {
@@ -72,7 +73,7 @@ function DesignerList() {
 
   return (
     <div className="designer-list-container">
-      <Header text={headerText} onApplyFilter={handleFilterApply} />
+      <Header text={headerText} />
       <FilterModal 
         isOpen={isFilterOpen} 
         onClose={() => setIsFilterOpen(false)}
@@ -80,7 +81,7 @@ function DesignerList() {
         initialFilter={filter}
       />
       <div className="designer-grid">
-        {filteredDesigners.map((designer) => (
+        {(filteredDesigners.length > 0 ? filteredDesigners : designers).map((designer) => (
           <div
             key={designer.id}
             className="designer-card"
