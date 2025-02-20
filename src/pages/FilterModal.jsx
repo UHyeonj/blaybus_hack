@@ -9,6 +9,14 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
     maxPrice: 100000,
   });
 
+  // 모든 필터 조건을 한번에 업데이트하는 함수
+  const handleFilterChange = (updates) => {
+    setFilter(prevFilter => ({
+      ...prevFilter,
+      ...updates
+    }));
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -26,7 +34,7 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
             <button
               key={region}
               className={filter.region === region ? "active" : ""}
-              onClick={() => setFilter({ ...filter, region })}
+              onClick={() => handleFilterChange({ region })}
             >
               {region}
             </button>
@@ -40,30 +48,18 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
             <input
               type="number"
               value={filter.minPrice}
-              onChange={(e) =>
-                setFilter({
-                  ...filter,
-                  minPrice: Math.min(
-                    parseInt(e.target.value) || 0,
-                    filter.maxPrice
-                  ),
-                })
-              }
+              onChange={(e) => handleFilterChange({
+                minPrice: Math.min(parseInt(e.target.value) || 0, filter.maxPrice)
+              })}
               placeholder="최소 가격"
             />
             <span>~</span>
             <input
               type="number"
               value={filter.maxPrice}
-              onChange={(e) =>
-                setFilter({
-                  ...filter,
-                  maxPrice: Math.max(
-                    parseInt(e.target.value) || 0,
-                    filter.minPrice
-                  ),
-                })
-              }
+              onChange={(e) => handleFilterChange({
+                maxPrice: Math.max(parseInt(e.target.value) || 0, filter.minPrice)
+              })}
               placeholder="최대 가격"
             />
           </div>
@@ -74,15 +70,9 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               max="200000"
               step="1000"
               value={filter.minPrice}
-              onChange={(e) =>
-                setFilter({
-                  ...filter,
-                  minPrice: Math.min(
-                    parseInt(e.target.value),
-                    filter.maxPrice
-                  ),
-                })
-              }
+              onChange={(e) => handleFilterChange({
+                minPrice: Math.min(parseInt(e.target.value), filter.maxPrice)
+              })}
             />
             <input
               type="range"
@@ -90,15 +80,9 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               max="200000"
               step="1000"
               value={filter.maxPrice}
-              onChange={(e) =>
-                setFilter({
-                  ...filter,
-                  maxPrice: Math.max(
-                    parseInt(e.target.value),
-                    filter.minPrice
-                  ),
-                })
-              }
+              onChange={(e) => handleFilterChange({
+                maxPrice: Math.max(parseInt(e.target.value), filter.minPrice)
+              })}
             />
           </div>
         </div>
