@@ -19,6 +19,7 @@ function DesignerList() {
     maxPrice: 100000,
   });
 
+  // 디자이너 데이터 가져오기
   useEffect(() => {
     const fetchDesigners = async () => {
       try {
@@ -27,14 +28,15 @@ function DesignerList() {
         );
         const data = await response.json();
         setDesigners(data);
+        setFilteredDesigners(data); // 초기 데이터도 설정
       } catch (err) {
-        console.log("Error fetching desingers: ", err);
+        console.log("Error fetching designers: ", err);
       }
     };
     fetchDesigners();
   }, []);
 
-  // 필터 적용 함수 수정
+  // 필터 적용 함수
   const handleFilterApply = (newFilter) => {
     console.log("Received new filter:", newFilter); // 디버깅
     
@@ -57,29 +59,26 @@ function DesignerList() {
     console.log("Filtered results:", filtered); // 디버깅
     setFilteredDesigners(filtered);
     setFilter(newFilter);
-    setIsFilterOpen(false);  // 모달 닫기
+    setIsFilterOpen(false);
   };
 
   const handleDesignerSelect = (designerId) => {
     navigate(`/designer/${type}/${designerId}`);
   };
 
-  const headerText =
-    type === "offline"
-      ? "대면 디자이너 검색"
-      : "비대면 디자이너 검색";
+  const headerText = type === "offline" ? "대면 디자이너 검색" : "비대면 디자이너 검색";
 
   return (
     <div className="designer-list-container">
-      <Header text={headerText} onApplyFilter={handleFilterApply} />
+      <Header text={headerText} />
       <FilterModal 
         isOpen={isFilterOpen} 
         onClose={() => setIsFilterOpen(false)}
-        onApply={handleFilterApply}  // 함수 전달 확인
+        onApply={handleFilterApply}
         initialFilter={filter}
       />
       <div className="designer-grid">
-        {filteredDesigners.map((designer) => (
+        {designers.map((designer) => (
           <div
             key={designer.id}
             className="designer-card"
