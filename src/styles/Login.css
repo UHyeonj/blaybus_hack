@@ -18,8 +18,7 @@ body {
 .main_container {
   width: 100vw;
   max-width: 100%; /* 내부 요소가 초과하지 않도록 제한 */
-  height: 100vh;
-  max-height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
